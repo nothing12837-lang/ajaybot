@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.env
+data/*.json
+config/api_keys.yaml

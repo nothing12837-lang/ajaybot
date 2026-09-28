@@ -1,0 +1,56 @@
+name: AjayBot 24x7
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # every hour
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Pull state from HF (bot_state + mnemosyne)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python sync_state.py pull || echo "pull failed, fresh start"
+
+      - name: Run AjayBot (1 cycle + state save)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          DELTA_API_KEY: ${{ secrets.DELTA_API_KEY }}
+          DELTA_API_SECRET: ${{ secrets.DELTA_API_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
+        run: |
+          timeout 45m python main.py || true
+          # main.py runs the bot loop; we kill after 45m to leave time for sync
+
+      - name: Push state to HF (bot_state + mnemosyne)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python sync_state.py push || true
+
+      - name: Upload logs as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-logs
+          path: |
+            *.log
+            data/

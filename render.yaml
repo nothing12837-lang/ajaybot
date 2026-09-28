@@ -1,0 +1,27 @@
+services:
+  # Hermes gateway 24/7 on Render FREE (no card).
+  # Hour budget: free = 750h/mo = ONE service 24/7 (~744h). Trading stays on
+  # GitHub Actions hourly cron (0 Render hours), so this file defines ONLY
+  # the gateway. If you still have the old `ajaybot` web service on Render,
+  # SUSPEND/DELETE it on the dashboard or you will run out of free hours.
+  - type: web
+    name: hermes-gateway
+    runtime: python
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: pip install -r hermes-requirements.txt; rm -rf hermes-agent; git clone --depth 1 https://github.com/NousResearch/hermes-agent.git hermes-agent; pip install ./hermes-agent
+    startCommand: python hermes_gateway.py
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.6
+      - key: HERMES_MODEL
+        value: nvidia/nemotron-3-ultra-550b-a55b
+      - key: HF_STATE_REPO
+        value: rareember/ajaybot-state
+      # Secrets below are set in Render dashboard > Environment (never in repo):
+      # TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS (your Telegram user id),
+      # NVIDIA_API_KEY, GROQ_API_KEY, GEMINI_API_KEY, OPENROUTER_API_KEY,
+      # HF_TOKEN (for memory pull/push)
