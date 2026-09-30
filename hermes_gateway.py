@@ -58,7 +58,7 @@ def sync_pull():
     try:
         res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"),
                         "pull-hermes"],
-                       capture_output=True, text=True, timeout=120)
+                       capture_output=True, text=True, timeout=300)
         STATE["pull_result"] = ((res.stdout or "") + " " + (res.stderr or "")).strip()
         if res.returncode != 0:
             log_err("pull_fail", res.stderr or res.stdout)
@@ -109,7 +109,7 @@ def sync_loop():
                 res = subprocess.run(
                     [sys.executable, os.path.join(BASE, "sync_state.py"),
                      "push-hermes"],
-                    capture_output=True, text=True, timeout=120)
+                    capture_output=True, text=True, timeout=300)
                 if res.returncode != 0:
                     log_err("push_fail", res.stderr or res.stdout)
                 else:

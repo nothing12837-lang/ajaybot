@@ -147,23 +147,20 @@ def push_hermes():
                         except Exception as e:
                             print("Error uploading memory %s/%s: %s" % (sub, mf, e))
 
-    # 4. Upload skills directory (persists downloaded skills to HF)
+    # 4. Upload skills directory (fast diff upload via upload_folder)
     skills_base = os.path.join(HERMES_HOME, "skills")
     if os.path.isdir(skills_base):
-        for root, dirs, files_in_dir in os.walk(skills_base):
-            for sf in files_in_dir:
-                sf_path = os.path.join(root, sf)
-                rel_path = os.path.relpath(sf_path, skills_base).replace("\\", "/")
-                try:
-                    with open(sf_path, "rb") as sff:
-                        content_bytes = sff.read()
-                    api.upload_file(
-                        path_or_fileobj=content_bytes,
-                        path_in_repo="hermes-skills/%s" % rel_path,
-                        repo_id=REPO, repo_type="dataset")
-                    n += 1
-                except Exception as e:
-                    print("Error uploading skill %s: %s" % (rel_path, e))
+        try:
+            api.upload_folder(
+                folder_path=skills_base,
+                path_in_repo="hermes-skills",
+                repo_id=REPO,
+                repo_type="dataset",
+                commit_message="Sync hermes skills"
+            )
+            n += 1
+        except Exception as e:
+            print("Error uploading skills folder: %s" % e)
 
     print("push-hermes done (%d files)" % n)
 
@@ -233,13 +230,14 @@ def pull_hermes():
         elif f.startswith("hermes-skills/"):
             rel_path = f[len("hermes-skills/"):]
             target_path = os.path.join(HERMES_HOME, "skills", rel_path)
-            os.makedirs(os.path.dirname(target_path), exist_ok=True)
-            try:
-                p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
-                shutil.copy(p, target_path)
-                n += 1
-            except Exception as e:
-                print("Error downloading skill %s: %s" % (rel_path, e))
+            if not os.path.exists(target_path):
+                os.makedirs(os.path.dirname(target_path), exist_ok=True)
+                try:
+                    p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
+                    shutil.copy(p, target_path)
+                    n += 1
+                except Exception as e:
+                    print("Error downloading skill %s: %s" % (rel_path, e))
 
     # Fallback seeding if native memories are empty
     if not os.listdir(mem_user) and os.path.exists(os.path.join(HERMES_HOME, "USER.md")):
