@@ -1,0 +1,214 @@
+name: AjayBot Monitor
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_REPO: rareember/ajaybot-state
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: nothing12837-lang/ajaybot
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install huggingface_hub
+
+      - name: Check Paper Trading Workflow
+        id: check_workflow
+        run: |
+          # Get latest run of paper trading workflow
+          RUN=$(gh api repos/$REPO/actions/workflows/ajaybot-paper.yml/runs --jq '.workflow_runs[0]')
+          STATUS=$(echo "$RUN" | jq -r '.conclusion // "running"')
+          RUN_ID=$(echo "$RUN" | jq -r '.id // ""')
+          CREATED=$(echo "$RUN" | jq -r '.created_at // ""')
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+          echo "created=$CREATED" >> $GITHUB_OUTPUT
+          
+          if [ "$STATUS" = "failure" ]; then
+            echo "error=Paper trading workflow failed (run $RUN_ID)" >> $GITHUB_OUTPUT
+          elif [ "$STATUS" = "cancelled" ]; then
+            echo "error=Paper trading workflow cancelled (run $RUN_ID)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check Bot State Sync Cron
+        id: check_bot_sync
+        run: |
+          python -c "
+          from huggingface_hub import HfApi
+          import os
+          from datetime import datetime, timezone
+
+          api = HfApi(token=os.environ['HF_TOKEN'])
+          commits = list(api.list_repo_commits(repo_id=os.environ['HF_REPO'], repo_type='dataset'))
+          if commits:
+              latest = commits[0]
+              created_str = str(latest.created_at)
+              if created_str.endswith('Z'):
+                  created_str = created_str[:-1] + '+00:00'
+              commit_time = datetime.fromisoformat(created_str)
+              hours_ago = (datetime.now(timezone.utc) - commit_time).total_seconds() / 3600
+              print(f'Hours since last bot state sync: {hours_ago:.1f}')
+              if hours_ago > 14:
+                  print('WARNING: Bot state sync overdue')
+                  with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                      f.write(f'bot_sync_warning=Bot state sync overdue ({hours_ago:.1f}h ago)\n')
+              else:
+                  print('Bot state sync OK')
+          "
+
+      - name: Fetch Trading Performance
+        id: fetch_performance
+        run: |
+          python -c "
+          from huggingface_hub import snapshot_download
+          import json, tempfile, os
+          from pathlib import Path
+
+          with tempfile.TemporaryDirectory() as tmpdir:
+              tmp = Path(tmpdir)
+              snapshot_download(
+                  repo_id=os.environ['HF_REPO'],
+                  repo_type='dataset',
+                  token=os.environ['HF_TOKEN'],
+                  local_dir=tmp
+              )
+              state_file = tmp / 'bot_state.json'
+              trades_file = tmp / 'trades_history.json'
+
+              equity = 0.0
+              positions = 0
+              total_trades = 0
+              wins = 0
+              losses = 0
+              net_pnl = 0.0
+
+              if state_file.exists():
+                  with open(state_file) as f:
+                      state = json.load(f)
+                  equity = float(state.get('equity', 0.0))
+                  pos_data = state.get('positions', {})
+                  positions = len(pos_data) if isinstance(pos_data, (dict, list)) else 0
+
+              if trades_file.exists():
+                  with open(trades_file) as f:
+                      trades = json.load(f)
+                  if isinstance(trades, list):
+                      total_trades = len(trades)
+                      for t in trades:
+                          pnl = float(t.get('pnl', 0.0))
+                          net_pnl += pnl
+                          if pnl > 0:
+                              wins += 1
+                          elif pnl < 0:
+                              losses += 1
+
+              win_rate = (wins / total_trades * 100.0) if total_trades > 0 else 0.0
+
+              print(f'Equity: Rs.{equity:,.2f}')
+              print(f'Open Positions: {positions}')
+              print(f'Total Trades: {total_trades}')
+              print(f'Wins: {wins} | Losses: {losses}')
+              print(f'Win Rate: {win_rate:.1f}%')
+              print(f'Net PnL: Rs.{net_pnl:,.2f}')
+
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write(f'equity={equity:,.2f}\n')
+                  f.write(f'positions={positions}\n')
+                  f.write(f'trades={total_trades}\n')
+                  f.write(f'win_rate={win_rate:.1f}\n')
+                  f.write(f'net_pnl={net_pnl:,.2f}\n')
+          "
+
+      - name: Send Telegram Alert on Error
+        if: steps.check_workflow.outputs.error != '' || steps.check_bot_sync.outputs.bot_sync_warning != ''
+        run: |
+          ERROR_MSG="${{ steps.check_workflow.outputs.error }}"
+          SYNC_WARN="${{ steps.check_bot_sync.outputs.bot_sync_warning }}"
+          CHAT_ID="${TELEGRAM_ALLOWED_USERS%%,*}"
+          
+          MESSAGE="⚠️ <b>AjayBot Alert</b>
+
+"
+          if [ -n "$ERROR_MSG" ]; then
+            MESSAGE="${MESSAGE}🚨 <b>Workflow Error:</b> $ERROR_MSG
+"
+          fi
+          if [ -n "$SYNC_WARN" ]; then
+            MESSAGE="${MESSAGE}⚠️ <b>Sync Warning:</b> $SYNC_WARN
+"
+          fi
+          MESSAGE="${MESSAGE}Run: https://github.com/$REPO/actions/runs/${{ steps.check_workflow.outputs.run_id }}"
+          
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="$CHAT_ID" \
+            -d parse_mode="HTML" \
+            --data-urlencode "text=$MESSAGE"
+
+      - name: Send Daily Performance Summary
+        if: github.event.schedule == '0 5 * * *'  # 10:30 AM IST = 5:00 UTC
+        run: |
+          EQUITY="${{ steps.fetch_performance.outputs.equity }}"
+          POSITIONS="${{ steps.fetch_performance.outputs.positions }}"
+          TRADES="${{ steps.fetch_performance.outputs.trades }}"
+          WIN_RATE="${{ steps.fetch_performance.outputs.win_rate }}"
+          NET_PNL="${{ steps.fetch_performance.outputs.net_pnl }}"
+          CHAT_ID="${TELEGRAM_ALLOWED_USERS%%,*}"
+          
+          MESSAGE="📊 <b>AjayBot Daily Performance</b>
+
+💰 Equity: ₹${EQUITY}
+📈 Open Positions: ${POSITIONS}
+📋 Total Trades: ${TRADES}
+🎯 Win Rate: ${WIN_RATE}%
+💵 Net PnL: ₹${NET_PNL}
+
+Workflow: https://github.com/$REPO/actions/workflows/ajaybot-paper.yml"
+          
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="$CHAT_ID" \
+            -d parse_mode="HTML" \
+            --data-urlencode "text=$MESSAGE"
+
+      - name: Send Hourly Performance Update
+        if: github.event_name == 'schedule' && github.event.schedule != '0 5 * * *'
+        run: |
+          # Only send brief update every 4th run (2 hours) to avoid spam
+          RUN_NUMBER=$(date +%s)
+          CHAT_ID="${TELEGRAM_ALLOWED_USERS%%,*}"
+          if [ $((RUN_NUMBER / 7200 % 2)) -eq 0 ]; then
+            EQUITY="${{ steps.fetch_performance.outputs.equity }}"
+            POSITIONS="${{ steps.fetch_performance.outputs.positions }}"
+            TRADES="${{ steps.fetch_performance.outputs.trades }}"
+            NET_PNL="${{ steps.fetch_performance.outputs.net_pnl }}"
+            
+            MESSAGE="🤖 <b>AjayBot Status</b>
+Equity: ₹${EQUITY} | Positions: ${POSITIONS} | Trades: ${TRADES} | PnL: ₹${NET_PNL}"
+            
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d chat_id="$CHAT_ID" \
+              -d parse_mode="HTML" \
+              --data-urlencode "text=$MESSAGE"
+          fi

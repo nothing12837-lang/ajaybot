@@ -9,6 +9,8 @@ on:
       - '.github/workflows/ajaybot-paper.yml'
       - 'run_paper_cycle.py'
       - 'setup.py'
+      - 'bot/**'
+      - 'config/**'
 
 jobs:
   paper-trade:
