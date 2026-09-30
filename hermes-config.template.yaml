@@ -32,7 +32,15 @@ agent:
   auto_recovery_cycles: 10
   service_tier: ''
   fast_auto_seconds: 15
-  disabled_toolsets: []
+  disabled_toolsets:
+    - browser
+    - computer_use
+    - vision
+    - video
+    - feishu
+    - spotify
+    - discord
+    - homeassistant
   reasoning_overrides:
     openai/gpt-oss-120b: low
   verbose: false
@@ -45,10 +53,10 @@ terminal:
 compression:
   enabled: true
   checkpoint_required: false
-  threshold: 0.75
-  threshold_tokens: 200000
+  threshold: 0.60
+  threshold_tokens: 50000
   target_ratio: 0.3
-  protect_last_n: 20
+  protect_last_n: 15
 prompt_caching:
   cache_ttl: 5m
 auxiliary:
@@ -78,7 +86,9 @@ stt:
 plugins:
   enabled:
     - mnemosyne
-  disabled: []
+  disabled:
+    - slack-platform
+    - discord-platform
 auth:
   adopt_external_logins: true
 cron:

@@ -74,6 +74,8 @@ def start_gateway():
     env = dict(os.environ)
     env["HERMES_HOME"] = HERMES_HOME
     env["PYTHONIOENCODING"] = "utf-8"
+    env["MALLOC_ARENA_MAX"] = "2"
+    env["PYTHONOPTIMIZE"] = "1"
     # hermes-agent cloned at build time (see render.yaml buildCommand)
     pp = env.get("PYTHONPATH", "")
     env["PYTHONPATH"] = agent_dir + (os.pathsep + pp if pp else "")
@@ -97,6 +99,11 @@ def start_gateway():
 def sync_loop():
     while True:
         time.sleep(300)
+        try:
+            import gc
+            gc.collect()
+        except Exception:
+            pass
         if os.environ.get("HF_TOKEN"):
             try:
                 res = subprocess.run(
@@ -116,6 +123,22 @@ import uvicorn
 
 app = FastAPI()
 _T0 = time.time()
+
+
+def get_memory_rss_mb():
+    total_rss_kb = 0
+    pids = [os.getpid()]
+    if STATE.get("gateway_pid"):
+        pids.append(STATE["gateway_pid"])
+    for pid in pids:
+        try:
+            with open(f"/proc/{pid}/status", "r") as f:
+                for line in f:
+                    if line.startswith("VmRSS:"):
+                        total_rss_kb += int(line.split()[1])
+        except Exception:
+            pass
+    return round(total_rss_kb / 1024, 1) if total_rss_kb > 0 else None
 
 
 def gateway_alive():
@@ -139,6 +162,8 @@ async def root():
         "gateway_pid": STATE["gateway_pid"],
         "gateway_started_at": STATE["gateway_started_at"],
         "gateway_alive": gateway_alive(),
+        "memory_rss_mb": get_memory_rss_mb(),
+        "memory_limit_mb": 512,
         "last_state_sync": STATE["last_sync"],
         "pull_result": STATE.get("pull_result"),
         "files_in_hermes_home": files,

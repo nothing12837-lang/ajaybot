@@ -23,6 +23,10 @@ services:
         value: rareember/ajaybot-state
       - key: HERMES_NIX_BUILD
         value: "1"
+      - key: MALLOC_ARENA_MAX
+        value: "2"
+      - key: PYTHONOPTIMIZE
+        value: "1"
       # Secrets below are set in Render dashboard > Environment (never in repo):
       # TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS (your Telegram user id),
       # NVIDIA_API_KEY, GROQ_API_KEY, GEMINI_API_KEY, OPENROUTER_API_KEY,
