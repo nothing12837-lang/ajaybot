@@ -58,43 +58,85 @@ def pull():
 
 
 def push_hermes():
-    """Push hermes-home/mnemosyne DBs to HF (no secrets, DBs only)."""
+    """Push hermes-home state (mnemosyne DBs, state.db, MEMORY.md, SOUL.md, USER.md) to HF."""
     if not TOKEN:
         print("no HF_TOKEN; skip"); return
+    import re
     from huggingface_hub import HfApi
     api = HfApi(token=TOKEN)
     api.create_repo(REPO, repo_type="dataset", private=True, exist_ok=True)
+    os.makedirs(HERMES_HOME, exist_ok=True)
     os.makedirs(HERMES_MNEMO, exist_ok=True)
     n = 0
-    if os.path.isdir(HERMES_MNEMO):
-        for f in os.listdir(HERMES_MNEMO):
-            if f.endswith(".db"):
-                api.upload_file(
-                    path_or_fileobj=os.path.join(HERMES_MNEMO, f),
-                    path_in_repo="hermes-mnemosyne/%s" % f,
-                    repo_id=REPO, repo_type="dataset")
-                n += 1
-    print("push-hermes done (%d dbs)" % n)
+
+    seen_files = set()
+    for root_dir in [HERMES_HOME, HERMES_MNEMO]:
+        if not os.path.isdir(root_dir):
+            continue
+        for f in os.listdir(root_dir):
+            full_path = os.path.join(root_dir, f)
+            if os.path.isfile(full_path):
+                if f.endswith(".db"):
+                    key = ("db", f)
+                    if key not in seen_files:
+                        seen_files.add(key)
+                        api.upload_file(
+                            path_or_fileobj=full_path,
+                            path_in_repo="hermes-mnemosyne/%s" % f,
+                            repo_id=REPO, repo_type="dataset")
+                        n += 1
+                elif f.endswith(".md"):
+                    key = ("md", f)
+                    if key not in seen_files:
+                        seen_files.add(key)
+                        try:
+                            with open(full_path, "r", encoding="utf-8", errors="ignore") as mdf:
+                                content = mdf.read()
+                            sanitized = re.sub(r'hf_[A-Za-z0-9]{30,}', '[REDACTED_HF_TOKEN]', content)
+                            api.upload_file(
+                                path_or_fileobj=sanitized.encode("utf-8"),
+                                path_in_repo="hermes-mnemosyne/%s" % f,
+                                repo_id=REPO, repo_type="dataset")
+                            n += 1
+                        except Exception as e:
+                            print("Error uploading %s: %s" % (f, e))
+
+    print("push-hermes done (%d files)" % n)
 
 
 def pull_hermes():
-    """Pull hermes mnemosyne DBs from HF into hermes-home."""
+    """Pull hermes mnemosyne DBs and memory markdown files from HF into hermes-home."""
     if not TOKEN:
         print("no HF_TOKEN; skip"); return
+    from huggingface_hub import HfApi, hf_hub_download
+    api = HfApi(token=TOKEN)
     try:
-        from huggingface_hub import HfApi, hf_hub_download
-        api = HfApi(token=TOKEN)
         files = api.list_repo_files(REPO, repo_type="dataset")
-    except Exception:
-        print("state repo empty/new"); return
+    except Exception as e:
+        print("pull error or state repo empty: %s" % e)
+        return
     n = 0
+    os.makedirs(HERMES_HOME, exist_ok=True)
+    os.makedirs(HERMES_MNEMO, exist_ok=True)
     for f in files:
-        if f.startswith("hermes-mnemosyne/") and f.endswith(".db"):
-            p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
-            os.makedirs(HERMES_MNEMO, exist_ok=True)
-            shutil.copy(p, os.path.join(HERMES_MNEMO, os.path.basename(f)))
-            n += 1
-    print("pull-hermes done (%d dbs)" % n)
+        if f.startswith("hermes-mnemosyne/"):
+            fname = os.path.basename(f)
+            if not fname:
+                continue
+            try:
+                p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
+                if fname == "mnemosyne.db":
+                    shutil.copy(p, os.path.join(HERMES_HOME, "mnemosyne.db"))
+                    shutil.copy(p, os.path.join(HERMES_MNEMO, "mnemosyne.db"))
+                elif fname.endswith(".db"):
+                    shutil.copy(p, os.path.join(HERMES_HOME, fname))
+                    shutil.copy(p, os.path.join(HERMES_MNEMO, fname))
+                elif fname.endswith(".md"):
+                    shutil.copy(p, os.path.join(HERMES_HOME, fname))
+                n += 1
+            except Exception as e:
+                print("Error downloading %s: %s" % (f, e))
+    print("pull-hermes done (%d files)" % n)
 
 
 if __name__ == "__main__":
