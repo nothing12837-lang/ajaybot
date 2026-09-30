@@ -127,6 +127,26 @@ def push_hermes():
                         except Exception as e:
                             print("Error uploading %s: %s" % (f, e))
 
+    # 3. Upload native Hermes memories/user and memories/memory
+    mem_base = os.path.join(HERMES_HOME, "memories")
+    if os.path.isdir(mem_base):
+        for sub in ["user", "memory"]:
+            s_dir = os.path.join(mem_base, sub)
+            if os.path.isdir(s_dir):
+                for mf in os.listdir(s_dir):
+                    mf_path = os.path.join(s_dir, mf)
+                    if os.path.isfile(mf_path) and (mf.endswith(".md") or mf.endswith(".txt")):
+                        try:
+                            with open(mf_path, "r", encoding="utf-8", errors="ignore") as f:
+                                mem_text = re.sub(r'hf_[A-Za-z0-9]{30,}', '[REDACTED_HF_TOKEN]', f.read())
+                            api.upload_file(
+                                path_or_fileobj=mem_text.encode("utf-8"),
+                                path_in_repo="hermes-memories/%s/%s" % (sub, mf),
+                                repo_id=REPO, repo_type="dataset")
+                            n += 1
+                        except Exception as e:
+                            print("Error uploading memory %s/%s: %s" % (sub, mf, e))
+
     print("push-hermes done (%d files)" % n)
 
 
@@ -144,6 +164,11 @@ def pull_hermes():
     n = 0
     os.makedirs(HERMES_HOME, exist_ok=True)
     os.makedirs(HERMES_MNEMO, exist_ok=True)
+    mem_user = os.path.join(HERMES_HOME, "memories", "user")
+    mem_note = os.path.join(HERMES_HOME, "memories", "memory")
+    os.makedirs(mem_user, exist_ok=True)
+    os.makedirs(mem_note, exist_ok=True)
+
     for f in files:
         if f.startswith("hermes-mnemosyne/"):
             fname = os.path.basename(f)
@@ -172,6 +197,28 @@ def pull_hermes():
                 n += 1
             except Exception as e:
                 print("Error downloading %s: %s" % (f, e))
+
+        elif f.startswith("hermes-memories/"):
+            # Native Hermes memory file
+            parts = f.split("/")
+            if len(parts) >= 3:
+                sub = parts[1] # 'user' or 'memory'
+                fname = parts[2]
+                target_dir = os.path.join(HERMES_HOME, "memories", sub)
+                os.makedirs(target_dir, exist_ok=True)
+                try:
+                    p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
+                    shutil.copy(p, os.path.join(target_dir, fname))
+                    n += 1
+                except Exception as e:
+                    print("Error downloading native memory %s: %s" % (f, e))
+
+    # Fallback seeding if native memories are empty
+    if not os.listdir(mem_user) and os.path.exists(os.path.join(HERMES_HOME, "USER.md")):
+        shutil.copy(os.path.join(HERMES_HOME, "USER.md"), os.path.join(mem_user, "ajay_rajbhar.md"))
+    if not os.listdir(mem_note) and os.path.exists(os.path.join(HERMES_HOME, "FULL_HISTORY.md")):
+        shutil.copy(os.path.join(HERMES_HOME, "FULL_HISTORY.md"), os.path.join(mem_note, "full_history.md"))
+
     print("pull-hermes done (%d files)" % n)
 
 
