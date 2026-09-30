@@ -1,0 +1,7 @@
+# Wrapper deps only (light). hermes-agent itself is cloned + installed
+# by render.yaml buildCommand (NousResearch/hermes-agent).
+fastapi>=0.110
+uvicorn>=0.29
+requests>=2.31
+pyyaml>=6.0
+huggingface_hub>=0.23

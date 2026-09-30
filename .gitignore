@@ -1,0 +1,14 @@
+# Secrets + ephemeral runtime (never commit)
+.env
+*.env
+hermes-home/
+mnemosyne_data/
+data/*.json
+*.db
+*.db-shm
+*.db-wal
+*.log
+__pycache__/
+*.pyc
+hermes-agent/
+venv/

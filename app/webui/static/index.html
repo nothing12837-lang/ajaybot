@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AjayBot Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .bg-dark { background: #0a0f1a; }
+        .bg-card { background: #111827; border: 1px solid #1f2937; }
+        .border-glow { border: 1px solid #374151; }
+        .text-muted { color: #9ca3af; }
+        .text-accent { color: #22d3ee; }
+        .text-profit { color: #22c55e; }
+        .text-loss { color: #ef4444; }
+        .btn-primary { background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%); }
+        .btn-primary:hover { background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%); }
+        .status-running { background: #064e3b; color: #34d399; }
+        .status-stopped { background: #7f1d1d; color: #f87171; }
+        .position-long { border-left: 3px solid #22c55e; }
+        .position-short { border-left: 3px solid #ef4444; }
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: #1f2937; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 5px #0891b2; } 50% { box-shadow: 0 0 20px #0891b2; } }
+        .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-dark text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-card border-b border-glow sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center pulse-glow">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold">AjayBot</h1>
+                    <span class="text-xs text-muted">v1.0 • Paper Trading</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-muted">Status:</span>
+                    <span id="bot-status" class="px-3 py-1 rounded-full text-sm font-medium status-stopped">Stopped</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-muted">Equity:</span>
+                    <span id="equity" class="mono text-lg font-bold text-accent">$1,000.00</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-muted">PnL:</span>
+                    <span id="daily-pnl" class="mono font-medium text-profit">+$0.00</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <!-- Left Column - Positions & Risk -->
+            <div class="lg:col-span-2 space-y-4">
+                <!-- Risk Metrics -->
+                <div class="bg-card border-glow rounded-xl p-4">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        Risk Metrics
+                    </h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-dark/50 rounded-lg p-3">
+                            <div class="text-xs text-muted">Daily Loss</div>
+                            <div id="daily-loss-pct" class="mono text-xl font-bold text-profit">0.0%</div>
+                            <div class="w-full h-2 bg-gray-800 rounded mt-2 overflow-hidden">
+                                <div id="daily-loss-bar" class="h-full bg-green-500 rounded" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-dark/50 rounded-lg p-3">
+                            <div class="text-xs text-muted">Drawdown</div>
+                            <div id="dd-pct" class="mono text-xl font-bold text-profit">0.0%</div>
+                            <div class="w-full h-2 bg-gray-800 rounded mt-2 overflow-hidden">
+                                <div id="dd-bar" class="h-full bg-green-500 rounded" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-dark/50 rounded-lg p-3">
+                            <div class="text-xs text-muted">Consecutive Losses</div>
+                            <div id="consec-losses" class="mono text-xl font-bold">0</div>
+                        </div>
+                        <div class="bg-dark/50 rounded-lg p-3">
+                            <div class="text-xs text-muted">Peak Equity</div>
+                            <div id="peak-equity" class="mono text-xl font-bold text-accent">$1,000.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Open Positions -->
+                <div class="bg-card border-glow rounded-xl">
+                    <div class="p-4 border-b border-glow flex items-center justify-between">
+                        <h2 class="text-lg font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                            Open Positions
+                        </h2>
+                        <span id="pos-count" class="text-sm text-muted">0 positions</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-xs text-muted uppercase tracking-wider border-b border-glow">
+                                    <th class="p-3">Symbol</th>
+                                    <th class="p-3">Side</th>
+                                    <th class="p-3">Size</th>
+                                    <th class="p-3">Contract</th>
+                                    <th class="p-3">Entry</th>
+                                    <th class="p-3">Mark</th>
+                                    <th class="p-3">SL / TP</th>
+                                    <th class="p-3">Unrealized</th>
+                                    <th class="p-3">Regime</th>
+                                </tr>
+                            </thead>
+                            <tbody id="positions-body" class="divide-y divide-gray-800">
+                                <tr>
+                                    <td colspan="8" class="p-8 text-center text-muted">No open positions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Signals -->
+                <div class="bg-card border-glow rounded-xl">
+                    <div class="p-4 border-b border-glow flex items-center justify-between">
+                        <h2 class="text-lg font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            Recent Signals
+                        </h2>
+                    </div>
+                    <div class="p-4 max-h-96 overflow-y-auto scrollbar-thin" id="signals-list">
+                        <div class="text-center text-muted py-8">No signals yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Chart & Controls -->
+            <div class="space-y-4">
+                <!-- Chart -->
+                <div class="bg-card border-glow rounded-xl">
+                    <div class="p-4 border-b border-glow flex items-center justify-between">
+                        <h2 class="text-lg font-semibold">Chart</h2>
+                        <select id="chart-symbol" class="bg-dark border border-glow rounded-lg px-3 py-1 text-sm focus:outline-none focus:border-accent">
+                            <option value="BTCUSD">BTCUSD</option>
+                            <option value="ETHUSD">ETHUSD</option>
+                            <option value="SOLUSD">SOLUSD</option>
+                            <option value="DOGEUSD">DOGEUSD</option>
+                        </select>
+                    </div>
+                    <div class="p-4 h-96">
+                        <canvas id="price-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="bg-card border-glow rounded-xl p-4">
+                    <h2 class="text-lg font-semibold mb-4">Quick Stats</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-muted">Uptime</span>
+                            <span id="uptime" class="mono font-medium">0m</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted">Win Rate</span>
+                            <span id="win-rate" class="mono font-medium text-profit">—</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted">Profit Factor</span>
+                            <span id="profit-factor" class="mono font-medium">—</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted">Total Trades</span>
+                            <span id="total-trades" class="mono font-medium">0</span>
+                        </div>
+                        <div class="flex justify-between pt-3 border-t border-glow">
+                            <span class="text-muted">Sharpe</span>
+                            <span id="sharpe" class="mono font-medium">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="bg-card border-glow rounded-xl p-4">
+                    <h2 class="text-lg font-semibold mb-4">Controls</h2>
+                    <div class="space-y-3">
+                        <button id="btn-pause" class="btn-primary w-full py-2 px-4 rounded-lg font-medium disabled:opacity-50" disabled>
+                            Pause Bot
+                        </button>
+                        <button id="btn-close-all" class="w-full py-2 px-4 rounded-lg font-medium bg-red-900/30 border border-red-500/30 text-red-400 hover:bg-red-900/50 disabled:opacity-50" disabled>
+                            Close All Positions
+                        </button>
+                        <button id="btn-refresh" class="w-full py-2 px-4 rounded-lg font-medium bg-gray-800 border border-glow hover:bg-gray-700">
+                            Refresh Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- WebSocket Connection -->
+    <script>
+        // State
+        let ws = null;
+        let priceChart = null;
+        let reconnectAttempts = 0;
+        const maxReconnectAttempts = 10;
+        
+        // DOM Elements
+        const statusEl = document.getElementById('bot-status');
+        const equityEl = document.getElementById('equity');
+        const dailyPnlEl = document.getElementById('daily-pnl');
+        const dailyLossPctEl = document.getElementById('daily-loss-pct');
+        const dailyLossBarEl = document.getElementById('daily-loss-bar');
+        const ddPctEl = document.getElementById('dd-pct');
+        const ddBarEl = document.getElementById('dd-bar');
+        const consecLossesEl = document.getElementById('consec-losses');
+        const peakEquityEl = document.getElementById('peak-equity');
+        const posCountEl = document.getElementById('pos-count');
+        const positionsBodyEl = document.getElementById('positions-body');
+        const signalsListEl = document.getElementById('signals-list');
+        const uptimeEl = document.getElementById('uptime');
+        const winRateEl = document.getElementById('win-rate');
+        const profitFactorEl = document.getElementById('profit-factor');
+        const totalTradesEl = document.getElementById('total-trades');
+        const sharpeEl = document.getElementById('sharpe');
+        const chartSymbolEl = document.getElementById('chart-symbol');
+        
+        // Formatters
+        const fmt = (n) => new Intl.NumberFormat('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n);
+        const fmtUsd = (n) => '$' + fmt(n);
+        const fmtPct = (n) => (n >= 0 ? '+' : '') + n.toFixed(2) + '%';
+        
+        // Connect WebSocket
+        function connectWS() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+            
+            ws.onopen = () => {
+                console.log('WS connected');
+                reconnectAttempts = 0;
+                ws.send(JSON.stringify({type: 'ping'}));
+            };
+            
+            ws.onmessage = (event) => {
+                const msg = JSON.parse(event.data);
+                handleMessage(msg);
+            };
+            
+            ws.onclose = () => {
+                console.log('WS disconnected');
+                if (reconnectAttempts < maxReconnectAttempts) {
+                    reconnectAttempts++;
+                    setTimeout(connectWS, Math.min(1000 * Math.pow(2, reconnectAttempts), 30000));
+                }
+            };
+            
+            ws.onerror = (err) => console.error('WS error:', err);
+        }
+        
+        function handleMessage(msg) {
+            if (msg.type === 'state' && msg.data) {
+                updateUI(msg.data);
+            }
+        }
+        
+        function updateUI(data) {
+            // Bot status
+            if (data.state !== undefined) {
+                statusEl.textContent = data.state.charAt(0).toUpperCase() + data.state.slice(1);
+                statusEl.className = 'px-3 py-1 rounded-full text-sm font-medium ' + 
+                    (data.state === 'running' ? 'status-running' : 'status-stopped');
+            }
+            
+            // Equity & PnL
+            if (data.equity !== undefined) {
+                equityEl.textContent = fmtUsd(data.equity);
+            }
+            if (data.daily_pnl !== undefined) {
+                dailyPnlEl.textContent = (data.daily_pnl >= 0 ? '+' : '') + fmtUsd(data.daily_pnl);
+                dailyPnlEl.className = 'mono font-medium ' + (data.daily_pnl >= 0 ? 'text-profit' : 'text-loss');
+            }
+            
+            // Risk metrics
+            if (data.daily_used_pct !== undefined) {
+                dailyLossPctEl.textContent = fmtPct(data.daily_used_pct);
+                dailyLossBarEl.style.width = Math.min(data.daily_used_pct, 100) + '%';
+                dailyLossBarEl.className = 'h-full rounded ' + (data.daily_used_pct > 70 ? 'bg-red-500' : data.daily_used_pct > 40 ? 'bg-yellow-500' : 'bg-green-500');
+            }
+            if (data.dd_used_pct !== undefined) {
+                ddPctEl.textContent = fmtPct(data.dd_used_pct);
+                ddBarEl.style.width = Math.min(data.dd_used_pct, 100) + '%';
+                ddBarEl.className = 'h-full rounded ' + (data.dd_used_pct > 70 ? 'bg-red-500' : data.dd_used_pct > 40 ? 'bg-yellow-500' : 'bg-green-500');
+            }
+            if (data.consecutive_losses !== undefined) {
+                consecLossesEl.textContent = data.consecutive_losses;
+                consecLossesEl.className = 'mono text-xl font-bold ' + (data.consecutive_losses > 2 ? 'text-loss' : 'text-profit');
+            }
+            if (data.peak_equity !== undefined) {
+                peakEquityEl.textContent = fmtUsd(data.peak_equity);
+            }
+            if (data.current_equity !== undefined) {
+                equityEl.textContent = fmtUsd(data.current_equity);
+            }
+            
+            // Positions
+            if (data.positions !== undefined) {
+                renderPositions(data.positions);
+            }
+            
+            // Uptime
+            if (data.uptime !== undefined) {
+                const h = Math.floor(data.uptime / 3600);
+                const m = Math.floor((data.uptime % 3600) / 60);
+                uptimeEl.textContent = h > 0 ? `${h}h ${m}m` : `${m}m`;
+            }
+        }
+        
+        function renderPositions(positions) {
+            const entries = Object.entries(positions);
+            posCountEl.textContent = `${entries.length} position${entries.length !== 1 ? 's' : ''}`;
+            
+            if (entries.length === 0) {
+                positionsBodyEl.innerHTML = '<tr><td colspan="8" class="p-8 text-center text-muted">No open positions</td></tr>';
+                return;
+            }
+            
+            positionsBodyEl.innerHTML = entries.map(([sym, pos]) => {
+                const sideClass = pos.side === 'long' ? 'text-profit' : 'text-loss';
+                const sideBadge = pos.side === 'long' ? 'position-long' : 'position-short';
+                const pnlClass = pos.unrealized_pnl >= 0 ? 'text-profit' : 'text-loss';
+                const pnlSign = pos.unrealized_pnl >= 0 ? '+' : '';
+                const contractSize = pos.contract_size || 1.0;
+                const markPrice = pos.side === 'long' 
+                    ? pos.entry_price + pos.unrealized_pnl / (pos.size * contractSize)
+                    : pos.entry_price - pos.unrealized_pnl / (pos.size * contractSize);
+
+                return `
+                    <tr class="${sideBadge} hover:bg-gray-800/50 transition-colors">
+                        <td class="p-3 mono font-medium">${pos.symbol}</td>
+                        <td class="p-3"><span class="px-2 py-1 rounded text-xs font-medium ${sideClass} bg-opacity-20">${pos.side.toUpperCase()}</span></td>
+                        <td class="p-3 mono">${fmt(pos.size)}</td>
+                        <td class="p-3 mono text-xs text-muted">${fmt(contractSize)}</td>
+                        <td class="p-3 mono">${fmtUsd(pos.entry_price)}</td>
+                        <td class="p-3 mono text-accent">${fmtUsd(markPrice)}</td>
+                        <td class="p-3 mono text-xs">
+                            SL: ${fmtUsd(pos.stop_loss)}<br>
+                            TP1: ${fmtUsd(pos.take_profit_1)}<br>
+                            TP2: ${fmtUsd(pos.take_profit_2)}
+                        </td>
+                        <td class="p-3 mono font-medium ${pnlClass}">${pnlSign}${fmtUsd(pos.unrealized_pnl)}</td>
+                        <td class="p-3">
+                            <span class="px-2 py-0.5 rounded text-xs bg-gray-800 text-muted">${pos.regime || 'unknown'}</span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // Initialize price chart
+        function initChart() {
+            const ctx = document.getElementById('price-chart').getContext('2d');
+            priceChart = new Chart(ctx, {
+                type: 'line',
+                data: { labels: [], datasets: [{
+                    label: 'Price',
+                    data: [],
+                    borderColor: '#0891b2',
+                    backgroundColor: 'rgba(8, 145, 178, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.1,
+                    pointRadius: 0
+                }]},
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: '#1f2937' }, ticks: { color: '#9ca3af' } },
+                        y: { grid: { color: '#1f2937' }, ticks: { color: '#9ca3af' } }
+                    }
+                }
+            });
+        }
+        
+        async function loadChart(symbol) {
+            try {
+                const res = await fetch(`/api/chart/${symbol}`);
+                const data = await res.json();
+                if (data.candles && data.candles.length > 0) {
+                    const labels = data.candles.map(c => new Date(c.time * 1000).toLocaleTimeString());
+                    const prices = data.candles.map(c => c.close);
+                    priceChart.data.labels = labels;
+                    priceChart.data.datasets[0].data = prices;
+                    priceChart.data.datasets[0].label = symbol;
+                    priceChart.update('none');
+                }
+            } catch (e) {
+                console.error('Chart load failed:', e);
+            }
+        }
+        
+        // Fetch initial data
+        async function fetchInitial() {
+            try {
+                const [statusRes, riskRes, signalsRes] = await Promise.all([
+                    fetch('/api/status'),
+                    fetch('/api/risk'),
+                    fetch('/api/signals?limit=20')
+                ]);
+                
+                const status = await statusRes.json();
+                const risk = await riskRes.json();
+                const signals = await signalsRes.json();
+                
+                updateUI(status);
+                updateUI(risk);
+                renderSignals(signals);
+                
+                // Load chart for default symbol
+                loadChart(chartSymbolEl.value);
+            } catch (e) {
+                console.error('Initial fetch failed:', e);
+            }
+        }
+        
+        function renderSignals(signals) {
+            if (!signals || signals.length === 0) {
+                signalsListEl.innerHTML = '<div class="text-center text-muted py-8">No signals yet</div>';
+                return;
+            }
+            
+            signalsListEl.innerHTML = signals.slice().reverse().map(s => {
+                const sideClass = s.side === 'long' ? 'text-profit' : 'text-loss';
+                const time = new Date(s.timestamp).toLocaleTimeString();
+                return `
+                    <div class="p-3 bg-dark/50 rounded-lg border border-glow">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="mono font-medium">${s.symbol}</span>
+                            <span class="text-xs text-muted">${time}</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-sm">
+                            <span class="px-2 py-0.5 rounded ${sideClass} bg-opacity-20">${s.side.toUpperCase()}</span>
+                            <span class="text-muted">Conf: ${(s.confidence * 100).toFixed(0)}%</span>
+                            <span class="text-muted">Price: ${fmtUsd(s.price)}</span>
+                            <span class="px-2 py-0.5 rounded text-xs bg-gray-800">${s.regime}</span>
+                        </div>
+                        <div class="text-xs text-muted mt-1">${s.explanation}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Event listeners
+        chartSymbolEl.addEventListener('change', (e) => loadChart(e.target.value));
+        
+        document.getElementById('btn-refresh').addEventListener('click', fetchInitial);
+        
+        // Start
+        connectWS();
+        initChart();
+        fetchInitial();
+        
+        // Poll REST as backup
+        setInterval(fetchInitial, 30000);
+    </script>
+</body>
+</html>
