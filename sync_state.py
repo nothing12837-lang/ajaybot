@@ -57,11 +57,28 @@ def pull():
     print("pull done")
 
 
+def safe_snapshot_db(db_path, tmp_dst):
+    try:
+        import sqlite3
+        src = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+        dst = sqlite3.connect(tmp_dst)
+        src.backup(dst)
+        dst.close()
+        src.close()
+        return True
+    except Exception:
+        try:
+            shutil.copy2(db_path, tmp_dst)
+            return True
+        except Exception:
+            return False
+
+
 def push_hermes():
     """Push hermes-home state (mnemosyne DBs, state.db, MEMORY.md, SOUL.md, USER.md) to HF."""
     if not TOKEN:
         print("no HF_TOKEN; skip"); return
-    import re
+    import re, tempfile
     from huggingface_hub import HfApi
     api = HfApi(token=TOKEN)
     api.create_repo(REPO, repo_type="dataset", private=True, exist_ok=True)
@@ -80,11 +97,20 @@ def push_hermes():
                     key = ("db", f)
                     if key not in seen_files:
                         seen_files.add(key)
-                        api.upload_file(
-                            path_or_fileobj=full_path,
-                            path_in_repo="hermes-mnemosyne/%s" % f,
-                            repo_id=REPO, repo_type="dataset")
-                        n += 1
+                        tmp_copy = os.path.join(tempfile.gettempdir(), "_snap_%s" % f)
+                        upload_src = tmp_copy if safe_snapshot_db(full_path, tmp_copy) else full_path
+                        try:
+                            api.upload_file(
+                                path_or_fileobj=upload_src,
+                                path_in_repo="hermes-mnemosyne/%s" % f,
+                                repo_id=REPO, repo_type="dataset")
+                            n += 1
+                        except Exception as e:
+                            print("Error uploading DB %s: %s" % (f, e))
+                        finally:
+                            if os.path.exists(tmp_copy):
+                                try: os.remove(tmp_copy)
+                                except Exception: pass
                 elif f.endswith(".md"):
                     key = ("md", f)
                     if key not in seen_files:
@@ -126,18 +152,23 @@ def pull_hermes():
             try:
                 p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
                 if fname == "mnemosyne.db":
-                    shutil.copy(p, os.path.join(HERMES_HOME, "mnemosyne.db"))
-                    shutil.copy(p, os.path.join(HERMES_MNEMO, "mnemosyne.db"))
+                    for d in [HERMES_HOME, HERMES_MNEMO]:
+                        try: shutil.copy(p, os.path.join(d, "mnemosyne.db"))
+                        except (PermissionError, OSError): pass
                 elif fname.endswith(".db"):
-                    shutil.copy(p, os.path.join(HERMES_HOME, fname))
-                    shutil.copy(p, os.path.join(HERMES_MNEMO, fname))
+                    for d in [HERMES_HOME, HERMES_MNEMO]:
+                        try: shutil.copy(p, os.path.join(d, fname))
+                        except (PermissionError, OSError): pass
                 elif fname.endswith(".md"):
-                    shutil.copy(p, os.path.join(HERMES_HOME, fname))
+                    try: shutil.copy(p, os.path.join(HERMES_HOME, fname))
+                    except (PermissionError, OSError): pass
                     if fname == "FULL_HISTORY.md":
                         os.makedirs(os.path.join(BASE, "HERMES_MEMORY"), exist_ok=True)
-                        shutil.copy(p, os.path.join(BASE, "HERMES_MEMORY", "FULL_HISTORY.md"))
+                        try: shutil.copy(p, os.path.join(BASE, "HERMES_MEMORY", "FULL_HISTORY.md"))
+                        except (PermissionError, OSError): pass
                         os.makedirs(os.path.join(HERMES_HOME, "HERMES_MEMORY"), exist_ok=True)
-                        shutil.copy(p, os.path.join(HERMES_HOME, "HERMES_MEMORY", "FULL_HISTORY.md"))
+                        try: shutil.copy(p, os.path.join(HERMES_HOME, "HERMES_MEMORY", "FULL_HISTORY.md"))
+                        except (PermissionError, OSError): pass
                 n += 1
             except Exception as e:
                 print("Error downloading %s: %s" % (f, e))

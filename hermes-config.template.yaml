@@ -11,7 +11,7 @@ providers:
     context_length: 1000000
   groq:
     base_url: https://api.groq.com/openai/v1
-    model: openai/gpt-oss-120b
+    model: llama-3.3-70b-versatile
     context_length: 128000
   openrouter:
     base_url: https://openrouter.ai/api/v1
@@ -19,7 +19,7 @@ fallback_providers:
   - provider: nvidia
     model: __HERMES_MODEL__
   - provider: groq
-    model: openai/gpt-oss-120b
+    model: llama-3.3-70b-versatile
 database:
   journal_mode: wal
 runtime:
