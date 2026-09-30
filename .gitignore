@@ -12,3 +12,4 @@ __pycache__/
 *.pyc
 hermes-agent/
 venv/
+app/config/config.yaml
