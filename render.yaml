@@ -10,7 +10,7 @@ services:
     plan: free
     region: singapore
     branch: main
-    buildCommand: pip install -r hermes-requirements.txt; rm -rf hermes-agent; git clone --depth 1 https://github.com/NousResearch/hermes-agent.git hermes-agent; pip install ./hermes-agent
+    buildCommand: pip install -r hermes-requirements.txt; rm -rf hermes-agent; git clone --depth 1 --branch v2026.9.14 https://github.com/NousResearch/hermes-agent.git hermes-agent; pip install ./hermes-agent
     startCommand: python hermes_gateway.py
     healthCheckPath: /health
     autoDeploy: true
