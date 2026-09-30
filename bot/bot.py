@@ -34,6 +34,8 @@ class Position:
     take_profit_1: float
     take_profit_2: float
     contract_size: float = 1.0
+    entry_fee: float = 0.0
+    exit_fee: float = 0.0
     trail_price: Optional[float] = None
     breakeven: bool = False
     partial_filled: bool = False
@@ -68,20 +70,35 @@ class PaperEngine:
     
     async def place_order(self, symbol: str, side: str, size: float,
                          entry_price: float, stop_loss: float,
-                         take_profit_1: float, take_profit_2: float) -> Optional[Dict]:
-        """Simulate order placement"""
+                         take_profit_1: float, take_profit_2: float,
+                         contract_size: float = 1.0) -> Optional[Dict]:
+        """Simulate order placement with slippage and taker fee modeling"""
         order_id = self._next_order_id()
         
-        # In paper mode, fill immediately at entry_price
+        slippage_pct = getattr(self.config.risk, 'slippage_pct', 0.0001)
+        taker_fee_pct = getattr(self.config.risk, 'taker_fee_pct', 0.0005)
+
+        # Apply slippage on entry
+        if side == 'long':
+            fill_price = entry_price * (1.0 + slippage_pct)
+        else:
+            fill_price = entry_price * (1.0 - slippage_pct)
+
+        notional = fill_price * size * contract_size
+        entry_fee = notional * taker_fee_pct
+        
         pos = Position(
             symbol=symbol,
             side=side,
             size=size,
-            entry_price=entry_price,
+            entry_price=fill_price,
             entry_time=int(time.time() * 1000),
             stop_loss=stop_loss,
             take_profit_1=take_profit_1,
             take_profit_2=take_profit_2,
+            contract_size=contract_size,
+            entry_fee=entry_fee,
+            exit_fee=0.0
         )
         
         self.positions[symbol] = pos
@@ -90,12 +107,13 @@ class PaperEngine:
             'symbol': symbol,
             'side': side,
             'size': size,
-            'price': entry_price,
+            'price': fill_price,
+            'entry_fee': entry_fee,
             'status': 'filled',
             'timestamp': int(time.time() * 1000)
         }
         
-        logger.info(f"Paper order filled: {symbol} {side} {size} @ {entry_price}")
+        logger.info(f"Paper order filled: {symbol} {side} {size} @ {fill_price:.4f} (slippage={slippage_pct*100:.2f}%, fee={entry_fee:.4f})")
         return self.orders[order_id]
     
     async def update_positions(self, tickers: Dict[str, float]):
@@ -141,44 +159,67 @@ class PaperEngine:
         return []
     
     def close_position(self, symbol: str, price: float, reason: str) -> float:
-        """Close position and return PnL"""
+        """Close position and return net PnL after slippage and fees"""
         if symbol not in self.positions:
             return 0.0
         
         pos = self.positions[symbol]
-        
+        slippage_pct = getattr(self.config.risk, 'slippage_pct', 0.0001)
+        taker_fee_pct = getattr(self.config.risk, 'taker_fee_pct', 0.0005)
+
+        # Apply slippage on exit
         if pos.side == 'long':
-            pnl = (price - pos.entry_price) * pos.size * pos.contract_size
+            exit_price = price * (1.0 - slippage_pct)
+            gross_pnl = (exit_price - pos.entry_price) * pos.size * pos.contract_size
         else:
-            pnl = (pos.entry_price - price) * pos.size * pos.contract_size
-        
-        pos.realized_pnl = pnl
+            exit_price = price * (1.0 + slippage_pct)
+            gross_pnl = (pos.entry_price - exit_price) * pos.size * pos.contract_size
+
+        exit_notional = exit_price * pos.size * pos.contract_size
+        exit_fee = exit_notional * taker_fee_pct
+        net_pnl = gross_pnl - pos.entry_fee - exit_fee
+
+        pos.exit_fee = exit_fee
+        pos.realized_pnl = net_pnl
         pos.unrealized_pnl = 0.0
         
-        logger.info(f"Closed {symbol} {reason} @ {price}: PnL={pnl:.2f}")
+        logger.info(f"Closed {symbol} {reason} @ {exit_price:.4f} (gross={gross_pnl:.2f}, fees={pos.entry_fee + exit_fee:.2f}): Net PnL={net_pnl:.2f}")
         
         del self.positions[symbol]
-        return pnl
+        return net_pnl
     
     def partial_close(self, symbol: str, price: float, fraction: float) -> float:
-        """Partial close at TP1"""
+        """Partial close at TP1 with proportional fees and slippage"""
         if symbol not in self.positions:
             return 0.0
         
         pos = self.positions[symbol]
         close_size = pos.size * fraction
-        
+        slippage_pct = getattr(self.config.risk, 'slippage_pct', 0.0001)
+        taker_fee_pct = getattr(self.config.risk, 'taker_fee_pct', 0.0005)
+
+        # Apply slippage on partial exit
         if pos.side == 'long':
-            pnl = (price - pos.entry_price) * close_size * pos.contract_size
+            exit_price = price * (1.0 - slippage_pct)
+            gross_pnl = (exit_price - pos.entry_price) * close_size * pos.contract_size
         else:
-            pnl = (pos.entry_price - price) * close_size * pos.contract_size
-        
+            exit_price = price * (1.0 + slippage_pct)
+            gross_pnl = (pos.entry_price - exit_price) * close_size * pos.contract_size
+
+        exit_notional = exit_price * close_size * pos.contract_size
+        exit_fee = exit_notional * taker_fee_pct
+        entry_fee_portion = pos.entry_fee * fraction
+
+        net_pnl = gross_pnl - entry_fee_portion - exit_fee
+
         pos.size -= close_size
         pos.partial_filled = True
-        pos.realized_pnl += pnl
+        pos.entry_fee -= entry_fee_portion
+        pos.exit_fee += exit_fee
+        pos.realized_pnl += net_pnl
         
-        logger.info(f"Partial close {symbol} {fraction*100:.0f}% @ {price}: PnL={pnl:.2f}")
-        return pnl
+        logger.info(f"Partial close {symbol} {fraction*100:.0f}% @ {exit_price:.4f} (gross={gross_pnl:.2f}, fees={entry_fee_portion + exit_fee:.2f}): Net PnL={net_pnl:.2f}")
+        return net_pnl
 
 
 class CandleStore:
@@ -640,7 +681,8 @@ class AjayBot:
             entry_price=signal.price,
             stop_loss=sl,
             take_profit_1=tp1,
-            take_profit_2=tp2
+            take_profit_2=tp2,
+            contract_size=config_dict.get('contract_size', 1.0)
         )
         
         if order:
@@ -648,20 +690,23 @@ class AjayBot:
                 symbol=signal.symbol,
                 side=signal.side.value,
                 size=size,
-                entry_price=signal.price,
+                entry_price=order['price'],
                 entry_time=signal.timestamp,
                 stop_loss=sl,
                 take_profit_1=tp1,
                 take_profit_2=tp2,
                 contract_size=config_dict.get('contract_size', 1.0),
+                entry_fee=order.get('entry_fee', 0.0),
+                exit_fee=0.0,
                 regime=signal.regime,
                 confidence=signal.confidence,
                 agents=signal.agents
             )
             self._positions[signal.symbol] = pos
+            self.engine.positions = self._positions
             self.risk_manager.on_trade_open(config_dict.get('risk_per_trade', 0.02))
             
-            logger.info(f"Opened {signal.side.value} {signal.symbol} size={size:.4f} @ {signal.price:.4f}")
+            logger.info(f"Opened {signal.side.value} {signal.symbol} size={size:.4f} @ {order['price']:.4f} (entry_fee={order.get('entry_fee', 0.0):.4f})")
     
     async def _manage_position(self, symbol: str, sym_config, df: pd.DataFrame, mark_price: float = None):
         """Manage open position - check exits, trail stops"""

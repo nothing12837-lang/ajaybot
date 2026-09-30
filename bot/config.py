@@ -37,6 +37,9 @@ class RiskConfig(BaseModel):
     consecutive_loss_pause: int = 4
     consecutive_loss_pause_hours: int = 2
     paper_equity: float = 1000.0
+    maker_fee_pct: float = 0.0002   # 0.02%
+    taker_fee_pct: float = 0.0005   # 0.05%
+    slippage_pct: float = 0.0001    # 0.01%
 
 
 class TelegramConfig(BaseModel):
