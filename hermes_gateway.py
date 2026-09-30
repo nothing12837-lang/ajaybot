@@ -56,9 +56,11 @@ def sync_pull():
     if not os.environ.get("HF_TOKEN"):
         return
     try:
-        subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"),
+        res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"),
                         "pull-hermes"],
                        capture_output=True, text=True, timeout=120)
+        if res.returncode != 0:
+            log_err("pull_fail", res.stderr or res.stdout)
     except Exception as e:
         log_err("pull", e)
 
@@ -96,11 +98,14 @@ def sync_loop():
         time.sleep(300)
         if os.environ.get("HF_TOKEN"):
             try:
-                subprocess.run(
+                res = subprocess.run(
                     [sys.executable, os.path.join(BASE, "sync_state.py"),
                      "push-hermes"],
                     capture_output=True, text=True, timeout=120)
-                STATE["last_sync"] = int(time.time())
+                if res.returncode != 0:
+                    log_err("push_fail", res.stderr or res.stdout)
+                else:
+                    STATE["last_sync"] = int(time.time())
             except Exception as e:
                 log_err("push", e)
 
