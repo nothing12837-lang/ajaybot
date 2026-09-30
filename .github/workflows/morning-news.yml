@@ -1,0 +1,35 @@
+name: Daily Morning News Brief
+
+on:
+  schedule:
+    # 10:00 AM IST is 04:30 AM UTC
+    - cron: '30 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  morning-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install feedparser
+
+      - name: Run Morning News Brief
+        run: |
+          python scripts/morning_news.py
