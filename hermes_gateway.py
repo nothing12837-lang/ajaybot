@@ -59,6 +59,7 @@ def sync_pull():
         res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"),
                         "pull-hermes"],
                        capture_output=True, text=True, timeout=120)
+        STATE["pull_result"] = ((res.stdout or "") + " " + (res.stderr or "")).strip()
         if res.returncode != 0:
             log_err("pull_fail", res.stderr or res.stdout)
     except Exception as e:
@@ -131,6 +132,7 @@ def gateway_alive():
 @app.get("/")
 @app.get("/health")
 async def root():
+    files = os.listdir(HERMES_HOME) if os.path.exists(HERMES_HOME) else []
     return {
         "stack": "hermes-gateway-24x7-render",
         "uptime_s": int(time.time() - _T0),
@@ -138,9 +140,24 @@ async def root():
         "gateway_started_at": STATE["gateway_started_at"],
         "gateway_alive": gateway_alive(),
         "last_state_sync": STATE["last_sync"],
+        "pull_result": STATE.get("pull_result"),
+        "files_in_hermes_home": files,
         "hermes_home": "hermes-home (ephemeral, synced to HF)",
         "needs_laptop": False,
         "errors": STATE["errors"][-3:],
+    }
+
+
+@app.get("/sync")
+async def trigger_sync():
+    """Manual sync trigger endpoint to pull latest HF memory immediately."""
+    pull_res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"), "pull-hermes"], capture_output=True, text=True, timeout=120)
+    push_res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"), "push-hermes"], capture_output=True, text=True, timeout=120)
+    files = os.listdir(HERMES_HOME) if os.path.exists(HERMES_HOME) else []
+    return {
+        "pull": (pull_res.stdout + " " + pull_res.stderr).strip(),
+        "push": (push_res.stdout + " " + push_res.stderr).strip(),
+        "files_in_hermes_home": files
     }
 
 

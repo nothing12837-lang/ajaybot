@@ -70,7 +70,7 @@ def push_hermes():
     n = 0
 
     seen_files = set()
-    for root_dir in [HERMES_HOME, HERMES_MNEMO]:
+    for root_dir in [HERMES_HOME, HERMES_MNEMO, os.path.join(BASE, "HERMES_MEMORY")]:
         if not os.path.isdir(root_dir):
             continue
         for f in os.listdir(root_dir):
@@ -133,6 +133,11 @@ def pull_hermes():
                     shutil.copy(p, os.path.join(HERMES_MNEMO, fname))
                 elif fname.endswith(".md"):
                     shutil.copy(p, os.path.join(HERMES_HOME, fname))
+                    if fname == "FULL_HISTORY.md":
+                        os.makedirs(os.path.join(BASE, "HERMES_MEMORY"), exist_ok=True)
+                        shutil.copy(p, os.path.join(BASE, "HERMES_MEMORY", "FULL_HISTORY.md"))
+                        os.makedirs(os.path.join(HERMES_HOME, "HERMES_MEMORY"), exist_ok=True)
+                        shutil.copy(p, os.path.join(HERMES_HOME, "HERMES_MEMORY", "FULL_HISTORY.md"))
                 n += 1
             except Exception as e:
                 print("Error downloading %s: %s" % (f, e))
