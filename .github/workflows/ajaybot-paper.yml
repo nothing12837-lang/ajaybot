@@ -1,0 +1,93 @@
+name: AjayBot Paper Trading
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  paper-trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DELTA_API_KEY: ${{ secrets.DELTA_API_KEY }}
+      DELTA_API_SECRET: ${{ secrets.DELTA_API_SECRET }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_REPO: rareember/ajaybot-state
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Pull bot state from HF
+        run: |
+          python -c "
+          from huggingface_hub import snapshot_download
+          snapshot_download(
+            repo_id='${{ env.HF_REPO }}',
+            repo_type='dataset',
+            token='${{ env.HF_TOKEN }}',
+            local_dir='data',
+            local_dir_use_symlinks=False,
+          )" || echo "No existing state (first run)"
+
+      - name: Run paper trading cycle
+        run: |
+          python -c "
+          import asyncio
+          import sys
+          sys.path.insert(0, '.')
+          from bot.config import load_config
+          from bot.bot import AjayBot
+          async def run_cycle():
+              config = load_config('config/config.yaml')
+              bot = AjayBot(config)
+              await bot.start()
+              await bot._process_cycle()
+              await bot.stop()
+          asyncio.run(run_cycle())"
+
+      - name: Push updated state to HF
+        run: |
+          python -c "
+          from huggingface_hub import HfApi, upload_folder
+          import tempfile, shutil
+          from pathlib import Path
+          with tempfile.TemporaryDirectory() as tmpdir:
+              tmp = Path(tmpdir)
+              data_dir = Path('data')
+              if data_dir.exists():
+                  for f in data_dir.rglob('*'):
+                      if f.is_file():
+                          rel = f.relative_to(data_dir)
+                          dest = tmp / rel
+                          dest.parent.mkdir(parents=True, exist_ok=True)
+                          shutil.copy2(f, dest)
+              if any(tmp.rglob('*')):
+                  api = HfApi(token='${{ env.HF_TOKEN }}')
+                  upload_folder(
+                    folder_path=str(tmp),
+                    repo_id='${{ env.HF_REPO }}',
+                    repo_type='dataset',
+                    commit_message='Update state after paper trading cycle'
+                  )
+          "
