@@ -48,6 +48,19 @@ def write_cloud_config():
         text = text.replace("__HERMES_MODEL__", model)
         with open(dest, "w", encoding="utf-8") as f:
             f.write(text)
+
+        # Ensure .env is always populated with live, valid credentials from Render
+        lines = []
+        for k, v in os.environ.items():
+            if any(term in k for term in ["TOKEN", "API_KEY", "SECRET", "REPO", "PORT", "ALLOWED_USERS", "MODEL"]):
+                lines.append(f"{k}={v}")
+        env_content = "\n".join(lines) + "\n"
+        for env_file in [os.path.join(HERMES_HOME, ".env"), os.path.join(BASE, ".env")]:
+            try:
+                with open(env_file, "w", encoding="utf-8") as ef:
+                    ef.write(env_content)
+            except Exception:
+                pass
     except Exception as e:
         log_err("config", e)
 
