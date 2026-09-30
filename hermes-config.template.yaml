@@ -9,6 +9,10 @@ model:
 providers:
   nvidia:
     context_length: 1000000
+  google:
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai
+    model: gemini-2.5-flash
+    context_length: 1000000
   groq:
     base_url: https://api.groq.com/openai/v1
     model: llama-3.3-70b-versatile
@@ -17,9 +21,11 @@ providers:
     base_url: https://openrouter.ai/api/v1
 fallback_providers:
   - provider: nvidia
+    model: meta/llama-3.3-70b-instruct
+  - provider: nvidia
     model: __HERMES_MODEL__
-  - provider: groq
-    model: llama-3.3-70b-versatile
+  - provider: google
+    model: gemini-2.5-flash
 database:
   journal_mode: wal
 runtime:
