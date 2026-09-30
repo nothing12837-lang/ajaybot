@@ -1,0 +1,128 @@
+mode: paper
+
+delta:
+  base_url: "https://api.india.delta.exchange"
+  api_key: ""  # from env DELTA_API_KEY
+  api_secret: ""  # from env
+  testnet: false
+  leverage: 20
+
+gemini_api_key: ""  # from env GEMINI_API_KEY
+
+symbols:
+  - symbol: BTCUSD
+    resolution: 5m
+    htf_resolution: 15m
+    lookback: 200
+    risk_per_trade: 0.02
+    max_concurrent: 3
+    min_confidence: 0.15
+    contract_size: 0.001
+    min_contracts: 1
+  - symbol: ETHUSD
+    resolution: 5m
+    htf_resolution: 15m
+    lookback: 200
+    risk_per_trade: 0.02
+    max_concurrent: 3
+    min_confidence: 0.15
+    contract_size: 0.01
+    min_contracts: 1
+  - symbol: SOLUSD
+    resolution: 5m
+    htf_resolution: 15m
+    lookback: 200
+    risk_per_trade: 0.02
+    max_concurrent: 2
+    min_confidence: 0.15
+    contract_size: 1
+    min_contracts: 1
+  - symbol: DOGEUSD
+    resolution: 5m
+    htf_resolution: 15m
+    lookback: 200
+    risk_per_trade: 0.02
+    max_concurrent: 2
+    min_confidence: 0.15
+    contract_size: 100
+    min_contracts: 1
+
+  - symbol: XRPUSD
+    resolution: 5m
+    htf_resolution: 15m
+    lookback: 200
+    risk_per_trade: 0.02
+    max_concurrent: 2
+    min_confidence: 0.15
+    contract_size: 1
+    min_contracts: 1
+
+  - symbol: DOGSUSD
+    resolution: 5m
+    htf_resolution: 15m
+    lookback: 200
+    risk_per_trade: 0.02
+    max_concurrent: 2
+    min_confidence: 0.15
+    contract_size: 1000
+    min_contracts: 1
+  - symbol: AVAXUSD
+    resolution: 5m
+    htf_resolution: 15m
+    lookback: 200
+    risk_per_trade: 0.02
+    max_concurrent: 2
+    min_confidence: 0.15
+    contract_size: 1
+    min_contracts: 1
+
+risk:
+  max_daily_loss_pct: 0.05
+  max_dd_kill_pct: 0.20
+  max_position_pct: 0.25
+  max_correlated_risk_pct: 0.10
+  consecutive_loss_pause: 4
+  consecutive_loss_pause_hours: 2
+  paper_equity: 200.0
+
+telegram:
+  enabled: true
+  bot_token: ""  # from env TELEGRAM_BOT_TOKEN
+  chat_id: "5238068527"
+  alert_signals: true
+  alert_trades: true
+  alert_risk: true
+  heartbeat_hours: 4
+
+webui:
+  host: "0.0.0.0"
+  port: 8081
+  password: "ajaybot2026"
+  jwt_secret: "ajaybot-secret-change-me"
+  jwt_expire_hours: 24
+
+data_dir: data
+
+adaptive:
+  enabled: true
+  target_accuracy: 0.75
+  target_sharpe: 1.5
+  target_max_dd: 0.10
+  optimization_interval_hours: 2
+  min_trades_for_optimization: 20
+  exploration_rate: 0.2
+  confidence_scaling: true
+  volatility_scaling: true
+  kelly_fraction: 0.3
+
+ai_analyst:
+  enabled: true
+  model: "gemini-2.5-flash"
+  weight: 0.25
+  min_confidence: 0.6
+
+optimizer:
+  enabled: true
+  interval_hours: 2
+  lookback_days: 7
+  min_trades: 30
