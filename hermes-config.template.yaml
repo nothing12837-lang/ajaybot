@@ -69,6 +69,12 @@ memory:
   provider: mnemosyne
   # core profile = ~50MB, no local embeddings (fits 512MB).
   # Do NOT enable local vector embeddings on Render free.
+mnemosyne:
+  embeddings:
+    provider: "none"
+stt:
+  provider: groq
+  model: whisper-large-v3-turbo
 plugins:
   enabled:
     - mnemosyne
