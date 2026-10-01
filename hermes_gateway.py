@@ -110,6 +110,99 @@ def write_cloud_config():
         log_err("config", e)
 
 
+def seed_hermes_cron_jobs():
+    """Write Hermes cron job definitions to hermes-home/cron/ on boot.
+    Hermes reads these on startup to restore scheduled tasks that survive Render restarts.
+    Jobs are Hermes-native: they run a prompt through the Hermes agent at a given schedule.
+    """
+    import json
+    cron_dir = os.path.join(HERMES_HOME, "cron")
+    os.makedirs(cron_dir, exist_ok=True)
+
+    chat_id = (
+        os.environ.get("TELEGRAM_HOME_CHANNEL")
+        or os.environ.get("TELEGRAM_ALLOWED_USERS", "").split(",")[0].strip()
+        or "5238068527"
+    )
+
+    jobs = {
+        # Daily performance report — 10:30 AM IST (05:00 UTC)
+        "daily_report": {
+            "id": "daily_report",
+            "name": "AjayBot Daily Report",
+            "schedule": "0 5 * * *",
+            "prompt": (
+                "Run the daily AjayBot performance report. "
+                "Fetch trading state from HuggingFace dataset rareember/ajaybot-state, "
+                "compute equity, win rate, net PnL, and positions. "
+                "Send a formatted HTML summary to Telegram chat "
+                + chat_id + ". "
+                "Format: Paper Equity | Net PnL | Trades | Win Rate | Open Positions | Delivered by Radha."
+            ),
+            "channel": chat_id,
+            "platform": "telegram",
+            "enabled": True,
+        },
+        # Morning news brief — 10:00 AM IST (04:30 UTC)
+        "morning_news": {
+            "id": "morning_news",
+            "name": "Morning India News Brief",
+            "schedule": "30 4 * * *",
+            "prompt": (
+                "Fetch today's top India news from Times of India RSS and Google News India. "
+                "Include: Top 3 national headlines, UP/Punjab state news, and 3 stock market tips. "
+                "Format as a clean Morning News Brief and send to Telegram chat " + chat_id + ". "
+                "Sign off as: Sent by Hermes 24/7 Morning Dispatch."
+            ),
+            "channel": chat_id,
+            "platform": "telegram",
+            "enabled": True,
+        },
+        # Train reminder — 7:00 AM IST (01:30 UTC) - fires every day, but message only on Nov 3-4
+        "train_reminder": {
+            "id": "train_reminder",
+            "name": "Train Journey Reminder",
+            "schedule": "30 1 * * *",
+            "prompt": (
+                "Check today's date (IST). "
+                "Journey: 04 Nov 2026, Train 12649 Sampark Kranti, YPR to NZM, Coach B1, Berth 18 (CNF 3rd AC), PNR 4764141969. "
+                "If today is 03 Nov 2026: send alert 'TRAIN TOMORROW! Pack your bags Ajay!' to Telegram chat " + chat_id + ". "
+                "If today is 04 Nov 2026: send urgent alert 'TODAY IS TRAVEL DAY! Train departs 1:30 PM from YPR!' to Telegram chat " + chat_id + ". "
+                "Otherwise: send nothing (skip silently)."
+            ),
+            "channel": chat_id,
+            "platform": "telegram",
+            "enabled": True,
+        },
+        # Bot health heartbeat — every hour
+        "bot_heartbeat": {
+            "id": "bot_heartbeat",
+            "name": "AjayBot Heartbeat Check",
+            "schedule": "0 * * * *",
+            "prompt": (
+                "Quickly check if AjayBot GitHub Actions are running. "
+                "Use the GitHub API to check the latest workflow runs for nothing12837-lang/ajaybot. "
+                "If any required workflow (ajaybot-paper, ajaybot-monitor) has not run in the last 60 minutes, "
+                "send an alert to Telegram chat " + chat_id + " saying 'AjayBot workflow delayed! Check GitHub Actions.' "
+                "Otherwise stay silent."
+            ),
+            "channel": chat_id,
+            "platform": "telegram",
+            "enabled": True,
+        },
+    }
+
+    for job_id, job in jobs.items():
+        job_path = os.path.join(cron_dir, f"{job_id}.json")
+        # Only write if file doesn't exist (don't overwrite Hermes's live schedule state)
+        if not os.path.exists(job_path):
+            try:
+                with open(job_path, "w", encoding="utf-8") as f:
+                    json.dump(job, f, indent=2)
+            except Exception as e:
+                log_err(f"cron_seed_{job_id}", e)
+
+
 def sync_pull():
     if not os.environ.get("HF_TOKEN"):
         return
@@ -128,6 +221,7 @@ def start_gateway():
     """Start hermes gateway as supervised subprocess. Auto-restart on exit."""
     write_cloud_config()
     sync_pull()
+    seed_hermes_cron_jobs()   # Auto-register Radha's cron jobs on every boot
     agent_dir = os.path.join(BASE, "hermes-agent")
     env = dict(os.environ)
     env["HERMES_HOME"] = HERMES_HOME
