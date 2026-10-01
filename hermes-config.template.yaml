@@ -21,7 +21,7 @@ providers:
     base_url: https://openrouter.ai/api/v1
 fallback_providers:
   - provider: nvidia
-    model: meta/llama-3.3-70b-instruct
+    model: nvidia/llama-3.1-nemotron-70b-instruct
   - provider: google
     model: gemini-3.8-flash
   - provider: nvidia
@@ -60,13 +60,13 @@ prompt_caching:
 auxiliary:
   compression:
     provider: nvidia
-    model: meta/llama-3.3-70b-instruct
+    model: nvidia/llama-3.1-nemotron-70b-instruct
   title_generation:
     provider: nvidia
-    model: meta/llama-3.3-70b-instruct
+    model: nvidia/llama-3.1-nemotron-70b-instruct
   background_review:
     provider: nvidia
-    model: meta/llama-3.3-70b-instruct
+    model: nvidia/llama-3.1-nemotron-70b-instruct
 display:
   busy_input_mode: interrupt
   streaming: true
