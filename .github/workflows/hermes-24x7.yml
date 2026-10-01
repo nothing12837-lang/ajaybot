@@ -31,20 +31,39 @@ jobs:
       - name: Install Hermes Agent + deps
         run: |
           pip install fastapi uvicorn requests pyyaml huggingface_hub feedparser
-          # Try specific tag first, fall back to latest main
           pip install "git+https://github.com/NousResearch/hermes-agent.git@v2026.9.14" || \
           pip install "git+https://github.com/NousResearch/hermes-agent.git" || \
           (pip install hermes-agent && echo "Installed from PyPI")
 
-      - name: Create hermes-home and config
+      - name: Create hermes-home and write config + env
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
         run: |
-          mkdir -p hermes-home/mnemosyne
+          mkdir -p hermes-home/mnemosyne hermes-home/cron hermes-home/memories/user hermes-home/memories/memory
           cp hermes-config.template.yaml hermes-home/config.yaml
           sed -i 's/__HERMES_MODEL__/meta\/llama-3.3-70b-instruct/g' hermes-home/config.yaml
-          # Increase concurrent sessions for 7GB RAM
           sed -i 's/max_concurrent_sessions: 2/max_concurrent_sessions: 10/g' hermes-home/config.yaml
-          # Enable browser
+          # Enable browser and computer_use
           sed -i '/- browser/d' hermes-home/config.yaml
+          sed -i '/- computer_use/d' hermes-home/config.yaml
+          # Write .env file inside hermes-home so Hermes picks up all keys
+          cat > hermes-home/.env << EOF
+          TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+          TELEGRAM_ALLOWED_USERS=${TELEGRAM_ALLOWED_USERS}
+          NVIDIA_API_KEY=${NVIDIA_API_KEY}
+          GEMINI_API_KEY=${GEMINI_API_KEY}
+          GITHUB_TOKEN=${GITHUB_TOKEN}
+          GH_TOKEN=${GH_TOKEN}
+          HERMES_MODEL=meta/llama-3.3-70b-instruct
+          TELEGRAM_HOME_CHANNEL=${TELEGRAM_ALLOWED_USERS}
+          EOF
+          echo "Config and .env ready!"
+          cat hermes-home/.env | sed 's/=.*/=***/'
 
       - name: Restore memory from GitHub bot-state
         env:
