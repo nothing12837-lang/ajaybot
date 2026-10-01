@@ -22,10 +22,10 @@ providers:
 fallback_providers:
   - provider: nvidia
     model: meta/llama-3.3-70b-instruct
+  - provider: google
+    model: gemini-3.8-flash
   - provider: nvidia
     model: __HERMES_MODEL__
-  - provider: nvidia
-    model: meta/llama-3.3-70b-instruct
 database:
   journal_mode: wal
 runtime:
@@ -34,8 +34,8 @@ runtime:
 max_concurrent_sessions: 2
 agent:
   max_turns: 200
-  api_max_retries: 5
-  auto_recovery_cycles: 10
+  api_max_retries: 20
+  auto_recovery_cycles: 20
   service_tier: ''
   fast_auto_seconds: 15
   disabled_toolsets: []
