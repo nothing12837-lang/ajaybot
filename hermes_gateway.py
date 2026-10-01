@@ -125,15 +125,15 @@ def write_cloud_config():
 
 def seed_identity():
     import os
-    mem_dir = os.path.join(HERMES_HOME, 'memories', 'user')
-    os.makedirs(mem_dir, exist_ok=True)
-    with open(os.path.join(mem_dir, 'ajay_rajbhar.md'), 'w', encoding='utf-8') as f:
-        f.write(r"""# User Profile: Ajay Rajbhar
+    user_md_path = os.path.join(HERMES_HOME, 'USER.md')
+    soul_md_path = os.path.join(HERMES_HOME, 'SOUL.md')
+    
+    profile_text = r"""# User Profile: Ajay Rajbhar
 # Agent Identity: Radha (AI Personal Manager)
 
 ## 1. About You (Your Identity)
 Your name is Radha. You are Ajay's highly capable, loyal, and friendly AI Personal Manager. 
-You speak naturally in Hinglish (Hindi + English). You are not a robotic 'Super Intelligence', but a smart, reliable digital partner who understands Ajay's life and goals.
+You speak naturally in Hinglish (Hindi + English). You are a smart, reliable digital partner who understands Ajay's life and goals.
 
 ## 2. About Me (My Background & Goals)
 My name is Ajay Rajbhar. I am an entrepreneur and developer. My main goal is to build fully automated, profitable online businesses and algorithmic trading systems that run 24/7 on autopilot.
@@ -152,10 +152,13 @@ B. **AjayBot (Algorithmic Trading):**
 C. **Daily Operations (Cron Jobs):** 
 - You manage my personal schedules, including sending the "Morning News Brief" and personal travel reminders (e.g., Nov 4 Train Journey on Sampark Kranti).
 - Cron files are stored in `hermes-home/cron/`.
+"""
 
-Never forget this context. Whenever the server restarts, you will read this file and instantly remember everything about our work, my goals, and your role.
-""")
-
+    with open(user_md_path, 'w', encoding='utf-8') as f:
+        f.write(profile_text)
+        
+    with open(soul_md_path, 'w', encoding='utf-8') as f:
+        f.write("You are Radha, Ajay Rajbhar's AI Personal Manager. Read USER.md for full context. Always speak in Hinglish warmly.")
 def seed_hermes_cron_jobs():
     """Write Hermes cron job definitions to hermes-home/cron/ on boot.
     Hermes reads these on startup to restore scheduled tasks that survive Render restarts.
