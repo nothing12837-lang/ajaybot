@@ -28,3 +28,33 @@
 2026-10-01 22:14:14,924 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
 2026-10-01 22:14:14,932 INFO gateway.run: Gateway housekeeping started (interval=60s)
 2026-10-01 22:14:19,915 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-10-01 22:21:18,284 INFO gateway.control_socket: Gateway control socket listening at /home/runner/work/ajaybot/ajaybot/hermes-home/gateway.sock
+2026-10-01 22:21:18,506 INFO gateway.run: Starting Hermes Gateway...
+2026-10-01 22:21:18,507 INFO gateway.run: Session storage: /home/runner/work/ajaybot/ajaybot/hermes-home/sessions
+2026-10-01 22:21:18,536 INFO gateway.run: Agent budget: max_iterations=200 (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-10-01 22:21:18,537 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-10-01 22:21:18,626 INFO gateway.run: Connecting to telegram...
+2026-10-01 22:21:18,657 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-10-01 22:21:19,036 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-10-01 22:21:19,037 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
+2026-10-01 22:21:19,093 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-10-01 22:21:19,499 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-01 22:21:19,618 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Cold boot: dropping Telegram updates queued while offline (platforms.telegram.extra.drop_pending_on_cold_boot: true)
+2026-10-01 22:21:21,425 INFO gateway.run: Model context warmed: moonshotai/kimi-k3 -> 1048576 tokens (detected)
+2026-10-01 22:21:21,425 INFO gateway.run: Turn machinery warmed in 2.8s (25 tool schema(s) materialized)
+2026-10-01 22:21:30,200 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-01 22:21:30,201 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 1)
+2026-10-01 22:21:30,204 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-10-01 22:21:30,237 INFO gateway.run: ✓ telegram connected
+2026-10-01 22:21:30,820 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeDefault (60 cmds)
+2026-10-01 22:21:31,128 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllPrivateChats (60 cmds)
+2026-10-01 22:21:31,184 INFO gateway.run: Gateway running with 1 platform(s)
+2026-10-01 22:21:31,199 INFO gateway.run: Channel directory built: 1 target(s)
+2026-10-01 22:21:31,426 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllGroupChats (60 cmds)
+2026-10-01 22:21:31,426 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram menu: 60 commands registered, 8 hidden (over 60 limit). Use /commands for full list.
+2026-10-01 22:21:32,208 INFO gateway.run: Press Ctrl+C to stop
+2026-10-01 22:21:32,213 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/home/runner/work/ajaybot/ajaybot/hermes-home/kanban/.dispatcher.lock)
+2026-10-01 22:21:32,213 INFO gateway.run: kanban dispatcher: kanban.max_in_progress unset; using memory-derived default max_in_progress=8 (set kanban.max_in_progress in config.yaml to override)
+2026-10-01 22:21:32,225 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-10-01 22:21:32,237 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-10-01 22:21:37,214 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
