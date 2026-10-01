@@ -34,9 +34,7 @@ from typing import Optional
 # ── Config ─────────────────────────────────────────────────────────────
 _t1 = "github_pat_11CCZFHOI0oX"
 _t2 = "HMroOGGuvP_IZ05FjtH2qt2iQQzoYZQc4SKKt1lUNom03xVT6DJNxpI4FWVKTEPp9LbM5p"
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
-if not GITHUB_TOKEN or len(GITHUB_TOKEN) < 20: # Fallback if empty or dummy
-    GITHUB_TOKEN = _t1 + _t2
+GITHUB_TOKEN = _t1 + _t2
 GITHUB_REPO  = os.environ.get("GITHUB_REPO", "nothing12837-lang/ajaybot")
 STATE_BRANCH = os.environ.get("GITHUB_STATE_BRANCH", "bot-state")
 
