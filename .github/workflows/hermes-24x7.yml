@@ -79,8 +79,8 @@ jobs:
           }
           EOF
 
-          # Write full .env so Hermes reads all API keys
-          cat > hermes-home/.env << EOF
+          # Write full .env so Hermes reads all API keys (root and hermes-home)
+          cat > .env << EOF
           TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
           TELEGRAM_ALLOWED_USERS=${TELEGRAM_ALLOWED_USERS}
           NVIDIA_API_KEY=${NVIDIA_API_KEY}
@@ -90,6 +90,7 @@ jobs:
           HERMES_MODEL=nvidia/nemotron-3-ultra-550b-a55b
           TELEGRAM_HOME_CHANNEL=5238068527
           EOF
+          cp .env hermes-home/.env
           echo "Hermes environment and Radha identity seeded!"
 
       - name: Restore memory from GitHub bot-state
