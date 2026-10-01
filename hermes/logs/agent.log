@@ -108,3 +108,103 @@
 2026-10-01 22:14:19,938 WARNING hermes_state: kanban.db (kanban.db): on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
 2026-10-01 22:15:15,315 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=301728->295236 rss_anon_kib=270152->263660 threads=14 duration_ms=129.4
 2026-10-01 22:16:15,448 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=303668->295636 rss_anon_kib=272092->264060 threads=14 duration_ms=125.6
+2026-10-01 22:21:05,373 INFO agent.redact: plugin:honcho: registered 2 redaction pattern(s)
+2026-10-01 22:21:14,385 INFO hermes_cli.main: Checkout changed since last launch (unknown -> git:refs/heads/main:6d49922875f60af5bc31e2bfbae78a81d2fa91fc): cleared 48 stale __pycache__ directories
+2026-10-01 22:21:14,523 INFO hermes_cli.boot_bootstrap: home maintenance: code changed to 6d49922875f6, running steps
+2026-10-01 22:21:15,578 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-10-01 22:21:15,584 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-10-01 22:21:15,589 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-10-01 22:21:15,799 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-10-01 22:21:15,812 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-10-01 22:21:15,824 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-10-01 22:21:15,833 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-10-01 22:21:15,841 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-10-01 22:21:15,847 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-10-01 22:21:15,866 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-10-01 22:21:15,866 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-10-01 22:21:15,879 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-10-01 22:21:16,137 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-10-01 22:21:16,151 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-10-01 22:21:16,161 INFO hermes_cli.plugins: Plugin 'openrouter' registered video_gen provider: openrouter
+2026-10-01 22:21:16,214 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-10-01 22:21:16,255 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-10-01 22:21:16,266 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-10-01 22:21:16,278 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-10-01 22:21:16,328 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-10-01 22:21:16,335 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-10-01 22:21:16,349 INFO hermes_cli.plugins: Plugin 'web-openai-native' registered web provider: openai-native
+2026-10-01 22:21:16,370 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-10-01 22:21:16,382 INFO hermes_cli.plugins: Plugin 'web-perplexity' registered web provider: perplexity
+2026-10-01 22:21:16,396 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-10-01 22:21:16,417 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-10-01 22:21:16,425 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-10-01 22:21:16,428 INFO hermes_cli.plugins: Plugin discovery complete: 58 found, 51 enabled
+2026-10-01 22:21:18,017 INFO hermes_cli.gateway_multiplex_mode: Single-profile install: gateway.multiplex_profiles unset, serving the default profile only.
+2026-10-01 22:21:18,209 WARNING hermes_state: state.db: on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
+2026-10-01 22:21:18,284 INFO gateway.control_socket: Gateway control socket listening at /home/runner/work/ajaybot/ajaybot/hermes-home/gateway.sock
+2026-10-01 22:21:18,506 INFO gateway.run: Starting Hermes Gateway...
+2026-10-01 22:21:18,507 INFO gateway.run: Session storage: /home/runner/work/ajaybot/ajaybot/hermes-home/sessions
+2026-10-01 22:21:18,536 INFO gateway.run: Agent budget: max_iterations=200 (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-10-01 22:21:18,537 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-10-01 22:21:18,626 INFO gateway.run: Connecting to telegram...
+2026-10-01 22:21:18,657 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-10-01 22:21:18,658 INFO run_agent: Loaded environment variables from /home/runner/work/ajaybot/ajaybot/hermes-home/.env
+2026-10-01 22:21:19,036 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-10-01 22:21:19,037 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
+2026-10-01 22:21:19,093 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-10-01 22:21:19,499 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-01 22:21:19,500 INFO telegram.ext.Application: Application started
+2026-10-01 22:21:19,618 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Cold boot: dropping Telegram updates queued while offline (platforms.telegram.extra.drop_pending_on_cold_boot: true)
+2026-10-01 22:21:20,060 INFO tools.registry: check_fn _a2a_tools_available returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,072 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,073 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,075 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,076 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,077 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,439 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,441 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,442 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,442 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,443 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,445 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,450 INFO tools.registry: check_fn check_discord_tool_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,454 INFO tools.registry: check_fn _check_feishu returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,454 INFO tools.registry: check_fn _check_ha_available returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,456 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,458 INFO tools.registry: check_fn <lambda> returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,459 INFO tools.registry: check_fn check_react_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,466 INFO tools.registry: check_fn _check_spotify_available returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,482 INFO agent.auxiliary_client: Vision auto-detect: using main provider nvidia (moonshotai/kimi-k3)
+2026-10-01 22:21:20,487 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-01 22:21:20,488 INFO tools.registry: check_fn check_video_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,511 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-01 22:21:20,512 INFO tools.registry: check_fn check_x_search_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,513 INFO tools.registry: check_fn _check_xai_video_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,558 INFO tools.registry: check_fn _check_yuanbao returned False; dependent tools will be unavailable this turn
+2026-10-01 22:21:20,618 INFO tools.tool_search: tool_search activated (tier 1): 22 core/visible tools kept, 17 deferred (~7643 tokens), listing full (budget ~4000 tokens)
+2026-10-01 22:21:21,425 INFO gateway.run: Model context warmed: moonshotai/kimi-k3 -> 1048576 tokens (detected)
+2026-10-01 22:21:21,425 INFO gateway.run: Turn machinery warmed in 2.8s (25 tool schema(s) materialized)
+2026-10-01 22:21:30,200 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-01 22:21:30,201 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 1)
+2026-10-01 22:21:30,204 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-10-01 22:21:30,237 INFO gateway.run: ✓ telegram connected
+2026-10-01 22:21:30,820 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeDefault (60 cmds)
+2026-10-01 22:21:31,128 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllPrivateChats (60 cmds)
+2026-10-01 22:21:31,164 WARNING hermes_state: shared-state.db (hosted_rooms): on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
+2026-10-01 22:21:31,184 INFO gateway.run: Gateway running with 1 platform(s)
+2026-10-01 22:21:31,199 INFO gateway.run: Channel directory built: 1 target(s)
+2026-10-01 22:21:31,426 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllGroupChats (60 cmds)
+2026-10-01 22:21:31,426 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram menu: 60 commands registered, 8 hidden (over 60 limit). Use /commands for full list.
+2026-10-01 22:21:32,208 INFO gateway.run: Press Ctrl+C to stop
+2026-10-01 22:21:32,213 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/home/runner/work/ajaybot/ajaybot/hermes-home/kanban/.dispatcher.lock)
+2026-10-01 22:21:32,213 INFO gateway.run: kanban dispatcher: kanban.max_in_progress unset; using memory-derived default max_in_progress=8 (set kanban.max_in_progress in config.yaml to override)
+2026-10-01 22:21:32,225 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-10-01 22:21:32,229 INFO cron.scheduler_provider: In-process cron scheduler started (interval=60s)
+2026-10-01 22:21:32,236 INFO cron.scheduler_provider: Multiplex cron scheduler started for 1 profile(s): ['default'] (re-enumerated every cycle)
+2026-10-01 22:21:32,237 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-10-01 22:21:32,505 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=316096->288876 rss_anon_kib=284620->257400 threads=15 duration_ms=172.5
+2026-10-01 22:21:37,214 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-10-01 22:21:37,236 WARNING hermes_state: kanban.db (kanban.db): on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
+2026-10-01 22:22:32,709 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=299620->293648 rss_anon_kib=268144->262172 threads=15 duration_ms=173.1
+2026-10-01 22:23:32,883 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=303936->294188 rss_anon_kib=272460->262712 threads=15 duration_ms=166.4
+2026-10-01 22:24:33,044 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=300680->294588 rss_anon_kib=269204->263112 threads=15 duration_ms=153.5
