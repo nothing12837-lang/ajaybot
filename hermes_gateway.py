@@ -98,20 +98,6 @@ def write_cloud_config():
                             should_copy = True
                     if should_copy:
                         shutil.copy2(src, dst)
-            
-            # Copy seeded skills
-            seeds_skills_dir = os.path.join(seeds_dir, "skills")
-            hermes_skills_dir = os.path.join(HERMES_HOME, "skills")
-            if os.path.isdir(seeds_skills_dir):
-                os.makedirs(hermes_skills_dir, exist_ok=True)
-                for root, _, files in os.walk(seeds_skills_dir):
-                    for file in files:
-                        src_file = os.path.join(root, file)
-                        rel_path = os.path.relpath(src_file, seeds_skills_dir)
-                        dst_file = os.path.join(hermes_skills_dir, rel_path)
-                        os.makedirs(os.path.dirname(dst_file), exist_ok=True)
-                        shutil.copy2(src_file, dst_file)
-                        
             mem_user_dir = os.path.join(HERMES_HOME, "memories", "user")
             os.makedirs(mem_user_dir, exist_ok=True)
             user_seed = os.path.join(seeds_dir, "USER.md")
@@ -218,18 +204,22 @@ def seed_hermes_cron_jobs():
 
 
 def sync_pull():
-    if not os.environ.get("HF_TOKEN"):
-        return
-    try:
-        res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"),
-                        "pull-hermes"],
-                       capture_output=True, text=True, timeout=300)
-        STATE["pull_result"] = ((res.stdout or "") + " " + (res.stderr or "")).strip()
-        if res.returncode != 0:
-            log_err("pull_fail", res.stderr or res.stdout)
-    except Exception as e:
-        log_err("pull", e)
-    # GitHub sync fallback (works with GITHUB_TOKEN even when HF fails)
+    pulled = False
+    # HF sync (if token present)
+    if os.environ.get("HF_TOKEN"):
+        try:
+            res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"),
+                            "pull-hermes"],
+                           capture_output=True, text=True, timeout=300)
+            STATE["pull_result"] = ((res.stdout or "") + " " + (res.stderr or "")).strip()
+            if res.returncode != 0:
+                log_err("pull_fail", res.stderr or res.stdout)
+            else:
+                pulled = True
+        except Exception as e:
+            log_err("pull", e)
+    
+    # GitHub sync (fallback/primary)
     if os.environ.get("GITHUB_TOKEN"):
         try:
             res2 = subprocess.run([sys.executable, os.path.join(BASE, "sync_github.py"),
@@ -237,8 +227,15 @@ def sync_pull():
                            capture_output=True, text=True, timeout=120)
             gh = ((res2.stdout or "") + " " + (res2.stderr or "")).strip()
             STATE["pull_result"] = (STATE.get("pull_result", "") + " | GH:" + gh).strip()
+            if res2.returncode != 0:
+                log_err("gh_pull_fail", res2.stderr or res2.stdout)
+            else:
+                pulled = True
         except Exception as e:
             log_err("gh_pull", e)
+            
+    if not pulled:
+        STATE["pull_result"] = "no valid sync token (HF_TOKEN or GITHUB_TOKEN needed)"
 
 
 def start_gateway():
