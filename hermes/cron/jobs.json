@@ -52,14 +52,13 @@
       "workdir": null,
       "last_dispatch": {
         "scheduled_at": "2026-10-01T12:00:00+00:00",
-        "dispatched_at": "2026-10-01T12:02:57.364325+00:00",
-        "lateness_seconds": 177.4,
-        "kind": "on_time"
+        "dispatched_at": "2026-10-01T12:08:32.515433+00:00",
+        "lateness_seconds": 512.5,
+        "kind": "late"
       },
-      "pending_slot": {
-        "scheduled_at": "2026-10-01T12:00:00+00:00",
-        "at": "2026-10-01T12:02:57.364325+00:00",
-        "by": "srv-datu67flot8c738vfp5g-hibernate-659c968c7c-zvvnb:65"
+      "fire_claim": {
+        "at": "2026-10-01T12:10:36.607263+00:00",
+        "by": "srv-datu67flot8c738vfp5g-hibernate-576dc9c947-k25wr:64:5dc15cfc839241b0b11bf8ccacab3d59"
       }
     },
     {
@@ -216,5 +215,5 @@
       "workdir": null
     }
   ],
-  "updated_at": "2026-10-01T12:02:57.659002+00:00"
+  "updated_at": "2026-10-01T12:10:36.608323+00:00"
 }
