@@ -50,9 +50,6 @@ jobs:
           cp hermes-config.template.yaml hermes-home/config.yaml
           sed -i 's/__HERMES_MODEL__/nvidia\/nemotron-3-ultra-550b-a55b/g' hermes-home/config.yaml
           sed -i 's/max_concurrent_sessions: 2/max_concurrent_sessions: 10/g' hermes-home/config.yaml
-          # Enable browser and computer_use
-          sed -i '/- browser/d' hermes-home/config.yaml
-          sed -i '/- computer_use/d' hermes-home/config.yaml
 
           # Copy seed identity, memories and user files so Radha NEVER forgets Ajay
           if [ -d "seeds" ]; then

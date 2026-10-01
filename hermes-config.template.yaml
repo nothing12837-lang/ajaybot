@@ -38,15 +38,7 @@ agent:
   auto_recovery_cycles: 10
   service_tier: ''
   fast_auto_seconds: 15
-  disabled_toolsets:
-    - browser
-    - computer_use
-    - vision
-    - video
-    - feishu
-    - spotify
-    - discord
-    - homeassistant
+  disabled_toolsets: []
   reasoning_overrides:
     openai/gpt-oss-120b: low
   verbose: false
