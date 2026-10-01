@@ -24,8 +24,8 @@ fallback_providers:
     model: meta/llama-3.3-70b-instruct
   - provider: nvidia
     model: __HERMES_MODEL__
-  - provider: google
-    model: gemini-3.8-flash
+  - provider: nvidia
+    model: meta/llama-3.3-70b-instruct
 database:
   journal_mode: wal
 runtime:
@@ -67,14 +67,14 @@ prompt_caching:
   cache_ttl: 5m
 auxiliary:
   compression:
-    provider: google
-    model: gemini-3.8-flash
+    provider: nvidia
+    model: meta/llama-3.3-70b-instruct
   title_generation:
-    provider: google
-    model: gemini-3.8-flash
+    provider: nvidia
+    model: meta/llama-3.3-70b-instruct
   background_review:
-    provider: google
-    model: gemini-3.8-flash
+    provider: nvidia
+    model: meta/llama-3.3-70b-instruct
 display:
   busy_input_mode: interrupt
   streaming: true
