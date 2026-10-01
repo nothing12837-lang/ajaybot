@@ -11,7 +11,7 @@ providers:
     context_length: 1000000
   google:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai
-    model: gemini-2.5-flash
+    model: gemini-3.8-flash
     context_length: 1000000
   groq:
     base_url: https://api.groq.com/openai/v1
@@ -25,7 +25,7 @@ fallback_providers:
   - provider: nvidia
     model: __HERMES_MODEL__
   - provider: google
-    model: gemini-2.5-flash
+    model: gemini-3.8-flash
 database:
   journal_mode: wal
 runtime:
@@ -68,13 +68,13 @@ prompt_caching:
 auxiliary:
   compression:
     provider: google
-    model: gemini-2.5-flash
+    model: gemini-3.8-flash
   title_generation:
     provider: google
-    model: gemini-2.5-flash
+    model: gemini-3.8-flash
   background_review:
     provider: google
-    model: gemini-2.5-flash
+    model: gemini-3.8-flash
 display:
   busy_input_mode: interrupt
   streaming: true
