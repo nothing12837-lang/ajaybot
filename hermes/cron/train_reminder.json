@@ -1,0 +1,9 @@
+{
+  "id": "train_reminder",
+  "name": "Train Journey Reminder",
+  "schedule": "30 1 * * *",
+  "prompt": "Check today's date (IST). Journey: 04 Nov 2026, Train 12649 Sampark Kranti, YPR to NZM, Coach B1, Berth 18 (CNF 3rd AC), PNR 4764141969. If today is 03 Nov 2026: send alert 'TRAIN TOMORROW! Pack your bags Ajay!' to Telegram chat 5238068527. If today is 04 Nov 2026: send urgent alert 'TODAY IS TRAVEL DAY! Train departs 1:30 PM from YPR!' to Telegram chat 5238068527. Otherwise: send nothing (skip silently).",
+  "channel": "5238068527",
+  "platform": "telegram",
+  "enabled": true
+}
