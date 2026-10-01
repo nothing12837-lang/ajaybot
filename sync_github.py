@@ -272,15 +272,16 @@ def push_hermes():
                 if _push_file(api, fp, f"hermes/cron/{fname}", STATE_BRANCH):
                     n += 1
 
-    # Sessions (Chat History) and Skills
-    for dname in ["sessions", "skills"]:
+    # Sessions (Chat History), Skills, and Dynamic Memories
+    for dname in ["sessions", "skills", "memories"]:
         dir_path = os.path.join(HERMES_HOME, dname)
         if os.path.isdir(dir_path):
-            for fname in os.listdir(dir_path):
-                if fname.endswith((".jsonl", ".md")):
-                    fp = os.path.join(dir_path, fname)
-                    if os.path.isfile(fp):
-                        if _push_file(api, fp, f"hermes/{dname}/{fname}", STATE_BRANCH):
+            for root, _, files in os.walk(dir_path):
+                for fname in files:
+                    if not fname.endswith(".lock"):
+                        fp = os.path.join(root, fname)
+                        rel_path = os.path.relpath(fp, HERMES_HOME).replace("\\", "/")
+                        if _push_file(api, fp, f"hermes/{rel_path}", STATE_BRANCH):
                             n += 1
 
     print(f"push-hermes done ({n} files updated)")
@@ -327,13 +328,12 @@ def pull_hermes():
             if _pull_file(api, repo_path, local_path, STATE_BRANCH):
                 n += 1
 
-    # Sessions and Skills
-    for dname in ["sessions", "skills"]:
-        d_dir = os.path.join(HERMES_HOME, dname)
-        os.makedirs(d_dir, exist_ok=True)
+    # Sessions, Skills, and Dynamic Memories
+    for dname in ["sessions", "skills", "memories"]:
         for repo_path in api.list_branch_files(f"hermes/{dname}", STATE_BRANCH):
-            fname = os.path.basename(repo_path)
-            local_path = os.path.join(d_dir, fname)
+            rel_path = repo_path.removeprefix("hermes/")
+            local_path = os.path.join(HERMES_HOME, rel_path.replace("/", os.sep))
+            os.makedirs(os.path.dirname(local_path), exist_ok=True)
             if not os.path.exists(local_path):
                 if _pull_file(api, repo_path, local_path, STATE_BRANCH):
                     n += 1
