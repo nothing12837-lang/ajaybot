@@ -273,7 +273,7 @@ def push_hermes():
                     n += 1
 
     # Sessions (Chat History), Skills, and Dynamic Memories
-    for dname in ["sessions", "skills", "memories"]:
+    for dname in ["sessions", "skills", "memories", "logs"]:
         dir_path = os.path.join(HERMES_HOME, dname)
         if os.path.isdir(dir_path):
             for root, _, files in os.walk(dir_path):
@@ -329,7 +329,7 @@ def pull_hermes():
                 n += 1
 
     # Sessions, Skills, and Dynamic Memories
-    for dname in ["sessions", "skills", "memories"]:
+    for dname in ["sessions", "skills", "memories", "logs"]:
         for repo_path in api.list_branch_files(f"hermes/{dname}", STATE_BRANCH):
             rel_path = repo_path.removeprefix("hermes/")
             local_path = os.path.join(HERMES_HOME, rel_path.replace("/", os.sep))
