@@ -31,9 +31,8 @@ jobs:
       - name: Install Hermes Agent + deps
         run: |
           pip install fastapi uvicorn requests pyyaml huggingface_hub feedparser PyNaCl
-          pip install "git+https://github.com/NousResearch/hermes-agent.git@v2026.9.14" || \
-          pip install "git+https://github.com/NousResearch/hermes-agent.git" || \
-          (pip install hermes-agent && echo "Installed from PyPI")
+          git clone --depth 1 --branch v2026.9.14 https://github.com/NousResearch/hermes-agent.git hermes-agent
+          pip install ./hermes-agent
 
       - name: Setup hermes-home, seeds & config
         env:
