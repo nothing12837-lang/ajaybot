@@ -1,0 +1,1 @@
+{"ts": "2026-10-01T12:12:19.434Z", "job_id": "5bc2e9673953", "fire_id": "bc7cf02249ff406c958270b57f85a7b3", "prompt_tokens": 281558, "completion_tokens": 3297, "total_tokens": 284855, "response_silent": false, "deliver_target": "telegram", "model": "nvidia/nemotron-3-ultra-550b-a55b", "duration_ms": 182820, "error": null}
