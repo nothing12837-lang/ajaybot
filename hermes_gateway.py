@@ -236,6 +236,11 @@ def sync_pull():
 def start_gateway():
     """Start hermes gateway as supervised subprocess. Auto-restart on exit."""
     write_cloud_config()
+    import subprocess
+    try:
+        subprocess.run([sys.executable, "-m", "pip", "install", "--force-reinstall", "certifi"], check=False)
+    except Exception:
+        pass
     sync_pull()
     seed_hermes_cron_jobs()   # Auto-register Radha's cron jobs on every boot
     agent_dir = os.path.join(BASE, "hermes-agent")
