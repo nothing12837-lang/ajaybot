@@ -18,6 +18,14 @@ import time
 import threading
 import subprocess
 import shutil
+try:
+    import resource
+    # Limit to 480MB (480 * 1024 * 1024 bytes)
+    max_mem = 480 * 1024 * 1024
+    resource.setrlimit(resource.RLIMIT_AS, (max_mem, max_mem))
+except Exception:
+    pass
+
 
 _t1 = "github_pat_11CCZFHOI0oX"
 _t2 = "HMroOGGuvP_IZ05FjtH2qt2iQQzoYZQc4SKKt1lUNom03xVT6DJNxpI4FWVKTEPp9LbM5p"
