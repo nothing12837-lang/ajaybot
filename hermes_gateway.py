@@ -98,6 +98,20 @@ def write_cloud_config():
                             should_copy = True
                     if should_copy:
                         shutil.copy2(src, dst)
+            
+            # Copy seeded skills
+            seeds_skills_dir = os.path.join(seeds_dir, "skills")
+            hermes_skills_dir = os.path.join(HERMES_HOME, "skills")
+            if os.path.isdir(seeds_skills_dir):
+                os.makedirs(hermes_skills_dir, exist_ok=True)
+                for root, _, files in os.walk(seeds_skills_dir):
+                    for file in files:
+                        src_file = os.path.join(root, file)
+                        rel_path = os.path.relpath(src_file, seeds_skills_dir)
+                        dst_file = os.path.join(hermes_skills_dir, rel_path)
+                        os.makedirs(os.path.dirname(dst_file), exist_ok=True)
+                        shutil.copy2(src_file, dst_file)
+                        
             mem_user_dir = os.path.join(HERMES_HOME, "memories", "user")
             os.makedirs(mem_user_dir, exist_ok=True)
             user_seed = os.path.join(seeds_dir, "USER.md")
