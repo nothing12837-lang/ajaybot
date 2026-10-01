@@ -1,0 +1,79 @@
+name: Hermes 24x7
+
+on:
+  schedule:
+    - cron: '0 */5 * * *'   # Every 5 hours (restart cycle)
+  workflow_dispatch:         # Manual trigger too
+
+permissions:
+  contents: write
+
+jobs:
+  run-hermes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340     # 5h 40min max (GitHub limit is 6h)
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y git chromium-browser
+
+      - name: Install Hermes Agent + deps
+        run: |
+          pip install fastapi uvicorn requests pyyaml huggingface_hub feedparser
+          pip install git+https://github.com/NousResearch/hermes-agent.git@v2026.9.14
+
+      - name: Create hermes-home and config
+        run: |
+          mkdir -p hermes-home/mnemosyne
+          cp hermes-config.template.yaml hermes-home/config.yaml
+          sed -i 's/__HERMES_MODEL__/meta\/llama-3.3-70b-instruct/g' hermes-home/config.yaml
+          # Increase concurrent sessions for 7GB RAM
+          sed -i 's/max_concurrent_sessions: 2/max_concurrent_sessions: 10/g' hermes-home/config.yaml
+          # Enable browser
+          sed -i '/- browser/d' hermes-home/config.yaml
+
+      - name: Restore memory from GitHub bot-state
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          HERMES_HOME: ${{ github.workspace }}/hermes-home
+        run: |
+          python sync_github.py pull-hermes && echo "Memory restored!" || echo "Fresh start (no previous memory)"
+
+      - name: Run Hermes Gateway (5.5 hours)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+          HERMES_MODEL: meta/llama-3.3-70b-instruct
+          HERMES_HOME: ${{ github.workspace }}/hermes-home
+        run: |
+          timeout 19800 hermes gateway run || echo "Hermes stopped (timeout or error)"
+
+      - name: Save memory to GitHub bot-state (BEFORE shutdown)
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          HERMES_HOME: ${{ github.workspace }}/hermes-home
+        run: |
+          python sync_github.py push-hermes && echo "Memory saved!" || echo "Memory save failed"
+
+      - name: Trigger next cycle immediately
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+        run: |
+          gh workflow run hermes-24x7.yml --repo ${{ github.repository }} || echo "Next cycle trigger skipped"
