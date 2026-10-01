@@ -215,6 +215,16 @@ def sync_pull():
             log_err("pull_fail", res.stderr or res.stdout)
     except Exception as e:
         log_err("pull", e)
+    # GitHub sync fallback (works with GITHUB_TOKEN even when HF fails)
+    if os.environ.get("GITHUB_TOKEN"):
+        try:
+            res2 = subprocess.run([sys.executable, os.path.join(BASE, "sync_github.py"),
+                            "pull-hermes"],
+                           capture_output=True, text=True, timeout=120)
+            gh = ((res2.stdout or "") + " " + (res2.stderr or "")).strip()
+            STATE["pull_result"] = (STATE.get("pull_result", "") + " | GH:" + gh).strip()
+        except Exception as e:
+            log_err("gh_pull", e)
 
 
 def start_gateway():
@@ -256,6 +266,7 @@ def sync_loop():
             gc.collect()
         except Exception:
             pass
+        # HF sync
         if os.environ.get("HF_TOKEN"):
             try:
                 res = subprocess.run(
@@ -268,6 +279,21 @@ def sync_loop():
                     STATE["last_sync"] = int(time.time())
             except Exception as e:
                 log_err("push", e)
+        # GitHub sync — primary backup, always runs when token available
+        if os.environ.get("GITHUB_TOKEN"):
+            try:
+                res = subprocess.run(
+                    [sys.executable, os.path.join(BASE, "sync_github.py"),
+                     "push-hermes"],
+                    capture_output=True, text=True, timeout=120)
+                if res.returncode != 0:
+                    log_err("gh_push_fail", res.stderr or res.stdout)
+                else:
+                    STATE["last_sync"] = int(time.time())
+            except Exception as e:
+                log_err("gh_push", e)
+
+
 
 
 from fastapi import FastAPI

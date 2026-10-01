@@ -12,6 +12,10 @@ on:
       - 'bot/**'
       - 'config/**'
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   paper-trade:
     runs-on: ubuntu-latest
@@ -23,7 +27,9 @@ jobs:
       TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      HF_REPO: rareember/ajaybot-state
+      # Built-in GitHub token — always available, no setup needed
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPO: nothing12837-lang/ajaybot
 
     steps:
       - uses: actions/checkout@v4
@@ -41,63 +47,32 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Pull bot state from HF
-        run: |
-          python -c "
-          from huggingface_hub import snapshot_download
-          snapshot_download(
-            repo_id='${{ env.HF_REPO }}',
-            repo_type='dataset',
-            token='${{ env.HF_TOKEN }}',
-            local_dir='data',
-            local_dir_use_symlinks=False,
-          )" || echo "No existing state (first run)"
+      - name: Pull bot state from GitHub (primary)
+        run: python sync_github.py pull || echo "No existing GitHub state (first run)"
+
+      - name: Pull bot state from HF (fallback, if HF_TOKEN valid)
+        run: python sync_state.py pull || echo "HF pull skipped/failed"
 
       - name: Run paper trading cycle
         run: python run_paper_cycle.py
 
       - name: Ping Hermes gateway on Render (keeps Render 24/7 awake)
-        run: |
-          curl -s -m 20 https://hermes-gateway-wib4.onrender.com/health || true
+        run: curl -s -m 20 https://hermes-gateway-wib4.onrender.com/health || true
 
-      - name: Push updated state to HF
-        run: |
-          python -c "
-          from huggingface_hub import HfApi, upload_folder
-          import tempfile, shutil
-          from pathlib import Path
-          with tempfile.TemporaryDirectory() as tmpdir:
-              tmp = Path(tmpdir)
-              data_dir = Path('data')
-              if data_dir.exists():
-                  for f in data_dir.rglob('*'):
-                      if f.is_file():
-                          rel = f.relative_to(data_dir)
-                          dest = tmp / rel
-                          dest.parent.mkdir(parents=True, exist_ok=True)
-                          shutil.copy2(f, dest)
-              if any(tmp.rglob('*')):
-                  api = HfApi(token='${{ env.HF_TOKEN }}')
-                  upload_folder(
-                    folder_path=str(tmp),
-                    repo_id='${{ env.HF_REPO }}',
-                    repo_type='dataset',
-                    token='${{ env.HF_TOKEN }}',
-                    commit_message='Auto-sync bot state $(date -u +%Y-%m-%dT%H:%M:%SZ)',
-                  )
-                  print('State pushed to HF')
-              else:
-                  print('No state files to push')"
+      - name: Push state to GitHub (primary — always works)
+        run: python sync_github.py push || echo "GitHub push failed"
 
-      - name: Commit config changes
+      - name: Push state to HF (fallback)
+        run: python sync_state.py push || echo "HF push skipped/failed"
+
+      - name: Commit optimizer config changes back to repo
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add config/config.yaml || true
-          git diff --staged --quiet || git commit -m "chore: update config $(date -u +%Y-%m-%d)"
+          git config user.name "AjayBot[auto]"
+          git config user.email "ajaybot@users.noreply.github.com"
+          git add config/config.yaml data/ || true
+          git diff --staged --quiet || git commit -m "chore: bot state sync $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push || true
 
       - name: Notify on failure
@@ -105,4 +80,4 @@ jobs:
         run: |
           curl -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_ALLOWED_USERS}" \
-            -d text="⚠️ AjayBot GitHub Actions run failed: ${{ github.run_id }}"
+            -d text="⚠️ AjayBot paper trading run failed: ${{ github.run_id }}"
