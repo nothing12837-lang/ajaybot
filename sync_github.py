@@ -44,7 +44,7 @@ BASE         = os.path.dirname(os.path.abspath(__file__))
 HERMES_HOME  = os.path.join(BASE, "hermes-home")
 DATA_DIR     = os.path.join(BASE, "data")
 
-# Files to sync (local_path → repo_path_in_branch)
+# Files to sync (local_path -> repo_path_in_branch)
 BOT_STATE_FILES = [
     (os.path.join(DATA_DIR, "bot_state.json"),        "data/bot_state.json"),
     (os.path.join(DATA_DIR, "trades_history.json"),   "data/trades_history.json"),
@@ -81,7 +81,7 @@ class GitHubAPI:
                 return json.loads(r.read().decode())
         except urllib.error.HTTPError as e:
             body_txt = e.read().decode(errors="ignore")
-            raise RuntimeError(f"GitHub API {method} {path} → {e.code}: {body_txt[:300]}")
+            raise RuntimeError(f"GitHub API {method} {path} -> {e.code}: {body_txt[:300]}")
 
     def get_file(self, path_in_repo: str, branch: str) -> Optional[dict]:
         """Returns {'sha': ..., 'content': bytes} or None if not found."""
@@ -217,7 +217,7 @@ def push():
     for local, remote in BOT_STATE_FILES:
         if _push_file(api, local, remote, STATE_BRANCH, "bot-state"):
             n += 1
-            print(f"  ✓ pushed {remote}")
+            print(f"  OK pushed {remote}")
     print(f"push done ({n} files updated)")
 
 
@@ -229,7 +229,7 @@ def pull():
     for local, remote in BOT_STATE_FILES:
         if _pull_file(api, remote, local, STATE_BRANCH):
             n += 1
-            print(f"  ✓ pulled {remote}")
+            print(f"  OK pulled {remote}")
     print(f"pull done ({n} files restored)")
 
 
@@ -245,13 +245,13 @@ def push_hermes():
     for local, remote in HERMES_STATE_FILES:
         if _push_file(api, local, remote, STATE_BRANCH, "hermes-mem"):
             n += 1
-            print(f"  ✓ pushed {remote}")
+            print(f"  OK pushed {remote}")
 
     # Bot state JSON files
     for local, remote in BOT_STATE_FILES:
         if _push_file(api, local, remote, STATE_BRANCH, "bot-state"):
             n += 1
-            print(f"  ✓ pushed {remote}")
+            print(f"  OK pushed {remote}")
 
     # SQLite DBs from hermes-home and mnemosyne
     db_dirs = [HERMES_HOME, os.path.join(HERMES_HOME, "mnemosyne")]
@@ -263,7 +263,7 @@ def push_hermes():
                 if _push_db(api, os.path.join(db_dir, fname),
                             f"hermes/db/{fname}", STATE_BRANCH):
                     n += 1
-                    print(f"  ✓ pushed db {fname}")
+                    print(f"  OK pushed db {fname}")
 
     # Cron jobs
     cron_dir = os.path.join(HERMES_HOME, "cron")
@@ -291,13 +291,13 @@ def pull_hermes():
     for local, remote in HERMES_STATE_FILES:
         if _pull_file(api, remote, local, STATE_BRANCH):
             n += 1
-            print(f"  ✓ pulled {remote}")
+            print(f"  OK pulled {remote}")
 
     # Bot state JSON files
     for local, remote in BOT_STATE_FILES:
         if _pull_file(api, remote, local, STATE_BRANCH):
             n += 1
-            print(f"  ✓ pulled {remote}")
+            print(f"  OK pulled {remote}")
 
     # SQLite DBs
     for repo_path in api.list_branch_files("hermes/db", STATE_BRANCH):
