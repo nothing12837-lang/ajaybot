@@ -48,7 +48,7 @@ jobs:
         run: |
           mkdir -p hermes-home/mnemosyne hermes-home/cron hermes-home/memories/user hermes-home/memories/memory hermes-home/skills
           cp hermes-config.template.yaml hermes-home/config.yaml
-          sed -i 's/__HERMES_MODEL__/moonshotai\/kimi-k3/g' hermes-home/config.yaml
+          sed -i 's/__HERMES_MODEL__/gemini\/gemini-3.8-flash/g' hermes-home/config.yaml
           sed -i 's/max_concurrent_sessions: 2/max_concurrent_sessions: 10/g' hermes-home/config.yaml
 
           # Copy seed identity, memories and user files so Radha NEVER forgets Ajay
@@ -84,7 +84,7 @@ jobs:
           GEMINI_API_KEY=${GEMINI_API_KEY}
           GITHUB_TOKEN=${GITHUB_TOKEN}
           GH_TOKEN=${GH_TOKEN}
-          HERMES_MODEL=moonshotai/kimi-k3
+          HERMES_MODEL=gemini/gemini-3.8-flash
           TELEGRAM_HOME_CHANNEL=5238068527
           EOF
           cp .env hermes-home/.env
@@ -105,7 +105,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
           GH_TOKEN: ${{ secrets.GITHUB_PAT }}
-          HERMES_MODEL: moonshotai/kimi-k3
+          HERMES_MODEL: gemini/gemini-3.8-flash
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
           # Continuous background sync every 5 minutes to GitHub
