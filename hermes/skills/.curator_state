@@ -3,7 +3,7 @@
   "last_run_at": "2026-10-01T20:45:38.088761+00:00",
   "last_run_duration_seconds": null,
   "last_run_summary": "deferred first run — curator seeded, will run after one interval; use `hermes curator run --dry-run` to preview now",
-  "last_run_summary_shown_at": null,
+  "last_run_summary_shown_at": "2026-10-01T20:45:38.088761+00:00",
   "paused": false,
   "run_count": 0
 }
