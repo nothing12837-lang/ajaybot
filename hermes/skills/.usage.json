@@ -1,18 +1,17 @@
 {
   "github_access": {
     "archived_at": null,
-    "created_at": "2026-10-01T19:57:26.265080+00:00",
+    "created_at": "2026-10-01T19:46:47.641156+00:00",
     "created_by": null,
-    "first_seen_at": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-10-01T19:57:26.265875+00:00",
-    "last_viewed_at": "2026-10-01T19:57:26.265100+00:00",
+    "last_used_at": "2026-10-01T21:00:58.615099+00:00",
+    "last_viewed_at": "2026-10-01T21:00:58.614268+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   }
 }
