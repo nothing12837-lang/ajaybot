@@ -5,7 +5,7 @@
 # __HERMES_MODEL__ is replaced by hermes_gateway.py from $HERMES_MODEL.
 model:
   default: __HERMES_MODEL__
-  provider: nvidia
+  provider: openrouter
 providers:
   nvidia:
     context_length: 1000000
