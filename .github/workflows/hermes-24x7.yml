@@ -142,4 +142,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_PAT }}
         run: |
-          gh workflow run hermes-24x7.yml --repo ${{ github.repository }} || echo "Next cycle trigger skipped"
+          gh workflow run hermes-24x7.yml --repo ${{ github.repository }} --ref main || echo "Next cycle trigger skipped"
