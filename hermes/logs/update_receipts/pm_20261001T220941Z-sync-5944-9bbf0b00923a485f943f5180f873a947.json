@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "feature_list": [
+    "all"
+  ],
+  "finished_at": "2026-10-01T22:09:41.242206+00:00",
+  "kind": "sync",
+  "outcome": "ok",
+  "platform": null,
+  "refusal": null,
+  "schema": 1,
+  "started_at": "2026-10-01T22:09:28.824032+00:00",
+  "steps": [],
+  "update_id": null,
+  "venv_rebuild": {
+    "ok": true,
+    "reason": ""
+  },
+  "warnings": []
+}
