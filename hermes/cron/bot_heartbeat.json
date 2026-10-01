@@ -1,0 +1,9 @@
+{
+  "id": "bot_heartbeat",
+  "name": "AjayBot Heartbeat Check",
+  "schedule": "0 * * * *",
+  "prompt": "Quickly check if AjayBot GitHub Actions are running. Use the GitHub API to check the latest workflow runs for nothing12837-lang/ajaybot. If any required workflow (ajaybot-paper, ajaybot-monitor) has not run in the last 60 minutes, send an alert to Telegram chat 5238068527 saying 'AjayBot workflow delayed! Check GitHub Actions.' Otherwise stay silent.",
+  "channel": "5238068527",
+  "platform": "telegram",
+  "enabled": true
+}
