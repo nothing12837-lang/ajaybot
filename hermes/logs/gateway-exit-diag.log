@@ -1,0 +1,1 @@
+{"ts": "2026-10-01T22:13:59.810283+00:00", "tag": "gateway.start", "pid": 6455, "python": "3.14.7", "platform": "linux", "replace": false, "argv": ["-c", "gateway", "run"], "stdin_is_tty": false, "console_window_attached": null, "detached": false, "breakaway": null, "absorb_windows_console_controls": false}
