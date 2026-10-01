@@ -33,7 +33,7 @@
       "paused_reason": null,
       "created_at": "2026-10-01T11:21:09.852019+00:00",
       "next_run_at": "2026-10-01T20:00:00+00:00",
-      "last_run_at": "2026-10-01T19:29:36.016922+00:00",
+      "last_run_at": "2026-10-01T19:30:19.175939+00:00",
       "last_status": "error",
       "last_error": "RuntimeError: Skipped to prevent unintended spend: global inference config drifted since this job was created (model 'nvidia/nemotron-3-ultra-550b-a55b' -> 'meta/llama-3.3-70b-instruct'), and this job is unpinned. No inference call was made. To run on the new config, pin it explicitly: `cronjob action=update job_id=5bc2e9673953 provider=<provider> model=<model>` (or pin the original values to keep them). See #44585.",
       "last_delivery_error": null,
@@ -163,5 +163,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-10-01T19:29:36.017477+00:00"
+  "updated_at": "2026-10-01T19:30:19.176357+00:00"
 }
