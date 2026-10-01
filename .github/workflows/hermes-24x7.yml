@@ -11,7 +11,7 @@ permissions:
 jobs:
   run-hermes:
     runs-on: ubuntu-latest
-    timeout-minutes: 340     # 5h 40min max (GitHub limit is 6h)
+    timeout-minutes: 345     # 5h 45min max (GitHub limit is 6h)
 
     steps:
       - uses: actions/checkout@v4
@@ -30,12 +30,12 @@ jobs:
 
       - name: Install Hermes Agent + deps
         run: |
-          pip install fastapi uvicorn requests pyyaml huggingface_hub feedparser
+          pip install fastapi uvicorn requests pyyaml huggingface_hub feedparser PyNaCl
           pip install "git+https://github.com/NousResearch/hermes-agent.git@v2026.9.14" || \
           pip install "git+https://github.com/NousResearch/hermes-agent.git" || \
           (pip install hermes-agent && echo "Installed from PyPI")
 
-      - name: Create hermes-home and write config + env
+      - name: Setup hermes-home, seeds & config
         env:
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -44,14 +44,40 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
           GH_TOKEN: ${{ secrets.GITHUB_PAT }}
         run: |
-          mkdir -p hermes-home/mnemosyne hermes-home/cron hermes-home/memories/user hermes-home/memories/memory
+          mkdir -p hermes-home/mnemosyne hermes-home/cron hermes-home/memories/user hermes-home/memories/memory hermes-home/skills
           cp hermes-config.template.yaml hermes-home/config.yaml
           sed -i 's/__HERMES_MODEL__/nvidia\/nemotron-3-ultra-550b-a55b/g' hermes-home/config.yaml
           sed -i 's/max_concurrent_sessions: 2/max_concurrent_sessions: 10/g' hermes-home/config.yaml
           # Enable browser and computer_use
           sed -i '/- browser/d' hermes-home/config.yaml
           sed -i '/- computer_use/d' hermes-home/config.yaml
-          # Write .env file inside hermes-home so Hermes picks up all keys
+
+          # Copy seed identity, memories and user files so Radha NEVER forgets Ajay
+          if [ -d "seeds" ]; then
+            cp seeds/SOUL.md hermes-home/SOUL.md
+            cp seeds/USER.md hermes-home/USER.md
+            cp seeds/MEMORY.md hermes-home/MEMORY.md
+            cp seeds/USER.md hermes-home/memories/user/ajay_rajbhar.md 2>/dev/null || true
+            cp seeds/MEMORY.md hermes-home/memories/memory/general_memory.md 2>/dev/null || true
+            if [ -d "seeds/skills" ]; then
+              cp -r seeds/skills/* hermes-home/skills/ 2>/dev/null || true
+            fi
+          fi
+
+          # Channel directory for Ajay Rajbhar
+          cat > hermes-home/channel_directory.json << EOF
+          {
+            "telegram": {
+              "default": "5238068527",
+              "5238068527": {
+                "name": "Ajay Rajbhar",
+                "type": "dm"
+              }
+            }
+          }
+          EOF
+
+          # Write full .env so Hermes reads all API keys
           cat > hermes-home/.env << EOF
           TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
           TELEGRAM_ALLOWED_USERS=${TELEGRAM_ALLOWED_USERS}
@@ -60,19 +86,18 @@ jobs:
           GITHUB_TOKEN=${GITHUB_TOKEN}
           GH_TOKEN=${GH_TOKEN}
           HERMES_MODEL=nvidia/nemotron-3-ultra-550b-a55b
-          TELEGRAM_HOME_CHANNEL=${TELEGRAM_ALLOWED_USERS}
+          TELEGRAM_HOME_CHANNEL=5238068527
           EOF
-          echo "Config and .env ready!"
-          cat hermes-home/.env | sed 's/=.*/=***/'
+          echo "Hermes environment and Radha identity seeded!"
 
       - name: Restore memory from GitHub bot-state
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
-          python sync_github.py pull-hermes && echo "Memory restored!" || echo "Fresh start (no previous memory)"
+          python sync_github.py pull-hermes && echo "Memory successfully restored!" || echo "Pull failed or empty"
 
-      - name: Run Hermes Gateway (5.5 hours)
+      - name: Run Hermes Gateway with continuous background sync (5.5 hours)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
@@ -83,7 +108,24 @@ jobs:
           HERMES_MODEL: nvidia/nemotron-3-ultra-550b-a55b
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
-          timeout 19800 hermes gateway run || echo "Hermes stopped (timeout or error)"
+          # Continuous background sync every 5 minutes to GitHub
+          python -c "
+          import time, subprocess, sys
+          while True:
+              time.sleep(300)
+              try:
+                  subprocess.run([sys.executable, 'sync_github.py', 'push-hermes'], timeout=60)
+                  print('Auto-synced memory to GitHub (5min tick)')
+              except Exception as e:
+                  print('Background sync notice:', e)
+          " &
+          SYNC_PID=$!
+
+          # Run Hermes gateway
+          timeout 19800 hermes gateway run || echo "Hermes finished session window"
+
+          # Kill background sync loop
+          kill $SYNC_PID 2>/dev/null || true
 
       - name: Save memory to GitHub bot-state (BEFORE shutdown)
         if: always()
@@ -91,7 +133,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
-          python sync_github.py push-hermes && echo "Memory saved!" || echo "Memory save failed"
+          python sync_github.py push-hermes && echo "Final memory saved!" || echo "Final memory save warning"
 
       - name: Trigger next cycle immediately
         if: always()
