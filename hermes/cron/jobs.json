@@ -32,7 +32,7 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-01T11:21:09.852019+00:00",
-      "next_run_at": "2026-10-01T14:00:00+00:00",
+      "next_run_at": "2026-10-01T15:00:00+00:00",
       "last_run_at": "2026-10-01T13:06:10.591588+00:00",
       "last_status": "ok",
       "last_error": null,
@@ -51,14 +51,14 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-01T13:00:00+00:00",
-        "dispatched_at": "2026-10-01T13:00:51.288023+00:00",
-        "lateness_seconds": 51.3,
+        "scheduled_at": "2026-10-01T14:00:00+00:00",
+        "dispatched_at": "2026-10-01T14:00:48.463365+00:00",
+        "lateness_seconds": 48.5,
         "kind": "on_time"
       },
       "fire_claim": {
-        "at": "2026-10-01T13:52:36.403935+00:00",
-        "by": "srv-datu67flot8c738vfp5g-hibernate-856879847f-df9gn:88:215219dc33734ce69b9e339e8e723d07"
+        "at": "2026-10-01T14:01:49.862637+00:00",
+        "by": "srv-datu67flot8c738vfp5g-hibernate-85ccb6f85f-lv87z:87:334f7b6ed10c42a0939b550b9468b71c"
       }
     },
     {
@@ -166,5 +166,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-10-01T13:52:44.307381+00:00"
+  "updated_at": "2026-10-01T14:01:49.863459+00:00"
 }
