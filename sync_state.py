@@ -162,6 +162,21 @@ def push_hermes():
         except Exception as e:
             print("Error uploading skills folder: %s" % e)
 
+    # 5. Upload cron directory (cron schedules, jobs.json)
+    cron_base = os.path.join(HERMES_HOME, "cron")
+    if os.path.isdir(cron_base) and os.listdir(cron_base):
+        try:
+            api.upload_folder(
+                folder_path=cron_base,
+                path_in_repo="hermes-cron",
+                repo_id=REPO,
+                repo_type="dataset",
+                commit_message="Sync hermes cron jobs"
+            )
+            n += 1
+        except Exception as e:
+            print("Error uploading cron folder: %s" % e)
+
     print("push-hermes done (%d files)" % n)
 
 
@@ -238,6 +253,17 @@ def pull_hermes():
                     n += 1
                 except Exception as e:
                     print("Error downloading skill %s: %s" % (rel_path, e))
+
+        elif f.startswith("hermes-cron/"):
+            rel_path = f[len("hermes-cron/"):]
+            target_path = os.path.join(HERMES_HOME, "cron", rel_path)
+            os.makedirs(os.path.dirname(target_path), exist_ok=True)
+            try:
+                p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
+                shutil.copy(p, target_path)
+                n += 1
+            except Exception as e:
+                print("Error downloading cron %s: %s" % (rel_path, e))
 
     # Fallback seeding if native memories are empty
     if not os.listdir(mem_user) and os.path.exists(os.path.join(HERMES_HOME, "USER.md")):

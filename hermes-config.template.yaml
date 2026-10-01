@@ -59,22 +59,22 @@ terminal:
 compression:
   enabled: true
   checkpoint_required: false
-  threshold: 0.60
-  threshold_tokens: 50000
+  threshold: 0.50
+  threshold_tokens: 35000
   target_ratio: 0.3
-  protect_last_n: 15
+  protect_last_n: 20
 prompt_caching:
   cache_ttl: 5m
 auxiliary:
   compression:
-    provider: nvidia
-    model: __HERMES_MODEL__
+    provider: google
+    model: gemini-2.5-flash
   title_generation:
-    provider: nvidia
-    model: __HERMES_MODEL__
+    provider: google
+    model: gemini-2.5-flash
   background_review:
-    provider: nvidia
-    model: __HERMES_MODEL__
+    provider: google
+    model: gemini-2.5-flash
 display:
   busy_input_mode: interrupt
   streaming: true

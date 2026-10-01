@@ -99,7 +99,28 @@ def load_config(config_path: str = "config/config.yaml") -> Config:
     if not path.exists():
         path = Path(__file__).parent.parent / "config" / "config.yaml"
     with open(path, 'r') as f:
-        data = yaml.safe_load(f)
+        data = yaml.safe_load(f) or {}
+
+    # Override from environment variables
+    tg = data.setdefault("telegram", {})
+    if os.environ.get("TELEGRAM_BOT_TOKEN"):
+        tg["bot_token"] = os.environ.get("TELEGRAM_BOT_TOKEN")
+    if os.environ.get("TELEGRAM_ALLOWED_USERS"):
+        tg["chat_id"] = os.environ.get("TELEGRAM_ALLOWED_USERS").split(",")[0].strip()
+    elif os.environ.get("TELEGRAM_CHAT_ID"):
+        tg["chat_id"] = os.environ.get("TELEGRAM_CHAT_ID")
+    elif not tg.get("chat_id"):
+        tg["chat_id"] = "5238068527"
+
+    delta = data.setdefault("delta", {})
+    if os.environ.get("DELTA_API_KEY"):
+        delta["api_key"] = os.environ.get("DELTA_API_KEY")
+    if os.environ.get("DELTA_API_SECRET"):
+        delta["api_secret"] = os.environ.get("DELTA_API_SECRET")
+
+    if os.environ.get("GEMINI_API_KEY"):
+        data["gemini_api_key"] = os.environ.get("GEMINI_API_KEY")
+
     _settings = Config(**data)
     return _settings
 

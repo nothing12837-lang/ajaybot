@@ -3,6 +3,7 @@ name: AjayBot Monitor
 on:
   schedule:
     - cron: '*/30 * * * *'  # Every 30 minutes
+    - cron: '0 5 * * *'     # 10:30 AM IST (05:00 UTC) Daily Performance Summary
   workflow_dispatch:
 
 permissions:
@@ -173,7 +174,7 @@ jobs:
           "
 
       - name: Send Daily Performance Summary
-        if: github.event.schedule == '0 5 * * *'  # 10:30 AM IST = 5:00 UTC
+        if: github.event.schedule == '0 5 * * *' || github.event_name == 'workflow_dispatch'  # 10:30 AM IST = 5:00 UTC
         run: |
           python -c "
           import urllib.request, urllib.parse, os

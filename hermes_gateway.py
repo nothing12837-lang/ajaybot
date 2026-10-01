@@ -52,8 +52,10 @@ def write_cloud_config():
         # Ensure .env is always populated with live, valid credentials from Render
         lines = []
         for k, v in os.environ.items():
-            if any(term in k for term in ["TOKEN", "API_KEY", "SECRET", "REPO", "PORT", "ALLOWED_USERS", "MODEL"]):
+            if any(term in k for term in ["TOKEN", "API_KEY", "SECRET", "REPO", "PORT", "ALLOWED_USERS", "MODEL", "CHANNEL"]):
                 lines.append(f"{k}={v}")
+        home_channel = os.environ.get("TELEGRAM_HOME_CHANNEL") or os.environ.get("TELEGRAM_ALLOWED_USERS", "").split(",")[0].strip() or "5238068527"
+        lines.append(f"TELEGRAM_HOME_CHANNEL={home_channel}")
         env_content = "\n".join(lines) + "\n"
         for env_file in [os.path.join(HERMES_HOME, ".env"), os.path.join(BASE, ".env")]:
             try:
@@ -61,6 +63,49 @@ def write_cloud_config():
                     ef.write(env_content)
             except Exception:
                 pass
+
+        # Pre-seed channel_directory.json so Hermes knows Ajay's chat ID immediately
+        cd_path = os.path.join(HERMES_HOME, "channel_directory.json")
+        try:
+            import json
+            cd_data = {}
+            if os.path.exists(cd_path):
+                with open(cd_path, "r", encoding="utf-8") as cdf:
+                    cd_data = json.load(cdf)
+            tg_dict = cd_data.setdefault("telegram", {})
+            tg_dict["default"] = home_channel
+            tg_dict[home_channel] = {"name": "Ajay Rajbhar", "type": "dm"}
+            with open(cd_path, "w", encoding="utf-8") as cdf:
+                json.dump(cd_data, cdf, indent=2)
+        except Exception:
+            pass
+
+        # Seed core soul and memory files so Radha's identity is always present
+        seeds_dir = os.path.join(BASE, "seeds")
+        if os.path.isdir(seeds_dir):
+            for fname in ["SOUL.md", "USER.md", "MEMORY.md"]:
+                src = os.path.join(seeds_dir, fname)
+                dst = os.path.join(HERMES_HOME, fname)
+                if os.path.exists(src):
+                    should_copy = not os.path.exists(dst)
+                    if not should_copy:
+                        try:
+                            with open(dst, "r", encoding="utf-8", errors="ignore") as cur_f:
+                                cur_content = cur_f.read()
+                            if "You are Hermes Agent, built by Nous Research" in cur_content or len(cur_content) < 700:
+                                should_copy = True
+                        except Exception:
+                            should_copy = True
+                    if should_copy:
+                        shutil.copy2(src, dst)
+            mem_user_dir = os.path.join(HERMES_HOME, "memories", "user")
+            os.makedirs(mem_user_dir, exist_ok=True)
+            user_seed = os.path.join(seeds_dir, "USER.md")
+            if os.path.exists(user_seed):
+                try:
+                    shutil.copy2(user_seed, os.path.join(mem_user_dir, "ajay_rajbhar.md"))
+                except Exception:
+                    pass
     except Exception as e:
         log_err("config", e)
 
