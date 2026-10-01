@@ -293,6 +293,8 @@ def start_gateway():
     agent_dir = os.path.join(BASE, "hermes-agent")
     env = dict(os.environ)
     env["HERMES_HOME"] = HERMES_HOME
+    if "GITHUB_TOKEN" in env and "GH_TOKEN" not in env:
+        env["GH_TOKEN"] = env["GITHUB_TOKEN"]
     env["PYTHONIOENCODING"] = "utf-8"
     env["MALLOC_ARENA_MAX"] = "2"
     env["PYTHONOPTIMIZE"] = "1"
