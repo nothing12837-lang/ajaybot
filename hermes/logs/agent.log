@@ -209,3 +209,123 @@
 2026-10-01 22:23:32,883 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=303936->294188 rss_anon_kib=272460->262712 threads=15 duration_ms=166.4
 2026-10-01 22:24:33,044 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=300680->294588 rss_anon_kib=269204->263112 threads=15 duration_ms=153.5
 2026-10-01 22:25:33,230 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=306092->295080 rss_anon_kib=274616->263604 threads=15 duration_ms=177.3
+2026-10-01 22:45:12,718 INFO agent.redact: plugin:honcho: registered 2 redaction pattern(s)
+2026-10-01 22:45:21,418 INFO hermes_cli.main: Checkout changed since last launch (unknown -> git:refs/heads/main:e05b16348b1d06a3311237423b0a4fc30d9c5aa1): cleared 48 stale __pycache__ directories
+2026-10-01 22:45:21,549 INFO hermes_cli.boot_bootstrap: home maintenance: code changed to e05b16348b1d, running steps
+2026-10-01 22:45:22,574 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-10-01 22:45:22,577 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-10-01 22:45:22,580 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-10-01 22:45:22,754 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-10-01 22:45:22,764 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-10-01 22:45:22,780 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-10-01 22:45:22,788 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-10-01 22:45:22,797 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-10-01 22:45:22,805 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-10-01 22:45:22,817 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-10-01 22:45:22,817 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-10-01 22:45:22,834 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-10-01 22:45:23,077 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-10-01 22:45:23,091 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-10-01 22:45:23,101 INFO hermes_cli.plugins: Plugin 'openrouter' registered video_gen provider: openrouter
+2026-10-01 22:45:23,109 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-10-01 22:45:23,192 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-10-01 22:45:23,203 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-10-01 22:45:23,217 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-10-01 22:45:23,242 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-10-01 22:45:23,273 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-10-01 22:45:23,289 INFO hermes_cli.plugins: Plugin 'web-openai-native' registered web provider: openai-native
+2026-10-01 22:45:23,309 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-10-01 22:45:23,319 INFO hermes_cli.plugins: Plugin 'web-perplexity' registered web provider: perplexity
+2026-10-01 22:45:23,330 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-10-01 22:45:23,349 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-10-01 22:45:23,363 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-10-01 22:45:23,366 INFO hermes_cli.plugins: Plugin discovery complete: 58 found, 51 enabled
+2026-10-01 22:45:24,948 INFO hermes_cli.gateway_multiplex_mode: Single-profile install: gateway.multiplex_profiles unset, serving the default profile only.
+2026-10-01 22:45:25,132 WARNING hermes_state: state.db: on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
+2026-10-01 22:45:25,220 INFO gateway.control_socket: Gateway control socket listening at /home/runner/work/ajaybot/ajaybot/hermes-home/gateway.sock
+2026-10-01 22:45:25,372 INFO gateway.run: Starting Hermes Gateway...
+2026-10-01 22:45:25,373 INFO gateway.run: Session storage: /home/runner/work/ajaybot/ajaybot/hermes-home/sessions
+2026-10-01 22:45:25,393 INFO gateway.run: Agent budget: max_iterations=200 (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-10-01 22:45:25,393 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-10-01 22:45:25,461 INFO gateway.run: Connecting to telegram...
+2026-10-01 22:45:25,486 INFO run_agent: Loaded environment variables from /home/runner/work/ajaybot/ajaybot/hermes-home/.env
+2026-10-01 22:45:25,505 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-10-01 22:45:25,889 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-10-01 22:45:25,889 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
+2026-10-01 22:45:25,923 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-10-01 22:45:26,393 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-01 22:45:26,397 INFO telegram.ext.Application: Application started
+2026-10-01 22:45:26,634 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Cold boot: dropping Telegram updates queued while offline (platforms.telegram.extra.drop_pending_on_cold_boot: true)
+2026-10-01 22:45:26,653 INFO tools.registry: check_fn _a2a_tools_available returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,661 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,662 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,663 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,665 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,666 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,915 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,916 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,917 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,918 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,918 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,920 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,925 INFO tools.registry: check_fn check_discord_tool_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,927 INFO tools.registry: check_fn _check_feishu returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,928 INFO tools.registry: check_fn _check_ha_available returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,929 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,931 INFO tools.registry: check_fn <lambda> returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,932 INFO tools.registry: check_fn check_react_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,941 INFO tools.registry: check_fn _check_spotify_available returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,955 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'google' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
+2026-10-01 22:45:26,959 INFO agent.auxiliary_client: Vision auto-detect: using main provider google (gemini-3.8-flash)
+2026-10-01 22:45:26,963 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-01 22:45:26,965 INFO tools.registry: check_fn check_video_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,967 WARNING agent.auxiliary_client: resolve_provider_client: named custom provider 'google' has no resolvable api_key — request will be sent with placeholder no-key-required and will 401 on auth-required endpoints
+2026-10-01 22:45:26,968 INFO agent.auxiliary_client: Vision auto-detect: using main provider google (gemini-3.8-flash)
+2026-10-01 22:45:26,993 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-01 22:45:26,994 INFO tools.registry: check_fn check_x_search_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:26,995 INFO tools.registry: check_fn _check_xai_video_requirements returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:27,034 INFO tools.registry: check_fn _check_yuanbao returned False; dependent tools will be unavailable this turn
+2026-10-01 22:45:27,076 INFO tools.tool_search: tool_search activated (tier 1): 22 core/visible tools kept, 17 deferred (~7643 tokens), listing full (budget ~4000 tokens)
+2026-10-01 22:45:27,711 INFO gateway.run: Model context warmed: gemini/gemini-3.8-flash -> 1000000 tokens (config)
+2026-10-01 22:45:27,711 INFO gateway.run: Turn machinery warmed in 2.2s (25 tool schema(s) materialized)
+2026-10-01 22:45:37,237 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-01 22:45:37,238 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 1)
+2026-10-01 22:45:37,240 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-10-01 22:45:37,290 INFO gateway.run: ✓ telegram connected
+2026-10-01 22:45:38,121 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeDefault (60 cmds)
+2026-10-01 22:45:38,154 WARNING hermes_state: shared-state.db (hosted_rooms): on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
+2026-10-01 22:45:38,170 INFO gateway.run: Gateway running with 1 platform(s)
+2026-10-01 22:45:38,179 INFO gateway.run: Channel directory built: 1 target(s)
+2026-10-01 22:45:38,494 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllPrivateChats (60 cmds)
+2026-10-01 22:45:38,858 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllGroupChats (60 cmds)
+2026-10-01 22:45:38,858 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram menu: 60 commands registered, 8 hidden (over 60 limit). Use /commands for full list.
+2026-10-01 22:45:39,188 INFO gateway.run: Press Ctrl+C to stop
+2026-10-01 22:45:39,193 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/home/runner/work/ajaybot/ajaybot/hermes-home/kanban/.dispatcher.lock)
+2026-10-01 22:45:39,194 INFO gateway.run: kanban dispatcher: kanban.max_in_progress unset; using memory-derived default max_in_progress=8 (set kanban.max_in_progress in config.yaml to override)
+2026-10-01 22:45:39,204 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-10-01 22:45:39,208 INFO cron.scheduler_provider: In-process cron scheduler started (interval=60s)
+2026-10-01 22:45:39,212 INFO cron.scheduler_provider: Multiplex cron scheduler started for 1 profile(s): ['default'] (re-enumerated every cycle)
+2026-10-01 22:45:39,212 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-10-01 22:45:39,452 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=318864->273644 rss_anon_kib=287360->242140 threads=15 duration_ms=146.6
+2026-10-01 22:45:44,194 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-10-01 22:45:44,217 WARNING hermes_state: kanban.db (kanban.db): on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
+2026-10-01 22:45:49,987 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-01 22:46:11,881 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-01 22:46:22,321 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 2)
+2026-10-01 22:46:34,706 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-01 22:46:39,611 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=279284->273176 rss_anon_kib=247780->241672 threads=15 duration_ms=132.7
+2026-10-01 22:46:56,636 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-01 22:47:07,077 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 3)
+2026-10-01 22:47:19,444 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-01 22:47:39,748 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=274876->273464 rss_anon_kib=243372->241960 threads=15 duration_ms=130.3
+2026-10-01 22:47:41,334 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-01 22:47:51,781 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 4)
+2026-10-01 22:48:04,143 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-01 22:48:26,063 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-01 22:48:36,504 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 5)
+2026-10-01 22:48:39,887 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=289672->275212 rss_anon_kib=258168->243708 threads=15 duration_ms=131.5
+2026-10-01 22:48:49,256 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-01 22:49:11,145 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-01 22:49:21,592 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 6)
+2026-10-01 22:49:33,965 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-01 22:49:40,028 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=287456->275148 rss_anon_kib=255952->243644 threads=15 duration_ms=132.3
