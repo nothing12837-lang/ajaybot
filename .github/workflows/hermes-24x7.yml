@@ -43,8 +43,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
-          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           mkdir -p hermes-home/mnemosyne hermes-home/cron hermes-home/memories/user hermes-home/memories/memory hermes-home/skills
           cp hermes-config.template.yaml hermes-home/config.yaml
@@ -92,7 +92,7 @@ jobs:
 
       - name: Restore memory from GitHub bot-state
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
           python sync_github.py pull-hermes && echo "Memory successfully restored!" || echo "Pull failed or empty"
@@ -103,8 +103,8 @@ jobs:
           TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
-          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           HERMES_MODEL: gemini/gemini-3.8-flash
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
@@ -130,7 +130,7 @@ jobs:
       - name: Save memory to GitHub bot-state (BEFORE shutdown)
         if: always()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
           python sync_github.py push-hermes && echo "Final memory saved!" || echo "Final memory save warning"
@@ -138,6 +138,6 @@ jobs:
       - name: Trigger next cycle immediately
         if: always()
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           gh workflow run hermes-24x7.yml --repo ${{ github.repository }} --ref main || echo "Next cycle trigger skipped"
