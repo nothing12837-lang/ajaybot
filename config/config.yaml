@@ -4,7 +4,7 @@ delta:
   base_url: "https://api.india.delta.exchange"
   api_key: ""  # from env DELTA_API_KEY
   api_secret: ""  # from env
-  testnet: false
+  testnet: true
   leverage: 20
 
 gemini_api_key: ""  # from env GEMINI_API_KEY
@@ -16,7 +16,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 3
-    min_confidence: 0.15
+    min_confidence: 0.08
     contract_size: 0.001
     min_contracts: 1
   - symbol: ETHUSD
@@ -25,7 +25,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 3
-    min_confidence: 0.15
+    min_confidence: 0.08
     contract_size: 0.01
     min_contracts: 1
   - symbol: SOLUSD
@@ -34,7 +34,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.15
+    min_confidence: 0.08
     contract_size: 1
     min_contracts: 1
   - symbol: DOGEUSD
@@ -43,7 +43,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.15
+    min_confidence: 0.08
     contract_size: 100
     min_contracts: 1
 
@@ -53,7 +53,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.15
+    min_confidence: 0.08
     contract_size: 1
     min_contracts: 1
 
@@ -63,7 +63,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.15
+    min_confidence: 0.08
     contract_size: 1000
     min_contracts: 1
   - symbol: AVAXUSD
@@ -72,7 +72,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.15
+    min_confidence: 0.08
     contract_size: 1
     min_contracts: 1
 
@@ -121,7 +121,7 @@ adaptive:
 ai_analyst:
   enabled: true
   model: "gemini-2.5-flash"
-  weight: 0.25
+  weight: 0.15
   min_confidence: 0.6
 
 optimizer:
