@@ -19,6 +19,7 @@ from .signal_engine import SignalEngine, Signal, SignalSide
 from .risk_manager import RiskManager, AdaptiveRiskManager, RiskAction
 from .performance_tracker import PerformanceTracker, create_performance_tracker, TradeRecord, track_performance_loop
 from .auto_optimizer import AutoOptimizer, create_auto_optimizer
+from .adaptation_engine import StrategyAdaptationEngine, create_adaptation_engine
 
 logger = logging.getLogger(__name__)
 
@@ -349,6 +350,8 @@ class AjayBot:
             lookback_days=config.optimizer.lookback_days,
             min_trades_for_optimization=config.optimizer.min_trades
         )
+        # Strategy Adaptation Engine — autonomous edge detection + symbol rotation
+        self.adaptation_engine = create_adaptation_engine(config)
         
         self._running = False
         self._positions: Dict[str, Position] = {}
@@ -439,6 +442,9 @@ class AjayBot:
 
         # Start auto-optimizer
         self.auto_optimizer.start()
+
+        # Start strategy adaptation engine
+        self.adaptation_engine.start()
 
         logger.info("AjayBot started successfully (REST-only mode)")
         
@@ -625,7 +631,21 @@ class AjayBot:
                     htf_df = all_indicators(htf_df, sym_config.model_dump())
             
             # Generate signal
+            # Check if symbol is paused or has elevated confidence threshold from adaptation engine
+            if self.adaptation_engine.is_symbol_paused(symbol):
+                logger.info(f"{symbol}: SKIPPED — adaptation engine has paused this symbol")
+                continue
+
             signal = self.signal_engine.generate_signal(symbol, sym_config.model_dump(), df, htf_df)
+            # Check adaptation engine's dynamic confidence threshold
+            if signal:
+                adaptive_conf = self.adaptation_engine.get_conf_threshold(symbol)
+                if signal.confidence < adaptive_conf:
+                    logger.info(
+                        f"{symbol}: signal rejected by adaptation engine "
+                        f"(conf={signal.confidence:.2f} < adaptive_threshold={adaptive_conf:.2f})"
+                    )
+                    signal = None
             logger.info(f"{symbol}: signal={'YES' if signal else 'NO'}" + (f" side={signal.side.value} conf={signal.confidence:.2f}" if signal else ""))
             
             if signal and symbol not in self._positions:
@@ -790,6 +810,8 @@ class AjayBot:
                             confidence=pos.confidence
                         )
                     )
+                    # Feed into strategy adaptation engine (autonomous edge detection)
+                    self.adaptation_engine.on_trade_closed(symbol, pnl)
                     # Save state after full close
                     self._save_state()
         
@@ -843,6 +865,7 @@ class AjayBot:
             "positions": len(self._positions),
             "consecutive_losses": self._consecutive_losses,
             "last_heartbeat": self._heartbeat_time,
+            "adaptation": self.adaptation_engine.get_dashboard(),
         }
     
     async def stop(self):
@@ -852,6 +875,7 @@ class AjayBot:
         if self._perf_task:
             self._perf_task.cancel()
         self.auto_optimizer.stop()
+        self.adaptation_engine.stop()
         await self.engine.stop()
         if self._ws_client:
             await self._ws_client.stop()
