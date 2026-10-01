@@ -82,7 +82,7 @@ risk:
   max_position_pct: 0.25
   max_correlated_risk_pct: 0.10
   consecutive_loss_pause: 4
-  consecutive_loss_pause_hours: 2
+  consecutive_loss_pause_hours: 0.5
   paper_equity: 10000.0
   maker_fee_pct: 0.0002
   taker_fee_pct: 0.0005
@@ -112,7 +112,7 @@ adaptive:
   target_sharpe: 1.5
   target_max_dd: 0.10
   optimization_interval_hours: 2
-  min_trades_for_optimization: 20
+  min_trades_for_optimization: 5
   exploration_rate: 0.2
   confidence_scaling: true
   volatility_scaling: true
