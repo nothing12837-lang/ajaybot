@@ -210,34 +210,17 @@ def seed_hermes_cron_jobs():
 
 def sync_pull():
     pulled = False
-    # HF sync (if token present)
-    if os.environ.get("HF_TOKEN"):
-        try:
-            res = subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"),
-                            "pull-hermes"],
-                           capture_output=True, text=True, timeout=300)
-            STATE["pull_result"] = ((res.stdout or "") + " " + (res.stderr or "")).strip()
-            if res.returncode != 0:
-                log_err("pull_fail", res.stderr or res.stdout)
-            else:
-                pulled = True
-        except Exception as e:
-            log_err("pull", e)
+
     
     # GitHub sync (fallback/primary)
     if os.environ.get("GITHUB_TOKEN"):
         try:
-            res2 = subprocess.run([sys.executable, os.path.join(BASE, "sync_github.py"),
-                            "pull-hermes"],
-                           capture_output=True, text=True, timeout=120)
-            gh = ((res2.stdout or "") + " " + (res2.stderr or "")).strip()
-            STATE["pull_result"] = (STATE.get("pull_result", "") + " | GH:" + gh).strip()
-            if res2.returncode != 0:
-                log_err("gh_pull_fail", res2.stderr or res2.stdout)
-            else:
-                pulled = True
+            import sync_github
+            sync_github.pull_hermes()
+            STATE["pull_result"] = (STATE.get("pull_result", "") + " | GH: OK").strip()
+            pulled = True
         except Exception as e:
-            log_err("gh_pull", e)
+            log_err("gh_pull_fail", str(e))
             
     if not pulled:
         STATE["pull_result"] = "no valid sync token (HF_TOKEN or GITHUB_TOKEN needed)"
@@ -282,32 +265,15 @@ def sync_loop():
             gc.collect()
         except Exception:
             pass
-        # HF sync
-        if os.environ.get("HF_TOKEN"):
-            try:
-                res = subprocess.run(
-                    [sys.executable, os.path.join(BASE, "sync_state.py"),
-                     "push-hermes"],
-                    capture_output=True, text=True, timeout=300)
-                if res.returncode != 0:
-                    log_err("push_fail", res.stderr or res.stdout)
-                else:
-                    STATE["last_sync"] = int(time.time())
-            except Exception as e:
-                log_err("push", e)
+
         # GitHub sync — primary backup, always runs when token available
         if os.environ.get("GITHUB_TOKEN"):
             try:
-                res = subprocess.run(
-                    [sys.executable, os.path.join(BASE, "sync_github.py"),
-                     "push-hermes"],
-                    capture_output=True, text=True, timeout=120)
-                if res.returncode != 0:
-                    log_err("gh_push_fail", res.stderr or res.stdout)
-                else:
-                    STATE["last_sync"] = int(time.time())
+                import sync_github
+                sync_github.push_hermes()
+                STATE["last_sync"] = int(time.time())
             except Exception as e:
-                log_err("gh_push", e)
+                log_err("gh_push_fail", str(e))
 
 
 
