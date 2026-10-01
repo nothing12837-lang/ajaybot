@@ -1,0 +1,9 @@
+{
+  "id": "daily_report",
+  "name": "AjayBot Daily Report",
+  "schedule": "0 5 * * *",
+  "prompt": "Run the daily AjayBot performance report. Fetch trading state from HuggingFace dataset rareember/ajaybot-state, compute equity, win rate, net PnL, and positions. Send a formatted HTML summary to Telegram chat 5238068527. Format: Paper Equity | Net PnL | Trades | Win Rate | Open Positions | Delivered by Radha.",
+  "channel": "5238068527",
+  "platform": "telegram",
+  "enabled": true
+}
