@@ -1,21 +1,16 @@
 {
   "exit_code": 0,
-  "feature_list": [
-    "all",
-    "telegram"
-  ],
-  "finished_at": "2026-10-01T22:09:53.143194+00:00",
-  "kind": "sync",
+  "feature_list": null,
+  "finished_at": "2026-10-01T22:14:15.001635+00:00",
+  "kind": "plugin-check",
   "outcome": "ok",
   "platform": null,
+  "plugin_checks": [],
   "refusal": null,
   "schema": 1,
-  "started_at": "2026-10-01T22:09:44.057912+00:00",
+  "started_at": "2026-10-01T22:14:15.001599+00:00",
   "steps": [],
   "update_id": null,
-  "venv_rebuild": {
-    "ok": true,
-    "reason": ""
-  },
+  "venv_rebuild": null,
   "warnings": []
 }
