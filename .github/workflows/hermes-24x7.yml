@@ -46,7 +46,7 @@ jobs:
         run: |
           mkdir -p hermes-home/mnemosyne hermes-home/cron hermes-home/memories/user hermes-home/memories/memory
           cp hermes-config.template.yaml hermes-home/config.yaml
-          sed -i 's/__HERMES_MODEL__/meta\/llama-3.3-70b-instruct/g' hermes-home/config.yaml
+          sed -i 's/__HERMES_MODEL__/nvidia\/nemotron-3-ultra-550b-a55b/g' hermes-home/config.yaml
           sed -i 's/max_concurrent_sessions: 2/max_concurrent_sessions: 10/g' hermes-home/config.yaml
           # Enable browser and computer_use
           sed -i '/- browser/d' hermes-home/config.yaml
@@ -59,7 +59,7 @@ jobs:
           GEMINI_API_KEY=${GEMINI_API_KEY}
           GITHUB_TOKEN=${GITHUB_TOKEN}
           GH_TOKEN=${GH_TOKEN}
-          HERMES_MODEL=meta/llama-3.3-70b-instruct
+          HERMES_MODEL=nvidia/nemotron-3-ultra-550b-a55b
           TELEGRAM_HOME_CHANNEL=${TELEGRAM_ALLOWED_USERS}
           EOF
           echo "Config and .env ready!"
@@ -80,7 +80,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
           GH_TOKEN: ${{ secrets.GITHUB_PAT }}
-          HERMES_MODEL: meta/llama-3.3-70b-instruct
+          HERMES_MODEL: nvidia/nemotron-3-ultra-550b-a55b
           HERMES_HOME: ${{ github.workspace }}/hermes-home
         run: |
           timeout 19800 hermes gateway run || echo "Hermes stopped (timeout or error)"
