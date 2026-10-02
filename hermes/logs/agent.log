@@ -16571,3 +16571,13 @@ openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'd
 2026-10-02 19:35:27,483 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=410412->408968 rss_anon_kib=368096->366652 threads=22 duration_ms=162.1
 2026-10-02 19:36:27,653 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=410492->408972 rss_anon_kib=368176->366656 threads=22 duration_ms=163.1
 2026-10-02 19:37:27,804 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=411816->408964 rss_anon_kib=369500->366648 threads=22 duration_ms=144.1
+2026-10-02 19:38:27,970 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=425080->408964 rss_anon_kib=382764->366648 threads=22 duration_ms=161.2
+2026-10-02 19:39:28,138 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=416344->408972 rss_anon_kib=374028->366656 threads=22 duration_ms=158.3
+2026-10-02 19:40:28,293 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=430532->408972 rss_anon_kib=388216->366656 threads=22 duration_ms=148.7
+2026-10-02 19:41:22,691 INFO gateway.run: Agent cache idle-TTL evict: session=agent:main:telegram:dm:5238068527 (idle=3701s)
+2026-10-02 19:41:22,691 INFO run_agent: Shared OpenAI client retired (cache_evict, tcp_shutdown=0, fd_release=deferred_to_gc) thread=agent-cache-idle-agent:main:telegram:dm:5:140508345128640 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=nvidia/nemotron-3-super-120b-a12b
+2026-10-02 19:41:22,692 INFO gateway.run: Agent cache idle sweep: evicted 1 agent(s)
+2026-10-02 19:41:22,692 INFO run_agent: OpenAI client closed (cache_evict, shared=False, tcp_force_closed=0) thread=agent-cache-idle-agent:main:telegram:dm:5:140508345128640 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=nvidia/nemotron-3-super-120b-a12b
+2026-10-02 19:41:28,517 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=413100->408992 rss_anon_kib=370784->366676 threads=22 duration_ms=144.9
+2026-10-02 19:42:28,692 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=410520->408968 rss_anon_kib=368204->366652 threads=22 duration_ms=167.8
+2026-10-02 19:43:28,858 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=410520->409064 rss_anon_kib=368204->366748 threads=22 duration_ms=159.8
