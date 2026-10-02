@@ -1868,3 +1868,18 @@
 2026-10-02 19:53:42,710 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-10-02 19:53:42,710 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 2026-10-02 19:53:53,083 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
+2026-10-02 21:59:01,338 INFO gateway.run: Received SIGTERM — initiating shutdown
+2026-10-02 21:59:01,338 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=5984 parent_name=timeout loadavg_1m=0.05
+2026-10-02 21:59:01,340 INFO gateway.run: Stopping gateway...
+2026-10-02 21:59:01,864 INFO gateway.run: Sent shutdown notification to home channel telegram:5238068527
+2026-10-02 21:59:01,864 INFO gateway.run: Shutdown phase: notify_active_sessions done at +0.52s
+2026-10-02 21:59:01,865 INFO gateway.run: Shutdown phase: drain done at +0.52s (drain took 0.00s, timed_out=False, active_at_start=0, active_now=0, cron_at_start=0, cron_now=0, api_at_start=0, api_now=0, deferred_at_start=0, deferred_now=0)
+2026-10-02 21:59:02,206 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Disconnected from Telegram
+2026-10-02 21:59:02,206 INFO gateway.run: ✓ telegram disconnected (0.34s)
+2026-10-02 21:59:02,206 INFO gateway.run: Shutdown phase: all adapters disconnected at +0.87s
+2026-10-02 21:59:02,207 INFO gateway.run: Gateway housekeeping stopped
+2026-10-02 21:59:02,210 INFO gateway.run: Shutdown phase: final-cleanup tool kill done at +0.87s
+2026-10-02 21:59:02,210 INFO gateway.run: Shutdown phase: executor quiesced at +0.87s
+2026-10-02 21:59:02,342 INFO gateway.run: Shutdown phase: SessionDB close done at +1.00s
+2026-10-02 21:59:02,343 INFO gateway.run: Gateway stopped by an unexpected signal — persisting gateway_state=running so container_boot auto-starts on the next boot (issue #42675)
+2026-10-02 21:59:02,345 INFO gateway.run: Exiting with code 1 (signal-initiated shutdown without restart request) so the service manager can revive the gateway.
