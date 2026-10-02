@@ -1,0 +1,21 @@
+{
+  "exit_code": 0,
+  "feature_list": [
+    "all",
+    "telegram"
+  ],
+  "finished_at": "2026-10-02T06:04:00.977118+00:00",
+  "kind": "sync",
+  "outcome": "ok",
+  "platform": null,
+  "refusal": null,
+  "schema": 1,
+  "started_at": "2026-10-02T06:03:55.152777+00:00",
+  "steps": [],
+  "update_id": null,
+  "venv_rebuild": {
+    "ok": true,
+    "reason": ""
+  },
+  "warnings": []
+}
