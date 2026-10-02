@@ -1834,3 +1834,7 @@
 2026-10-02 18:02:04,800 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Sab check kro mujh se mat. Pucho mujhe target chaiye bas' reply_to_id=7235 reply_to_text='Ajay, bot abhi trades kyon nahi le raha?   Sach yeh hai ki pichhle ~41 ghante se'
 2026-10-02 18:04:35,269 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=150.5s api_calls=4 response=3615 chars
 2026-10-02 18:04:35,326 INFO gateway.platforms.base: [Telegram] Sending response (3615 chars) to 5238068527
+2026-10-02 18:07:34,864 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (1021 chars)
+2026-10-02 18:07:34,869 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Tum khud decide kro Dekho yeh pura system tumhare under hai toh har 5min ya 10 m' reply_to_id=None reply_to_text=''
+2026-10-02 18:11:34,734 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=239.9s api_calls=21 response=5099 chars
+2026-10-02 18:11:34,744 INFO gateway.platforms.base: [Telegram] Sending response (5099 chars) to 5238068527
