@@ -1863,3 +1863,5 @@
 2026-10-02 18:39:15,360 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Keep doing your work good night radha' reply_to_id=None reply_to_text=''
 2026-10-02 18:39:42,231 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=26.9s api_calls=1 response=670 chars
 2026-10-02 18:39:42,237 INFO gateway.platforms.base: [Telegram] Sending response (670 chars) to 5238068527
+2026-10-02 19:41:22,691 INFO gateway.run: Agent cache idle-TTL evict: session=agent:main:telegram:dm:5238068527 (idle=3701s)
+2026-10-02 19:41:22,692 INFO gateway.run: Agent cache idle sweep: evicted 1 agent(s)
