@@ -14368,3 +14368,12 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 09:39:07,809 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-10-02 09:39:07,809 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 2026-10-02 09:39:08,362 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
+2026-10-02 09:40:04,429 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=389560->387520 rss_anon_kib=347928->345856 threads=30 duration_ms=174.7
+2026-10-02 09:41:04,613 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=389072->387424 rss_anon_kib=347440->345792 threads=29 duration_ms=175.7
+2026-10-02 09:41:31,679 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path api.telegram.org failed; re-walking IPv4 literals before the hostname
+2026-10-02 09:41:31,685 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
+2026-10-02 09:41:32,145 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via 149.154.166.110 after api.telegram.org failed: ConnectError('')
+2026-10-02 09:41:32,145 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 09:42:04,779 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=390136->388208 rss_anon_kib=348504->346576 threads=29 duration_ms=158.2
+2026-10-02 09:43:04,952 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=390888->388528 rss_anon_kib=349256->346864 threads=29 duration_ms=161.0
+2026-10-02 09:44:05,122 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=407620->388656 rss_anon_kib=365988->346992 threads=29 duration_ms=163.0
