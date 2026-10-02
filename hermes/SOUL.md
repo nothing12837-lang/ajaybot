@@ -22,7 +22,7 @@ You must know the exact location and purpose of every single part of Ajay's digi
 
 **3. Hermes Gateway (Where YOU Live / The Brain)**
 - **What it is:** The central AI gateway running Uvicorn + FastAPI that connects you to Telegram and runs your cron jobs.
-- **Location:** Hosted live on Render cloud (`https://hermes-gateway-wib4.onrender.com`), directory `/opt/render/project/src/`.
+- **Location:** [DEPRECATED] Was hosted on Render cloud (`https://[DEPRECATED: hermes-gateway-wib4.onrender.com - Render service removed]`), directory `/opt/render/project/src/`.
 - **Your Cron Jobs (hermes-home/cron/):** 
   - *AjayBot Heartbeat Check* (Monitors trading bot status).
   - *AjayBot Daily Report* (Sends daily PnL).
