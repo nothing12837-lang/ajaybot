@@ -1,133 +1,121 @@
-mode: paper
-
-delta:
-  base_url: "https://api.india.delta.exchange"
-  api_key: ""  # from env DELTA_API_KEY
-  api_secret: ""  # from env
-  testnet: true
-  leverage: 20
-
-gemini_api_key: ""  # from env GEMINI_API_KEY
-
-symbols:
-  - symbol: BTCUSD
-    resolution: 5m
-    htf_resolution: 15m
-    lookback: 200
-    risk_per_trade: 0.015
-    max_concurrent: 3
-    min_confidence: 0.20
-    contract_size: 0.001
-    min_contracts: 1
-  - symbol: ETHUSD
-    resolution: 5m
-    htf_resolution: 15m
-    lookback: 200
-    risk_per_trade: 0.015
-    max_concurrent: 3
-    min_confidence: 0.20
-    contract_size: 0.01
-    min_contracts: 1
-  - symbol: SOLUSD
-    resolution: 5m
-    htf_resolution: 15m
-    lookback: 200
-    risk_per_trade: 0.015
-    max_concurrent: 2
-    min_confidence: 0.20
-    contract_size: 1
-    min_contracts: 1
-  - symbol: DOGEUSD
-    resolution: 5m
-    htf_resolution: 15m
-    lookback: 200
-    risk_per_trade: 0.015
-    max_concurrent: 2
-    min_confidence: 0.20
-    contract_size: 100
-    min_contracts: 1
-
-  - symbol: XRPUSD
-    resolution: 5m
-    htf_resolution: 15m
-    lookback: 200
-    risk_per_trade: 0.015
-    max_concurrent: 2
-    min_confidence: 0.20
-    contract_size: 1
-    min_contracts: 1
-
-  - symbol: DOGSUSD
-    resolution: 5m
-    htf_resolution: 15m
-    lookback: 200
-    risk_per_trade: 0.015
-    max_concurrent: 2
-    min_confidence: 0.20
-    contract_size: 1000
-    min_contracts: 1
-  - symbol: AVAXUSD
-    resolution: 5m
-    htf_resolution: 15m
-    lookback: 200
-    risk_per_trade: 0.015
-    max_concurrent: 2
-    min_confidence: 0.20
-    contract_size: 1
-    min_contracts: 1
-
-risk:
-  max_daily_loss_pct: 0.03
-  max_dd_kill_pct: 0.10
-  max_position_pct: 0.25
-  max_correlated_risk_pct: 0.10
-  consecutive_loss_pause: 3
-  consecutive_loss_pause_hours: 1
-  paper_equity: 10000.0
-  maker_fee_pct: 0.0002
-  taker_fee_pct: 0.0005
-  slippage_pct: 0.0001
-
-  monthly_target_pct: 0.08  # 8% monthly target
-  min_trades_per_month: 10  # Minimum 10 trades per month
-telegram:
-  enabled: true
-  bot_token: ""  # from env TELEGRAM_BOT_TOKEN
-  chat_id: "5238068527"
-  alert_signals: true
-  alert_trades: true
-  alert_risk: true
-  heartbeat_hours: 4
-
-webui:
-  host: "0.0.0.0"
-  port: 8081
-  password: "ajaybot2026"
-  jwt_secret: "ajaybot-secret-change-me"
-  jwt_expire_hours: 24
-
-data_dir: data
-
 adaptive:
-  enabled: true
-  target_accuracy: 0.75
-  target_sharpe: 1.5
-  target_max_dd: 0.10
-  optimization_interval_hours: 2
-  min_trades_for_optimization: 5
-  exploration_rate: 0.2
   confidence_scaling: true
-  volatility_scaling: true
+  enabled: true
+  exploration_rate: 0.2
   kelly_fraction: 0.3
-
+  min_trades_for_optimization: 10
+  optimization_interval_hours: 2
+  target_accuracy: 0.75
+  target_max_dd: 0.1
+  target_sharpe: 1.5
+  volatility_scaling: true
 ai_analyst:
   enabled: true
-  model: "gemini-2.5-flash"
+  min_confidence: 0.2
+  model: gemini-2.5-flash
   weight: 0.15
-  min_confidence: 0.20
-
+data_dir: data
+delta:
+  api_key: ''
+  api_secret: ''
+  base_url: https://api.india.delta.exchange
+  leverage: 15
+  testnet: true
+gemini_api_key: ''
+mode: paper
 optimizer:
   enabled: true
   interval_hours: 2
   lookback_days: 7
   min_trades: 30
+risk:
+  consecutive_loss_pause: 3
+  consecutive_loss_pause_hours: 1
+  maker_fee_pct: 0.0002
+  max_correlated_risk_pct: 0.1
+  max_daily_loss_pct: 0.02
+  max_dd_kill_pct: 0.1
+  max_position_pct: 0.2
+  min_trades_per_month: 10
+  monthly_target_pct: 0.08
+  paper_equity: 10000.0
+  slippage_pct: 0.0001
+  taker_fee_pct: 0.0005
+symbols:
+- contract_size: 0.001
+  htf_resolution: 15m
+  lookback: 200
+  max_concurrent: 3
+  min_confidence: 0.3
+  min_contracts: 1
+  resolution: 5m
+  risk_per_trade: 0.01
+  symbol: BTCUSD
+- contract_size: 0.01
+  htf_resolution: 15m
+  lookback: 200
+  max_concurrent: 3
+  min_confidence: 0.3
+  min_contracts: 1
+  resolution: 5m
+  risk_per_trade: 0.01
+  symbol: ETHUSD
+- contract_size: 1
+  htf_resolution: 15m
+  lookback: 200
+  max_concurrent: 2
+  min_confidence: 0.3
+  min_contracts: 1
+  resolution: 5m
+  risk_per_trade: 0.01
+  symbol: SOLUSD
+- contract_size: 100
+  htf_resolution: 15m
+  lookback: 200
+  max_concurrent: 2
+  min_confidence: 0.3
+  min_contracts: 1
+  resolution: 5m
+  risk_per_trade: 0.01
+  symbol: DOGEUSD
+- contract_size: 1
+  htf_resolution: 15m
+  lookback: 200
+  max_concurrent: 2
+  min_confidence: 0.3
+  min_contracts: 1
+  resolution: 5m
+  risk_per_trade: 0.01
+  symbol: XRPUSD
+- contract_size: 1000
+  htf_resolution: 15m
+  lookback: 200
+  max_concurrent: 2
+  min_confidence: 0.3
+  min_contracts: 1
+  resolution: 5m
+  risk_per_trade: 0.01
+  symbol: DOGSUSD
+- contract_size: 1
+  htf_resolution: 15m
+  lookback: 200
+  max_concurrent: 2
+  min_confidence: 0.3
+  min_contracts: 1
+  resolution: 5m
+  risk_per_trade: 0.01
+  symbol: AVAXUSD
+telegram:
+  alert_risk: true
+  alert_signals: true
+  alert_trades: true
+  bot_token: ''
+  chat_id: '5238068527'
+  enabled: true
+  heartbeat_hours: 4
+webui:
+  host: 0.0.0.0
+  jwt_expire_hours: 24
+  jwt_secret: ajaybot-secret-change-me
+  password: ajaybot2026
+  port: 8081
