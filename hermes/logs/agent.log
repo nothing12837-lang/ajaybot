@@ -16715,3 +16715,24 @@ openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'd
 2026-10-02 21:52:52,299 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=422080->410720 rss_anon_kib=379764->368372 threads=23 duration_ms=176.8
 2026-10-02 21:53:52,477 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=427960->410736 rss_anon_kib=385644->368388 threads=23 duration_ms=170.6
 2026-10-02 21:54:52,658 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=414744->410700 rss_anon_kib=372428->368384 threads=23 duration_ms=170.4
+2026-10-02 21:55:52,831 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=412076->410600 rss_anon_kib=369760->368284 threads=23 duration_ms=166.3
+2026-10-02 21:56:53,007 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=412144->410720 rss_anon_kib=369828->368372 threads=23 duration_ms=167.1
+2026-10-02 21:57:53,185 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=412216->410704 rss_anon_kib=369900->368356 threads=23 duration_ms=169.9
+2026-10-02 21:58:53,360 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=412192->410624 rss_anon_kib=369876->368308 threads=23 duration_ms=165.8
+2026-10-02 21:59:01,338 INFO gateway.run: Received SIGTERM — initiating shutdown
+2026-10-02 21:59:01,338 WARNING gateway.run: Shutdown context: signal=SIGTERM under_systemd=yes parent_pid=5984 parent_name=timeout loadavg_1m=0.05
+2026-10-02 21:59:01,340 INFO gateway.run: Stopping gateway...
+2026-10-02 21:59:01,864 INFO gateway.run: Sent shutdown notification to home channel telegram:5238068527
+2026-10-02 21:59:01,864 INFO gateway.run: Shutdown phase: notify_active_sessions done at +0.52s
+2026-10-02 21:59:01,865 INFO gateway.run: Shutdown phase: drain done at +0.52s (drain took 0.00s, timed_out=False, active_at_start=0, active_now=0, cron_at_start=0, cron_now=0, api_at_start=0, api_now=0, deferred_at_start=0, deferred_now=0)
+2026-10-02 21:59:02,206 INFO telegram.ext.Application: Application is stopping. This might take a moment.
+2026-10-02 21:59:02,206 INFO telegram.ext.Application: Application.stop() complete
+2026-10-02 21:59:02,206 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Disconnected from Telegram
+2026-10-02 21:59:02,206 INFO gateway.run: ✓ telegram disconnected (0.34s)
+2026-10-02 21:59:02,206 INFO gateway.run: Shutdown phase: all adapters disconnected at +0.87s
+2026-10-02 21:59:02,207 INFO gateway.run: Gateway housekeeping stopped
+2026-10-02 21:59:02,210 INFO gateway.run: Shutdown phase: final-cleanup tool kill done at +0.87s
+2026-10-02 21:59:02,210 INFO gateway.run: Shutdown phase: executor quiesced at +0.87s
+2026-10-02 21:59:02,342 INFO gateway.run: Shutdown phase: SessionDB close done at +1.00s
+2026-10-02 21:59:02,343 INFO gateway.run: Gateway stopped by an unexpected signal — persisting gateway_state=running so container_boot auto-starts on the next boot (issue #42675)
+2026-10-02 21:59:02,345 INFO gateway.run: Exiting with code 1 (signal-initiated shutdown without restart request) so the service manager can revive the gateway.
