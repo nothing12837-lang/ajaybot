@@ -1,0 +1,27 @@
+﻿name: Manager Report (8 AM / 8 PM IST)
+
+on:
+  schedule:
+    - cron: '30 2 * * *'  # 8:00 AM IST
+    - cron: '30 14 * * *' # 8:00 PM IST
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt huggingface_hub
+      - name: Pull State
+        env:
+          HF_TOKEN: $\{{ secrets.HF_TOKEN }}
+        run: python sync_state.py pull || true
+      - name: Run Report
+        env:
+          TELEGRAM_TOKEN: $\{{ secrets.TELEGRAM_TOKEN }}
+        run: python scripts/send_report.py || echo "Will run the reporting script"

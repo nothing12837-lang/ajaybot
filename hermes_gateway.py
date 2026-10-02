@@ -56,7 +56,7 @@ def write_cloud_config():
         with open(template, "r", encoding="utf-8") as f:
             text = f.read()
         model = os.environ.get("HERMES_MODEL",
-                               "nvidia/nemotron-3-ultra-550b-a55b")
+                               "nvidia/nemotron-3-super-120b-a12b")
         text = text.replace("__HERMES_MODEL__", model)
         with open(dest, "w", encoding="utf-8") as f:
             f.write(text)
