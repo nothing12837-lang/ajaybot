@@ -1802,3 +1802,13 @@
 2026-10-02 17:00:55,673 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (131 chars)
 2026-10-02 17:12:44,442 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (1 chars)
 2026-10-02 17:20:04,967 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (33 chars)
+2026-10-02 17:34:04,337 INFO gateway.run: Invalidated run generation for agent:main:telegram:dm:5238068527 → 3 (stop_command)
+2026-10-02 17:34:04,339 INFO gateway.run: STOP for session agent:main:telegram:dm:5238068527 — agent interrupted, session lock released
+2026-10-02 17:34:04,339 INFO gateway.platforms.base: [Telegram] Sending command '/stop' response (41 chars) to 5238068527
+2026-10-02 17:34:04,382 INFO gateway.run: Discarding stale agent result for agent:main:telegram:dm:5238068527 — generation 2 is no longer current
+2026-10-02 17:34:53,085 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (8 chars)
+2026-10-02 17:34:53,091 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Abhi kro' reply_to_id=None reply_to_text=''
+2026-10-02 17:36:29,616 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=96.5s api_calls=5 response=2492 chars
+2026-10-02 17:36:29,624 INFO gateway.platforms.base: [Telegram] Sending response (2492 chars) to 5238068527
+2026-10-02 17:37:32,641 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (22 chars)
+2026-10-02 17:37:32,645 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Do everything yourself' reply_to_id=None reply_to_text=''
