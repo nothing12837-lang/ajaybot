@@ -1596,3 +1596,43 @@
 2026-10-02 06:24:05,139 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 43)
 2026-10-02 06:24:05,321 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (3 chars)
 2026-10-02 06:24:05,325 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='hlo' reply_to_id=None reply_to_text=''
+2026-10-02 06:28:09,698 INFO gateway.control_socket: Gateway control socket listening at /home/runner/work/ajaybot/ajaybot/hermes-home/gateway.sock
+2026-10-02 06:28:09,859 INFO gateway.run: Starting Hermes Gateway...
+2026-10-02 06:28:09,860 INFO gateway.run: Session storage: /home/runner/work/ajaybot/ajaybot/hermes-home/sessions
+2026-10-02 06:28:09,879 INFO gateway.run: Agent budget: max_iterations=200 (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-10-02 06:28:09,879 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-10-02 06:28:09,933 INFO gateway.platform_registry: Platform 'Telegram' dependencies missing — attempting install...
+2026-10-02 06:28:16,186 INFO gateway.run: Connecting to telegram...
+2026-10-02 06:28:16,216 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-10-02 06:28:16,543 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-10-02 06:28:16,543 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
+2026-10-02 06:28:16,574 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-10-02 06:28:17,946 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 06:28:18,044 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Cold boot: dropping Telegram updates queued while offline (platforms.telegram.extra.drop_pending_on_cold_boot: true)
+2026-10-02 06:28:18,453 INFO gateway.run: Model context warmed: gemini/gemini-3.8-flash -> 1048576 tokens (detected)
+2026-10-02 06:28:18,453 INFO gateway.run: Turn machinery warmed in 2.3s (25 tool schema(s) materialized)
+2026-10-02 06:28:28,432 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 06:28:28,433 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 1)
+2026-10-02 06:28:28,435 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-10-02 06:28:28,476 INFO gateway.run: ✓ telegram connected
+2026-10-02 06:28:29,011 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeDefault (60 cmds)
+2026-10-02 06:28:29,311 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllPrivateChats (60 cmds)
+2026-10-02 06:28:29,339 INFO gateway.run: Gateway running with 1 platform(s)
+2026-10-02 06:28:29,347 INFO gateway.run: Channel directory built: 1 target(s)
+2026-10-02 06:28:29,604 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllGroupChats (60 cmds)
+2026-10-02 06:28:29,604 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram menu: 60 commands registered, 8 hidden (over 60 limit). Use /commands for full list.
+2026-10-02 06:28:30,355 INFO gateway.run: Scheduled auto-resume for 1 restart-interrupted session(s)
+2026-10-02 06:28:30,361 INFO gateway.platforms.base: [Telegram] Handler re-queued a pending event for agent:main:telegram:dm:5238068527 again (session busy elsewhere); backing off 0.25s
+2026-10-02 06:28:30,366 INFO gateway.run: Press Ctrl+C to stop
+2026-10-02 06:28:30,371 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/home/runner/work/ajaybot/ajaybot/hermes-home/kanban/.dispatcher.lock)
+2026-10-02 06:28:30,372 INFO gateway.run: kanban dispatcher: kanban.max_in_progress unset; using memory-derived default max_in_progress=8 (set kanban.max_in_progress in config.yaml to override)
+2026-10-02 06:28:30,383 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-10-02 06:28:30,390 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-10-02 06:28:30,637 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='' reply_to_id=None reply_to_text=''
+2026-10-02 06:28:30,656 INFO gateway.run: Rehydrated persisted /model override for session=agent:main:telegram:dm:5238068527: model=z-ai/glm-5.3 provider=nvidia
+2026-10-02 06:28:35,372 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-10-02 06:29:57,874 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=87.2s api_calls=1 response=978 chars
+2026-10-02 06:29:57,884 INFO gateway.platforms.base: [Telegram] Sending response (978 chars) to 5238068527
+2026-10-02 06:31:40,180 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (97 chars)
+2026-10-02 06:31:40,185 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='github par full repo read kro errors find kro fix kro aur ajaybot ka detailsd do' reply_to_id=None reply_to_text=''
+2026-10-02 06:32:39,392 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=always, user=Ajay)
