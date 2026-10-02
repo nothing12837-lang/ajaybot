@@ -21,7 +21,7 @@
     "suspended": false,
     "resume_pending": true,
     "resume_reason": "restart_interrupted",
-    "last_resume_marked_at": "2026-10-02T06:03:54.945365",
+    "last_resume_marked_at": "2026-10-02T06:05:24.687051",
     "active_turn_token": null,
     "active_turn_started_at": null,
     "is_fresh_reset": false,
