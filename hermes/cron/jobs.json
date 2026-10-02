@@ -1,67 +1,6 @@
 {
   "jobs": [
     {
-      "id": "5bc2e9673953",
-      "name": "AjayBot Heartbeat Check",
-      "prompt": "Quickly check if AjayBot GitHub Actions are running. Use the GitHub API to check the latest workflow runs for nothing12837-lang/ajaybot. If any required workflow (ajaybot-paper, ajaybot-monitor) has not run in the last 60 minutes, send an alert to Telegram chat 5238068527 saying 'AjayBot workflow delayed! Check GitHub Actions.' Otherwise stay silent.",
-      "skills": [],
-      "skill": null,
-      "model": null,
-      "provider": null,
-      "provider_snapshot": "nvidia",
-      "model_snapshot": "nvidia/nemotron-3-ultra-550b-a55b",
-      "base_url": null,
-      "script": null,
-      "no_agent": false,
-      "monitor_script": null,
-      "monitor_url": null,
-      "monitor_state": null,
-      "context_from": null,
-      "schedule": {
-        "kind": "cron",
-        "expr": "*/10 * * * *",
-        "display": "*/10 * * * *"
-      },
-      "schedule_display": "0 * * * *",
-      "repeat": {
-        "times": null,
-        "completed": 23
-      },
-      "enabled": true,
-      "state": "scheduled",
-      "paused_at": null,
-      "paused_reason": null,
-      "created_at": "2026-10-01T11:21:09.852019+00:00",
-      "next_run_at": "2026-10-02T19:00:00+00:00",
-      "last_run_at": "2026-10-02T17:41:59.776229+00:00",
-      "last_status": "error",
-      "last_error": "RuntimeError: HTTP 404: 404 page not found",
-      "last_delivery_error": null,
-      "last_delivery_unverified": null,
-      "failure_streak": 17,
-      "deliver": "telegram",
-      "origin": {
-        "platform": "telegram",
-        "chat_id": "5238068527",
-        "chat_name": "Ajay Rajbhar",
-        "thread_id": null,
-        "user_id": "5238068527",
-        "scope_id": null
-      },
-      "enabled_toolsets": null,
-      "workdir": null,
-      "last_dispatch": {
-        "scheduled_at": "2026-10-02T18:00:00+00:00",
-        "dispatched_at": "2026-10-02T18:00:56.948894+00:00",
-        "lateness_seconds": 56.9,
-        "kind": "on_time"
-      },
-      "fire_claim": {
-        "at": "2026-10-02T18:22:57.236056+00:00",
-        "by": "runnervm8df0l:5985:17ef92b615de495cbeb0ef32e4c72c0c"
-      }
-    },
-    {
       "id": "abad8f0099ec",
       "name": "AjayBot Evening Report",
       "prompt": "Generate the EVENING AjayBot trading performance report for the last 24h (paper equity, open positions, win rate, net PnL). Read the latest state from Hugging Face dataset rareember/ajaybot-state and craft a clean Telegram-ready summary. Send ONLY the report to chat 5238068527 on Telegram.",
@@ -226,5 +165,5 @@
       "last_dispatch": null
     }
   ],
-  "updated_at": "2026-10-02T18:22:57.236332+00:00"
+  "updated_at": "2026-10-02T19:00:00+00:00"
 }
