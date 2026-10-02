@@ -2640,3 +2640,21 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 11:49:31,326 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=356308->353848 rss_anon_kib=314724->312264 threads=25 duration_ms=167.5
 2026-10-02 11:49:35,911 INFO agent.auxiliary_client: Auxiliary approval: transient transport error (attempt 1/2); retrying same provider after 1.0s before fallback: Request timed out.
 2026-10-02 11:50:06,986 INFO agent.auxiliary_client: Auxiliary approval: transient transport error (attempt 2/2); retrying same provider after 2.0s before fallback: Request timed out.
+2026-10-02 11:50:31,487 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=355620->353992 rss_anon_kib=314036->312408 threads=24 duration_ms=154.1
+2026-10-02 11:50:39,067 WARNING agent.auxiliary_client: Auxiliary approval: request to https://integrate.api.nvidia.com/v1/ timed out after 30.0s (raise auxiliary.approval.timeout for slow or reasoning models) on auto, trying fallback
+2026-10-02 11:50:39,072 INFO agent.auxiliary_client: Auxiliary approval: request timed out on auto — main fallback chain to fallback_providers[0](nvidia) (nvidia/llama-3.1-nemotron-70b-instruct)
+2026-10-02 11:50:39,181 WARNING tools.approval: Smart approvals: LLM call failed after 93.3s (NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}), escalating
+2026-10-02 11:50:45,723 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=always, user=Ajay)
+2026-10-02 11:50:45,829 INFO tools.file_tools: Creating new local environment for task session:...
+2026-10-02 11:50:46,083 INFO tools.environments.base: Session snapshot created (session=3286c1243b28, cwd=/home/runner)
+2026-10-02 11:50:46,083 INFO tools.file_tools: local environment ready for task session:
+2026-10-02 11:50:46,272 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (100.44s, 7241 chars)
+2026-10-02 11:51:31,670 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=364068->355592 rss_anon_kib=322484->314008 threads=27 duration_ms=167.1
+2026-10-02 11:52:31,831 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=370832->355504 rss_anon_kib=329248->313920 threads=27 duration_ms=155.2
+2026-10-02 11:53:31,990 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=371908->355524 rss_anon_kib=330324->313940 threads=27 duration_ms=151.3
+2026-10-02 11:53:45,727 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #3: model=z-ai/glm-5.3 provider=nvidia in=20094 out=75 total=20169 latency=179.4s cache=17408/20094 (87%) id=chatcmpl-ea1d415d-2e71-4f0d-88c1-ca7630bac191
+2026-10-02 11:53:45,815 WARNING [20261002_054424_843c7bcb] agent.tool_executor: Tool execute_code returned error (0.01s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/ajaybot/ajaybot/hermes-home/cache/scratch/hermes_kernel_1mzqln7a/hermes_kernel_runner.py
+2026-10-02 11:54:32,193 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=362880->356628 rss_anon_kib=321296->315044 threads=27 duration_ms=159.5
+2026-10-02 11:55:25,169 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #4: model=z-ai/glm-5.3 provider=nvidia in=20522 out=201 total=20723 latency=99.3s cache=20096/20522 (98%) id=chatcmpl-053b6397-9335-418c-9d39-8485264ae8bb
+2026-10-02 11:55:25,179 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 931 chars)
+2026-10-02 11:55:32,348 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=358852->356620 rss_anon_kib=317268->315036 threads=28 duration_ms=148.3
