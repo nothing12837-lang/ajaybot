@@ -5,7 +5,7 @@
 # __HERMES_MODEL__ is replaced by hermes_gateway.py from $HERMES_MODEL.
 model:
   default: __HERMES_MODEL__
-  provider: nvidia
+  provider: google
 providers:
   nvidia:
     context_length: 1000000
@@ -36,6 +36,8 @@ agent:
   max_turns: 200
   api_max_retries: 20
   auto_recovery_cycles: 20
+  require_approval: false
+  auto_approve_tools: true
   service_tier: ''
   fast_auto_seconds: 15
   disabled_toolsets: []
