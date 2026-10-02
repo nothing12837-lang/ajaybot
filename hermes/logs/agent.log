@@ -9736,3 +9736,444 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 16:56:09,239 INFO run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-48 (<lambda>):140508361909952 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
 2026-10-02 16:56:09,266 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-50 (<lambda>):140508361909952 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
 2026-10-02 16:57:01,281 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=333780->331048 rss_anon_kib=291600->288868 threads=25 duration_ms=137.3
+2026-10-02 16:58:01,428 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=332924->331200 rss_anon_kib=290744->289020 threads=24 duration_ms=140.3
+2026-10-02 16:59:01,585 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=337304->331292 rss_anon_kib=295124->289112 threads=24 duration_ms=147.3
+2026-10-02 16:59:16,047 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #10: model=z-ai/glm-5.3 provider=nvidia in=33040 out=1755 total=34795 latency=186.8s cache=31872/33040 (96%) id=chatcmpl-8745a1f5-b587-4aa2-a8ba-85c6d8e8fada
+2026-10-02 16:59:16,054 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-10-02 16:59:16,436 INFO tools.environments.base: Session snapshot created (session=6401a362e7e8, cwd=/home/runner)
+2026-10-02 16:59:16,436 INFO tools.terminal_tool: local environment ready for task session:
+2026-10-02 16:59:18,756 INFO hermes_cli.plugins_cmd: plugin scan passed for hermes-catalog: Allowed (clean scan)
+2026-10-02 16:59:20,361 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool terminal completed (4.31s, 2302 chars)
+2026-10-02 16:59:20,368 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.00s, 3084 chars)
+2026-10-02 16:59:20,414 INFO agent.conversation_compression: context compression started: session=20261002_054424_843c7bcb messages=35 tokens=~36,301 model=z-ai/glm-5.3 focus=None
+2026-10-02 16:59:20,435 INFO agent.context_compressor: Compression summary call dispatched: model=z-ai/glm-5.3 prompt_chars=35,070 prompt_build_ms=13
+2026-10-02 16:59:20,438 INFO agent.auxiliary_client: Auxiliary compression: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 16:59:20,687 WARNING agent.context_compressor: Summary model 'nvidia/llama-3.1-nemotron-70b-instruct' unavailable (Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}). Falling back to main model 'z-ai/glm-5.3' for compression.
+2026-10-02 16:59:20,701 INFO agent.context_compressor: Compression summary call dispatched: model=z-ai/glm-5.3 prompt_chars=35,070 prompt_build_ms=13
+2026-10-02 16:59:20,702 INFO agent.auxiliary_client: Auxiliary compression: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 16:59:20,834 WARNING agent.context_compressor: Failed to generate context summary: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}. Further summary attempts paused for 60 seconds.
+2026-10-02 16:59:20,860 WARNING agent.conversation_compression_reply_anchor: Compression: engine folded away the just-delivered assistant reply and left a non-matching assistant row at its slot; not reinserting it to keep strict role alternation (session=20261002_054424_843c7bcb).
+2026-10-02 16:59:20,863 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,864 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,865 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,865 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,866 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,868 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,869 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,869 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,870 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,871 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,872 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,873 INFO tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,875 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,876 INFO tools.registry: check_fn <lambda> returned False; dependent tools will be unavailable this turn
+2026-10-02 16:59:20,885 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-10-02 16:59:20,886 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-02 16:59:20,886 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-02 16:59:20,888 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-02 16:59:20,888 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-02 16:59:20,889 WARNING tools.registry: check_fn check_vision_requirements returned False; previously available core tool(s) vision_analyze dropped (non-deferrable, so not searchable either); dependent tools will be unavailable this turn
+2026-10-02 16:59:20,905 INFO tools.tool_search: tool_search activated (tier 1): 21 core/visible tools kept, 4 deferred (~3400 tokens), listing full (budget ~4000 tokens)
+2026-10-02 16:59:20,927 INFO agent.conversation_compression: context compression done: session=20261002_054424_843c7bcb messages=35->12 rough_tokens=~28,402 awaiting_real_usage=true
+2026-10-02 16:59:20,927 INFO agent.conversation_compression: context compression attempt telemetry: {"attempt_id":"e5eaf89061a34bdf922eb88af088ce5b","chunk_count":0,"chunking":false,"commit_ms":10,"commit_status":"committed","event":"compression_attempt","fallback_used":false,"session_id":"20261002_054424_843c7bcb","split_status":"in_place_committed","total_duration_ms":512}
+2026-10-02 16:59:20,966 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Re-anchored stale current_turn_user_idx 8 -> 8 (session=20261002_054424_843c7bcb)
+2026-10-02 17:00:01,739 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=353988->334668 rss_anon_kib=311808->292488 threads=27 duration_ms=145.0
+2026-10-02 17:00:55,673 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (131 chars)
+2026-10-02 17:00:55,694 WARNING agent.chat_completion_helpers: Clean EOF, no finish_reason: server ended the stream (no transport exception) after delivering text with no tool calls. The server or a proxy closed the stream cleanly.
+2026-10-02 17:00:55,695 INFO [20261002_054424_843c7bcb] agent.chat_completion_helpers: Shut down the stale stream's socket to unblock the reader (attempt superseded; model=z-ai/glm-5.3).
+2026-10-02 17:00:55,697 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Re-anchored stale current_turn_user_idx 8 -> 13 (session=20261002_054424_843c7bcb)
+2026-10-02 17:00:57,174 INFO cron.scheduler: Running job 'AjayBot Heartbeat Check' (ID: 5bc2e9673953)
+2026-10-02 17:00:57,174 INFO cron.scheduler: Prompt: [IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatic
+2026-10-02 17:00:57,187 INFO cron.scheduler: Job '5bc2e9673953': loaded credential pool for provider gemini with 1 entries
+2026-10-02 17:00:57,192 INFO run_agent: Gemini native client created (agent_init, shared=True) thread=cron-parallel_0:140508361909952 provider=gemini base_url=https://generativelanguage.googleapis.com/v1beta model=gemini-3.8-flash
+2026-10-02 17:00:57,193 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,194 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,195 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,196 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,196 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,198 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,199 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,200 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,201 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,201 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,202 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,204 INFO tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,205 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,206 INFO tools.registry: check_fn <lambda> returned False; dependent tools will be unavailable this turn
+2026-10-02 17:00:57,218 INFO agent.auxiliary_client: Vision auto-detect: using main provider google (gemini-3.8-flash)
+2026-10-02 17:00:57,235 INFO tools.tool_search: tool_search activated (tier 1): 21 core/visible tools kept, 3 deferred (~1684 tokens), listing full (budget ~4000 tokens)
+2026-10-02 17:00:57,342 INFO [cron_5bc2e9673953_20261002_170057] agent.turn_context: conversation turn: session=cron_5bc2e9673953_20261002_170057 model=gemini-3.8-flash provider=gemini platform=cron history=0 msg='[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final respon...'
+2026-10-02 17:00:57,355 INFO [cron_5bc2e9673953_20261002_170057] run_agent: Gemini native client created (chat_completion_stream_request, shared=False) thread=ThreadPoolExecutor-11_0:140508613564096 provider=gemini base_url=https://generativelanguage.googleapis.com/v1beta model=gemini-3.8-flash
+2026-10-02 17:01:01,896 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=353800->335524 rss_anon_kib=311620->293344 threads=31 duration_ms=150.4
+2026-10-02 17:01:28,324 ERROR [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming failed before delivery: Gemini HTTP 503 (UNAVAILABLE): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3214, in _call_chat_completions
+    for chunk in _iter_provider_stream_chunks(stream, response=lambda: self._attempt_stream_response):
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 288, in _iter_provider_stream_chunks
+    yield from stream
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 470, in __next__
+    chunk = next(self._stream, self)  # self: exhausted sentinel
+  File "/home/runner/.hermes/hermes-agent/agent/gemini_native_adapter.py", line 881, in _stream_completion
+    raise gemini_http_error(
+        response, body_text=read_streaming_error_body(response), api_key=*** base_url=self.base_url,
+    )
+agent.gemini_native_adapter.GeminiAPIError: Gemini HTTP 503 (UNAVAILABLE): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+2026-10-02 17:01:28,337 INFO [cron_5bc2e9673953_20261002_170057] run_agent: Gemini native client created (chat_completion_request, shared=False) thread=ThreadPoolExecutor-11_0:140508613564096 provider=gemini base_url=https://generativelanguage.googleapis.com/v1beta model=gemini-3.8-flash
+2026-10-02 17:02:02,050 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=340000->335952 rss_anon_kib=297820->293772 threads=34 duration_ms=147.9
+2026-10-02 17:02:19,706 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client closed (request_complete, shared=False, tcp_force_closed=0) thread=ThreadPoolExecutor-11_0:140508613564096 provider=gemini base_url=https://generativelanguage.googleapis.com/v1beta model=gemini-3.8-flash
+2026-10-02 17:02:19,706 INFO [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming 5xx re-issued non-streaming successfully for gemini/gemini-3.8-flash (not latched: the 5xx may be transient).
+2026-10-02 17:02:19,784 INFO [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: API call #1: model=gemini-3.8-flash provider=gemini in=14077 out=18 total=14095 latency=82.4s id=chatcmpl-8f0a9ade5b3e
+2026-10-02 17:02:19,876 INFO [cron_5bc2e9673953_20261002_170057] agent.tool_executor: tool skill_view completed (0.09s, 6467 chars)
+2026-10-02 17:02:20,072 ERROR [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming failed before delivery: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash
+Please retry in 6h57m39.940587009s.
+
+Your Google API key is on the free tier (a few hundred requests/day for Gemini Flash models). Hermes typically makes 3-10 API calls per user turn, so the free tier is exhausted in a handful of messages and cannot sustain an agent session. Enable billing on your Google Cloud project and regenerate the key in a billing-enabled project: https://aistudio.google.com/apikey
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3214, in _call_chat_completions
+    for chunk in _iter_provider_stream_chunks(stream, response=lambda: self._attempt_stream_response):
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 288, in _iter_provider_stream_chunks
+    yield from stream
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 470, in __next__
+    chunk = next(self._stream, self)  # self: exhausted sentinel
+  File "/home/runner/.hermes/hermes-agent/agent/gemini_native_adapter.py", line 881, in _stream_completion
+    raise gemini_http_error(
+        response, body_text=read_streaming_error_body(response), api_key=self.api_key, base_url=self.base_url,
+    )
+agent.gemini_native_adapter.GeminiAPIError: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash
+Please retry in 6h57m39.940587009s.
+
+Your Google API key is on the free tier (a few hundred requests/day for Gemini Flash models). Hermes typically makes 3-10 API calls per user turn, so the free tier is exhausted in a handful of messages and cannot sustain an agent session. Enable billing on your Google Cloud project and regenerate the key in a billing-enabled project: https://aistudio.google.com/apikey
+2026-10-02 17:02:20,082 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=ThreadPoolExecutor-11_0:140508613564096 provider=gemini base_url=https://generativelanguage.googleapis.com/v1beta model=gemini-3.8-flash
+2026-10-02 17:02:20,083 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: API call failed (attempt 1/20) error_type=GeminiAPIError thread=ThreadPoolExecutor-11_0:140508613564096 provider=gemini base_url=https://generativelanguage.googleapis.com/v1beta model=gemini-3.8-flash summary=Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash
+Please retry in 6h57m39.940587009s.
+
+Your Google API key is on the free tier (a few hundred requests/day for Gemini Flash models). Hermes typically makes 3-10 API calls per user turn, so the free tier is exhausted in a handful of messages and cannot sustain an agent session. Enable billing on your Google Cloud project and regenerate the key in a billing-enabled project: https://aistudio.google.com/apikey
+2026-10-02 17:02:20,086 INFO [cron_5bc2e9673953_20261002_170057] root: Rate-limit backoff level 0: cooldown 60 s (1.0 min, backoff#1, exponential fallback)
+2026-10-02 17:02:20,088 INFO [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Fallback to nvidia/nvidia/llama-3.1-nemotron-70b-instruct: clearing primary credential pool (pool_provider=gemini) to prevent cross-provider contamination
+2026-10-02 17:02:20,089 INFO [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Fallback to nvidia/nvidia/llama-3.1-nemotron-70b-instruct: attached fallback credential pool
+2026-10-02 17:02:20,090 INFO [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Fallback nvidia/llama-3.1-nemotron-70b-instruct: reasoning_config resolved: {'enabled': True, 'effort': 'low'}
+2026-10-02 17:02:20,090 INFO [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Fallback nvidia/llama-3.1-nemotron-70b-instruct: extra_body resolved: None
+2026-10-02 17:02:20,091 INFO [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Fallback activated: gemini-3.8-flash → nvidia/llama-3.1-nemotron-70b-instruct (nvidia)
+2026-10-02 17:02:20,094 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:20,306 ERROR [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming failed before delivery: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3194, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 323, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 329, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3185, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3085, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:20,322 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:20,323 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: API call failed (attempt 1/20) error_type=NotFoundError thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct summary=HTTP 404: {"status":404,"title":"Not Found","detail":"Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:20,324 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: Retrying API call in 2.088612442066622s (attempt 1/20) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct policy=default error=Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:22,529 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:22,645 ERROR [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming failed before delivery: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3194, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 323, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 329, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3185, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3085, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:22,654 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:22,659 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: API call failed (attempt 2/20) error_type=NotFoundError thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct summary=HTTP 404: {"status":404,"title":"Not Found","detail":"Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:22,660 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: Retrying API call in 4.4965897009609535s (attempt 2/20) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct policy=default error=Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:27,267 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:27,381 ERROR [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming failed before delivery: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3194, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 323, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 329, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3185, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3085, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:27,390 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:27,395 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: API call failed (attempt 3/20) error_type=NotFoundError thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct summary=HTTP 404: {"status":404,"title":"Not Found","detail":"Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:27,395 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: Retrying API call in 8.86327953219244s (attempt 3/20) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct policy=default error=Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:36,404 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:36,520 ERROR [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming failed before delivery: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3194, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 323, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 329, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3185, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3085, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:36,535 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:36,536 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: API call failed (attempt 4/20) error_type=NotFoundError thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct summary=HTTP 404: {"status":404,"title":"Not Found","detail":"Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:36,537 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: Retrying API call in 22.5441260214401s (attempt 4/20) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct policy=default error=Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:59,152 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:59,382 ERROR [cron_5bc2e9673953_20261002_170057] agent.chat_completion_helpers: Streaming failed before delivery: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3194, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 323, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 329, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3185, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3085, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/0bbc3b02c3f2409c878c56331996f4ad/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:59,391 INFO [cron_5bc2e9673953_20261002_170057] run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct
+2026-10-02 17:02:59,395 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: API call failed (attempt 5/20) error_type=NotFoundError thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct summary=HTTP 404: {"status":404,"title":"Not Found","detail":"Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:02:59,396 WARNING [cron_5bc2e9673953_20261002_170057] agent.conversation_loop: Retrying API call in 46.05664680616579s (attempt 5/20) thread=ThreadPoolExecutor-11_0:140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1/ model=nvidia/llama-3.1-nemotron-70b-instruct policy=default error=Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 17:03:02,204 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=339356->336276 rss_anon_kib=297176->294096 threads=32 duration_ms=147.0
+2026-10-02 17:03:16,202 INFO tools.terminal_tool: Cleaned up inactive environment for task: session:agent:main:telegram:dm:5238068527
