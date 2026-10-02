@@ -25,7 +25,7 @@
       "schedule_display": "0 * * * *",
       "repeat": {
         "times": null,
-        "completed": 13
+        "completed": 14
       },
       "enabled": true,
       "state": "scheduled",
@@ -33,12 +33,12 @@
       "paused_reason": null,
       "created_at": "2026-10-01T11:21:09.852019+00:00",
       "next_run_at": "2026-10-02T09:00:00+00:00",
-      "last_run_at": "2026-10-02T07:40:06.136797+00:00",
+      "last_run_at": "2026-10-02T08:39:16.902164+00:00",
       "last_status": "error",
       "last_error": "RuntimeError: HTTP 404: 404 page not found",
       "last_delivery_error": null,
       "last_delivery_unverified": null,
-      "failure_streak": 7,
+      "failure_streak": 8,
       "deliver": "telegram",
       "origin": {
         "platform": "telegram",
@@ -56,10 +56,7 @@
         "lateness_seconds": 30.4,
         "kind": "on_time"
       },
-      "fire_claim": {
-        "at": "2026-10-02T08:38:30.595083+00:00",
-        "by": "runnervm8df0l:6472:f256e1031c2441bab8eb4aa9bb6475dd"
-      }
+      "fire_claim": null
     },
     {
       "id": "abad8f0099ec",
@@ -178,5 +175,5 @@
       }
     }
   ],
-  "updated_at": "2026-10-02T08:38:30.595653+00:00"
+  "updated_at": "2026-10-02T08:39:16.902992+00:00"
 }
