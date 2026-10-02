@@ -1828,3 +1828,9 @@
 2026-10-02 17:48:21,085 INFO gateway.platforms.base: [Telegram] Sending response (2671 chars) to 5238068527
 2026-10-02 17:55:27,903 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (32 chars)
 2026-10-02 17:55:27,911 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Ajay bot trads kiu nhi le Raha ?' reply_to_id=7232 reply_to_text='Real‑time? – Bilkul samajhti hoon, Ajay.   Abhi jo data dikha rahi hoon, wo “nea'
+2026-10-02 18:00:42,962 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=315.1s api_calls=7 response=3789 chars
+2026-10-02 18:00:42,972 INFO gateway.platforms.base: [Telegram] Sending response (3789 chars) to 5238068527
+2026-10-02 18:02:04,795 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (56 chars)
+2026-10-02 18:02:04,800 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Sab check kro mujh se mat. Pucho mujhe target chaiye bas' reply_to_id=7235 reply_to_text='Ajay, bot abhi trades kyon nahi le raha?   Sach yeh hai ki pichhle ~41 ghante se'
+2026-10-02 18:04:35,269 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=150.5s api_calls=4 response=3615 chars
+2026-10-02 18:04:35,326 INFO gateway.platforms.base: [Telegram] Sending response (3615 chars) to 5238068527
