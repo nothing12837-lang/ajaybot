@@ -3,7 +3,7 @@
     {
       "id": "5bc2e9673953",
       "name": "AjayBot Heartbeat Check",
-      "prompt": "You are a silent watchdog. Check whether AjayBot GitHub Actions workflows are running on time, using direct GitHub API calls via Python (execute_code or terminal).\n\nSTEPS:\n1. In Python: token = os.environ.get(\"GITHUB_TOKEN\"). If missing → REPLY EXACTLY: '⚠️ Heartbeat check error: no GITHUB_TOKEN' and stop.\n2. For each workflow file in [\"ajaybot-paper.yml\", \"ajaybot-monitor.yml\"]:\n   GET https://api.github.com/repos/nothing12837-lang/ajaybot/actions/workflows/{workflow_file}/runs?per_page=1\n   headers: Authorization: token <GITHUB_TOKEN>, Accept: application/vnd.github.v3+json\n3. Parse latest run's created_at. If BOTH workflows' latest runs are older than 6 hours → REPLY EXACTLY: '⚠️ AjayBot workflow delayed! Check GitHub Actions.'\n4. If any latest run is fresher than 6 hours → REPLY EXACTLY: 'ALL_OK'\n5. On any HTTP error → REPLY EXACTLY: '⚠️ Heartbeat check error: HTTP <code>'\n\nNEVER print the token. Keep reply to one line only.",
+      "prompt": "Quickly check if AjayBot GitHub Actions are running. Use the GitHub API to check the latest workflow runs for nothing12837-lang/ajaybot. If any required workflow (ajaybot-paper, ajaybot-monitor) has not run in the last 60 minutes, send an alert to Telegram chat 5238068527 saying 'AjayBot workflow delayed! Check GitHub Actions.' Otherwise stay silent.",
       "skills": [],
       "skill": null,
       "model": null,
@@ -25,20 +25,20 @@
       "schedule_display": "0 * * * *",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 8
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-01T11:21:09.852019+00:00",
-      "next_run_at": "2026-10-02T05:00:00+00:00",
-      "last_run_at": "2026-10-02T04:38:08.060169+00:00",
+      "next_run_at": "2026-10-02T01:00:00+00:00",
+      "last_run_at": "2026-10-02T00:38:41.705276+00:00",
       "last_status": "error",
       "last_error": "RuntimeError: HTTP 404: 404 page not found",
       "last_delivery_error": null,
       "last_delivery_unverified": null,
-      "failure_streak": 4,
+      "failure_streak": 2,
       "deliver": "telegram",
       "origin": {
         "platform": "telegram",
@@ -51,15 +51,12 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-02T04:00:00+00:00",
-        "dispatched_at": "2026-10-02T04:00:17.275913+00:00",
-        "lateness_seconds": 17.3,
+        "scheduled_at": "2026-10-02T00:00:00+00:00",
+        "dispatched_at": "2026-10-02T00:00:52.810402+00:00",
+        "lateness_seconds": 52.8,
         "kind": "on_time"
       },
-      "fire_claim": {
-        "at": "2026-10-02T04:47:32.673896+00:00",
-        "by": "runnervm8df0l:6337:44e916c3b27948f7bc0ad410ea723402"
-      }
+      "fire_claim": null
     },
     {
       "id": "abad8f0099ec",
@@ -145,7 +142,7 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-01T11:22:01.157481+00:00",
-      "next_run_at": "2026-10-03T04:30:00+00:00",
+      "next_run_at": "2026-10-02T04:30:00+00:00",
       "last_run_at": "2026-10-01T13:46:53.409122+00:00",
       "last_status": "ok",
       "last_error": null,
@@ -163,17 +160,8 @@
       },
       "enabled_toolsets": null,
       "workdir": null,
-      "fire_claim": {
-        "at": "2026-10-02T04:47:17.353803+00:00",
-        "by": "runnervm8df0l:6337:b0f838056a9b4c5f9f2b111e54f6485f"
-      },
-      "last_dispatch": {
-        "scheduled_at": "2026-10-02T04:30:00+00:00",
-        "dispatched_at": "2026-10-02T04:30:17.275156+00:00",
-        "lateness_seconds": 17.3,
-        "kind": "on_time"
-      }
+      "fire_claim": null
     }
   ],
-  "updated_at": "2026-10-02T04:47:32.674597+00:00"
+  "updated_at": "2026-10-02T00:38:41.705938+00:00"
 }
