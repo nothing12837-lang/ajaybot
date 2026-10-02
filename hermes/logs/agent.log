@@ -16596,3 +16596,8 @@ openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'd
 2026-10-02 19:53:53,083 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
 2026-10-02 19:54:30,890 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=419332->408532 rss_anon_kib=377016->366216 threads=22 duration_ms=160.1
 2026-10-02 19:55:31,165 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=420148->408412 rss_anon_kib=377800->366096 threads=22 duration_ms=173.2
+2026-10-02 19:56:31,349 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=418716->408424 rss_anon_kib=376400->366108 threads=23 duration_ms=156.9
+2026-10-02 19:57:31,519 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=426200->408384 rss_anon_kib=383884->366068 threads=22 duration_ms=161.9
+2026-10-02 19:58:31,697 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=409844->408424 rss_anon_kib=367528->366108 threads=22 duration_ms=172.1
+2026-10-02 19:59:31,876 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=409964->408424 rss_anon_kib=367648->366108 threads=22 duration_ms=168.6
+2026-10-02 20:00:32,034 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=409868->408372 rss_anon_kib=367552->366056 threads=23 duration_ms=150.7
