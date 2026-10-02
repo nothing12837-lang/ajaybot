@@ -1853,3 +1853,13 @@
 2026-10-02 18:29:56,746 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (145 chars)
 2026-10-02 18:29:56,962 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Monitor he nhi sab kuch karo bas sab mein daily improvement chahiye aur yeh sab ' reply_to_id=7247 reply_to_text='AjayBot Heartbeat Check job hata diya gaya hai — ab sarwa system monitoring tumh'
 2026-10-02 18:30:44,149 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (79 chars)
+2026-10-02 18:36:34,567 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=397.6s api_calls=20 response=3243 chars
+2026-10-02 18:36:34,578 INFO gateway.platforms.base: [Telegram] Sending response (3243 chars) to 5238068527
+2026-10-02 18:37:57,183 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (63 chars)
+2026-10-02 18:37:57,188 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Monitor aur modify bhi karna hai jo need ho improvement ke liye' reply_to_id=7252 reply_to_text='✅ Improvements Save Kiye Gaye – 24×7 Monitoring Active  ---  📦 Kya Kiya Gaya (Su'
+2026-10-02 18:38:41,463 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=44.3s api_calls=6 response=3460 chars
+2026-10-02 18:38:41,473 INFO gateway.platforms.base: [Telegram] Sending response (3460 chars) to 5238068527
+2026-10-02 18:39:15,354 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (37 chars)
+2026-10-02 18:39:15,360 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Keep doing your work good night radha' reply_to_id=None reply_to_text=''
+2026-10-02 18:39:42,231 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=26.9s api_calls=1 response=670 chars
+2026-10-02 18:39:42,237 INFO gateway.platforms.base: [Telegram] Sending response (670 chars) to 5238068527
