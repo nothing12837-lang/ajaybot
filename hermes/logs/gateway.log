@@ -1750,3 +1750,5 @@
 2026-10-02 13:28:43,898 INFO gateway.platforms.base: [Telegram] Sending response (3360 chars) to 5238068527
 2026-10-02 13:31:18,380 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (109 chars)
 2026-10-02 13:31:18,385 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Perfect now do continue monitoring and we have removed everything from hf and re' reply_to_id=7107 reply_to_text='🌞 AJAYBOT MORNING REPORT - SYSTEM OPTIMIZED 🌞   ================================'
+2026-10-02 13:34:43,201 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=204.8s api_calls=5 response=1616 chars
+2026-10-02 13:34:43,211 INFO gateway.platforms.base: [Telegram] Sending response (1616 chars) to 5238068527
