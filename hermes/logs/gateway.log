@@ -1801,3 +1801,4 @@
 2026-10-02 16:56:09,219 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (616 chars)
 2026-10-02 17:00:55,673 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (131 chars)
 2026-10-02 17:12:44,442 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (1 chars)
+2026-10-02 17:20:04,967 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (33 chars)
