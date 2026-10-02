@@ -1865,3 +1865,6 @@
 2026-10-02 18:39:42,237 INFO gateway.platforms.base: [Telegram] Sending response (670 chars) to 5238068527
 2026-10-02 19:41:22,691 INFO gateway.run: Agent cache idle-TTL evict: session=agent:main:telegram:dm:5238068527 (idle=3701s)
 2026-10-02 19:41:22,692 INFO gateway.run: Agent cache idle sweep: evicted 1 agent(s)
+2026-10-02 19:53:42,710 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-10-02 19:53:42,710 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-10-02 19:53:53,083 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
