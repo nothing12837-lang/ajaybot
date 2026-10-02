@@ -57,7 +57,7 @@
         "kind": "on_time"
       },
       "fire_claim": {
-        "at": "2026-10-02T05:04:32.746622+00:00",
+        "at": "2026-10-02T05:06:32.754418+00:00",
         "by": "runnervm8df0l:6337:44e916c3b27948f7bc0ad410ea723402"
       },
       "pending_slot": {
@@ -117,7 +117,7 @@
       "enabled_toolsets": null,
       "workdir": null,
       "fire_claim": {
-        "at": "2026-10-02T05:04:17.315175+00:00",
+        "at": "2026-10-02T05:06:17.321679+00:00",
         "by": "runnervm8df0l:6337:42b31aa3b905426bbcce8416add62d64"
       },
       "last_dispatch": {
@@ -152,7 +152,7 @@
       "schedule_display": "30 4 * * *",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
@@ -160,12 +160,12 @@
       "paused_reason": null,
       "created_at": "2026-10-01T11:22:01.157481+00:00",
       "next_run_at": "2026-10-03T04:30:00+00:00",
-      "last_run_at": "2026-10-01T13:46:53.409122+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "last_run_at": "2026-10-02T05:06:32.157562+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 404: 404 page not found",
       "last_delivery_error": null,
       "last_delivery_unverified": null,
-      "failure_streak": 0,
+      "failure_streak": 1,
       "deliver": "telegram",
       "origin": {
         "platform": "telegram",
@@ -177,10 +177,7 @@
       },
       "enabled_toolsets": null,
       "workdir": null,
-      "fire_claim": {
-        "at": "2026-10-02T05:04:17.427741+00:00",
-        "by": "runnervm8df0l:6337:b0f838056a9b4c5f9f2b111e54f6485f"
-      },
+      "fire_claim": null,
       "last_dispatch": {
         "scheduled_at": "2026-10-02T04:30:00+00:00",
         "dispatched_at": "2026-10-02T04:30:17.275156+00:00",
@@ -189,5 +186,5 @@
       }
     }
   ],
-  "updated_at": "2026-10-02T05:04:32.747272+00:00"
+  "updated_at": "2026-10-02T05:06:32.755138+00:00"
 }
