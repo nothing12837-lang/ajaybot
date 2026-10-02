@@ -1646,3 +1646,6 @@
 2026-10-02 07:35:53,217 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via 149.154.166.110 after api.telegram.org failed: ConnectError('')
 2026-10-02 07:35:53,217 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
 2026-10-02 07:40:35,063 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (712 chars)
+2026-10-02 07:54:43,376 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-10-02 07:54:43,377 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-10-02 07:54:43,841 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
