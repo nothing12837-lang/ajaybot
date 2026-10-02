@@ -32,7 +32,7 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-01T11:21:09.852019+00:00",
-      "next_run_at": "2026-10-02T17:00:00+00:00",
+      "next_run_at": "2026-10-02T18:00:00+00:00",
       "last_run_at": "2026-10-02T16:24:56.036532+00:00",
       "last_status": "error",
       "last_error": "Gateway shutdown (post-interrupt) killed the job's tool subprocess before the run finished.",
@@ -51,12 +51,15 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-02T16:00:00+00:00",
-        "dispatched_at": "2026-10-02T16:00:22.845649+00:00",
-        "lateness_seconds": 22.8,
+        "scheduled_at": "2026-10-02T17:00:00+00:00",
+        "dispatched_at": "2026-10-02T17:00:56.949149+00:00",
+        "lateness_seconds": 56.9,
         "kind": "on_time"
       },
-      "fire_claim": null
+      "fire_claim": {
+        "at": "2026-10-02T17:01:57.159750+00:00",
+        "by": "runnervm8df0l:5985:3e57a5a31caf49599e6af7999f38a476"
+      }
     },
     {
       "id": "abad8f0099ec",
@@ -175,5 +178,5 @@
       }
     }
   ],
-  "updated_at": "2026-10-02T16:24:56.037357+00:00"
+  "updated_at": "2026-10-02T17:01:57.160117+00:00"
 }
