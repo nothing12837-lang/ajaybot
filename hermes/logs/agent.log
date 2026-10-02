@@ -12960,3 +12960,25 @@ openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'd
 2026-10-02 17:52:10,152 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=383508->369236 rss_anon_kib=341192->326920 threads=25 duration_ms=139.9
 2026-10-02 17:53:10,318 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=380024->369244 rss_anon_kib=337708->326928 threads=25 duration_ms=158.5
 2026-10-02 17:54:10,477 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=387308->370120 rss_anon_kib=344992->327772 threads=25 duration_ms=149.0
+2026-10-02 17:55:10,634 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=373988->369988 rss_anon_kib=331672->327672 threads=25 duration_ms=148.5
+2026-10-02 17:55:27,903 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (32 chars)
+2026-10-02 17:55:27,911 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Ajay bot trads kiu nhi le Raha ?' reply_to_id=7232 reply_to_text='Real‑time? – Bilkul samajhti hoon, Ajay.   Abhi jo data dikha rahi hoon, wo “nea'
+2026-10-02 17:55:27,935 INFO [20261002_054424_843c7bcb] agent.turn_context: conversation turn: session=20261002_054424_843c7bcb model=nvidia/nemotron-3-super-120b-a12b provider=nvidia platform=telegram history=36 msg='[Replying to: "Real‑time? – Bilkul samajhti hoon, Ajay.   Abhi jo data dikha rah...'
+2026-10-02 17:55:43,803 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #24: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=34295 out=844 total=35139 latency=15.9s id=chatcmpl-0e6f8562-b176-4f63-aa9b-d44ba197af25
+2026-10-02 17:55:43,963 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 1063 chars)
+2026-10-02 17:55:59,203 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #25: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=35015 out=397 total=35412 latency=15.2s id=chatcmpl-1ce3fd72-7431-478e-be42-92a7c03ce989
+2026-10-02 17:55:59,212 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 1932 chars)
+2026-10-02 17:56:03,642 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #26: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=35691 out=579 total=36270 latency=4.4s id=chatcmpl-9129f5fc-619f-4f44-b8a6-c78d463aca1e
+2026-10-02 17:56:03,653 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 563 chars)
+2026-10-02 17:56:10,791 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=377180->370724 rss_anon_kib=334864->328376 threads=29 duration_ms=149.7
+2026-10-02 17:57:06,746 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #27: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=36366 out=1099 total=37465 latency=63.1s id=chatcmpl-7c8067f9-9535-4a4f-a024-f3cd43771ad7
+2026-10-02 17:57:06,757 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 3410 chars)
+2026-10-02 17:57:10,953 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=372864->370196 rss_anon_kib=330548->327848 threads=30 duration_ms=154.4
+2026-10-02 17:57:54,110 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #28: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=37908 out=1013 total=38921 latency=47.3s cache=34688/37908 (92%) id=chatcmpl-0a281f89-2130-468f-ae79-9a67b14f7b47
+2026-10-02 17:57:54,169 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.05s, 597 chars)
+2026-10-02 17:58:11,113 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=374560->370696 rss_anon_kib=332244->328380 threads=30 duration_ms=151.1
+2026-10-02 17:58:34,815 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #29: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=38405 out=934 total=39339 latency=40.6s cache=34688/38405 (90%) id=chatcmpl-94f88a79-0c59-4fad-ae52-d7ba3dfd57a5
+2026-10-02 17:58:34,826 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 970 chars)
+2026-10-02 17:59:11,273 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=373984->370072 rss_anon_kib=331668->327756 threads=29 duration_ms=149.5
+2026-10-02 17:59:55,512 INFO tui_gateway.server: Reclaimed 1 orphaned active-session lease(s)
+2026-10-02 18:00:11,430 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=383016->370096 rss_anon_kib=340700->327780 threads=29 duration_ms=149.7
