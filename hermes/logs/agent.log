@@ -9132,3 +9132,12 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 07:46:44,185 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=379132->377396 rss_anon_kib=337500->335764 threads=29 duration_ms=172.7
 2026-10-02 07:47:44,367 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=379176->377076 rss_anon_kib=337544->335444 threads=26 duration_ms=172.3
 2026-10-02 07:48:44,541 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=379028->376960 rss_anon_kib=337396->335328 threads=26 duration_ms=167.0
+2026-10-02 07:49:44,723 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=380620->377524 rss_anon_kib=338988->335892 threads=26 duration_ms=175.2
+2026-10-02 07:50:44,908 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=379232->377524 rss_anon_kib=337600->335892 threads=26 duration_ms=177.7
+2026-10-02 07:51:45,078 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=385144->377792 rss_anon_kib=343512->336160 threads=26 duration_ms=161.7
+2026-10-02 07:52:45,249 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=392560->378344 rss_anon_kib=350928->336712 threads=26 duration_ms=161.4
+2026-10-02 07:53:45,432 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=400572->378460 rss_anon_kib=358940->336828 threads=26 duration_ms=176.1
+2026-10-02 07:54:43,376 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-10-02 07:54:43,377 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-10-02 07:54:43,841 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
+2026-10-02 07:54:45,603 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=380240->377900 rss_anon_kib=338608->336268 threads=26 duration_ms=163.9
