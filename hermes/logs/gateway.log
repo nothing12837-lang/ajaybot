@@ -1705,3 +1705,4 @@
 2026-10-02 11:43:06,606 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Kya kya work hai tumhare pass ?' reply_to_id=None reply_to_text=''
 2026-10-02 11:43:06,614 INFO gateway.run: Rehydrated persisted /model override for session=agent:main:telegram:dm:5238068527: model=z-ai/glm-5.3 provider=nvidia
 2026-10-02 11:45:18,360 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (131 chars)
+2026-10-02 11:50:45,723 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=always, user=Ajay)
