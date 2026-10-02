@@ -19,7 +19,7 @@ delta:
   api_key: ''
   api_secret: ''
   base_url: https://api.india.delta.exchange
-  leverage: 15
+  leverage: 12
   testnet: true
 gemini_api_key: ''
 mode: paper
@@ -46,64 +46,64 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 3
-  min_confidence: 0.3
+  min_confidence: 0.35
   min_contracts: 1
   resolution: 5m
-  risk_per_trade: 0.01
+  risk_per_trade: 0.008
   symbol: BTCUSD
 - contract_size: 0.01
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 3
-  min_confidence: 0.3
+  min_confidence: 0.35
   min_contracts: 1
   resolution: 5m
-  risk_per_trade: 0.01
+  risk_per_trade: 0.008
   symbol: ETHUSD
 - contract_size: 1
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.3
+  min_confidence: 0.35
   min_contracts: 1
   resolution: 5m
-  risk_per_trade: 0.01
+  risk_per_trade: 0.008
   symbol: SOLUSD
 - contract_size: 100
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.3
+  min_confidence: 0.35
   min_contracts: 1
   resolution: 5m
-  risk_per_trade: 0.01
+  risk_per_trade: 0.008
   symbol: DOGEUSD
 - contract_size: 1
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.3
+  min_confidence: 0.35
   min_contracts: 1
   resolution: 5m
-  risk_per_trade: 0.01
+  risk_per_trade: 0.008
   symbol: XRPUSD
 - contract_size: 1000
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.3
+  min_confidence: 0.35
   min_contracts: 1
   resolution: 5m
-  risk_per_trade: 0.01
+  risk_per_trade: 0.008
   symbol: DOGSUSD
 - contract_size: 1
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.3
+  min_confidence: 0.35
   min_contracts: 1
   resolution: 5m
-  risk_per_trade: 0.01
+  risk_per_trade: 0.008
   symbol: AVAXUSD
 telegram:
   alert_risk: true
