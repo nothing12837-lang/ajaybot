@@ -1818,3 +1818,11 @@
 2026-10-02 17:40:27,997 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Now se what  you have every job ?' reply_to_id=None reply_to_text=''
 2026-10-02 17:41:47,998 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=80.0s api_calls=5 response=2826 chars
 2026-10-02 17:41:48,006 INFO gateway.platforms.base: [Telegram] Sending response (2826 chars) to 5238068527
+2026-10-02 17:43:54,414 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (42 chars)
+2026-10-02 17:43:54,419 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Keep active and tell ajay bot performance?' reply_to_id=None reply_to_text=''
+2026-10-02 17:45:07,447 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=73.0s api_calls=7 response=2778 chars
+2026-10-02 17:45:07,491 INFO gateway.platforms.base: [Telegram] Sending response (2778 chars) to 5238068527
+2026-10-02 17:47:06,063 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (22 chars)
+2026-10-02 17:47:06,068 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Is it realtime data ,?' reply_to_id=None reply_to_text=''
+2026-10-02 17:48:21,066 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=75.0s api_calls=2 response=2671 chars
+2026-10-02 17:48:21,085 INFO gateway.platforms.base: [Telegram] Sending response (2671 chars) to 5238068527
