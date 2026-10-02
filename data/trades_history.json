@@ -115,31 +115,5 @@
     "pnl_pct": -0.04138642464780357,
     "regime": "strong_trend_up",
     "confidence": 0.18000000000000002
-  },
-  {
-    "symbol": "ETHUSD",
-    "side": "short",
-    "entry_price": 2699.879985,
-    "exit_price": 2666.20818503,
-    "size": 90.82471299993283,
-    "entry_time": 1790964182296,
-    "exit_time": 1790971507183,
-    "pnl": 27.90316992278751,
-    "pnl_pct": 0.00011379024966575643,
-    "regime": "strong_trend_down",
-    "confidence": 0.3305891868785473
-  },
-  {
-    "symbol": "BTCUSD",
-    "side": "short",
-    "entry_price": 84574.04175,
-    "exit_price": 85372.0,
-    "size": 14.497109260589877,
-    "entry_time": 1790964182262,
-    "exit_time": 1790971509999,
-    "pnl": -12.923777707006481,
-    "pnl_pct": -1.0540737098862868e-05,
-    "regime": "strong_trend_down",
-    "confidence": 0.32825002547301274
   }
 ]
