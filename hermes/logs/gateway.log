@@ -1812,3 +1812,9 @@
 2026-10-02 17:36:29,624 INFO gateway.platforms.base: [Telegram] Sending response (2492 chars) to 5238068527
 2026-10-02 17:37:32,641 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (22 chars)
 2026-10-02 17:37:32,645 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Do everything yourself' reply_to_id=None reply_to_text=''
+2026-10-02 17:39:05,483 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=92.8s api_calls=4 response=2556 chars
+2026-10-02 17:39:05,491 INFO gateway.platforms.base: [Telegram] Sending response (2556 chars) to 5238068527
+2026-10-02 17:40:27,990 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (33 chars)
+2026-10-02 17:40:27,997 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Now se what  you have every job ?' reply_to_id=None reply_to_text=''
+2026-10-02 17:41:47,998 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=80.0s api_calls=5 response=2826 chars
+2026-10-02 17:41:48,006 INFO gateway.platforms.base: [Telegram] Sending response (2826 chars) to 5238068527
