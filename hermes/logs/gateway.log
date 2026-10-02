@@ -1206,54 +1206,63 @@
 2026-10-02 03:17:54,621 INFO gateway.run: Shutdown phase: notify_active_sessions done at +0.00s
 2026-10-02 03:17:54,621 INFO gateway.run: Shutdown drain: 1 in-flight cron job(s) — waiting up to 30s for them (cron_drain_timeout=30s, restart_drain_timeout=0s)
 2026-10-02 03:18:01,612 ERROR gateway.run: Fatal-error handling for telegram timed out after 7.0s; ensuring reconnect queue is populated
-2026-10-02 05:11:07,836 INFO gateway.control_socket: Gateway control socket listening at /home/runner/work/ajaybot/ajaybot/hermes-home/gateway.sock
-2026-10-02 05:11:07,959 INFO gateway.run: Starting Hermes Gateway...
-2026-10-02 05:11:07,959 INFO gateway.run: Session storage: /home/runner/work/ajaybot/ajaybot/hermes-home/sessions
-2026-10-02 05:11:07,973 INFO gateway.run: Agent budget: max_iterations=200 (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
-2026-10-02 05:11:07,973 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
-2026-10-02 05:11:08,019 INFO gateway.run: Connecting to telegram...
-2026-10-02 05:11:08,050 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-2026-10-02 05:11:08,337 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
-2026-10-02 05:11:08,337 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
-2026-10-02 05:11:08,356 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
-2026-10-02 05:11:08,714 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-10-02 05:11:08,826 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Cold boot: dropping Telegram updates queued while offline (platforms.telegram.extra.drop_pending_on_cold_boot: true)
-2026-10-02 05:11:09,995 INFO gateway.run: Model context warmed: moonshotai/kimi-k3 -> 1048576 tokens (detected)
-2026-10-02 05:11:09,996 INFO gateway.run: Turn machinery warmed in 2.0s (25 tool schema(s) materialized)
-2026-10-02 05:11:19,276 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
-2026-10-02 05:11:19,277 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 1)
-2026-10-02 05:11:19,279 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
-2026-10-02 05:11:19,304 INFO gateway.run: ✓ telegram connected
-2026-10-02 05:11:19,933 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeDefault (60 cmds)
-2026-10-02 05:11:19,953 INFO gateway.run: Gateway running with 1 platform(s)
-2026-10-02 05:11:19,961 INFO gateway.run: Channel directory built: 1 target(s)
-2026-10-02 05:11:20,039 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-10-02 05:11:20,253 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllPrivateChats (60 cmds)
-2026-10-02 05:11:20,562 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllGroupChats (60 cmds)
-2026-10-02 05:11:20,562 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram menu: 60 commands registered, 8 hidden (over 60 limit). Use /commands for full list.
-2026-10-02 05:11:20,970 INFO gateway.run: Press Ctrl+C to stop
-2026-10-02 05:11:20,974 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/home/runner/work/ajaybot/ajaybot/hermes-home/kanban/.dispatcher.lock)
-2026-10-02 05:11:20,974 INFO gateway.run: kanban dispatcher: kanban.max_in_progress unset; using memory-derived default max_in_progress=8 (set kanban.max_in_progress in config.yaml to override)
-2026-10-02 05:11:20,983 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
-2026-10-02 05:11:20,989 INFO gateway.run: Gateway housekeeping started (interval=60s)
-2026-10-02 05:11:25,975 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
-2026-10-02 05:11:44,761 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
-2026-10-02 05:11:49,371 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-10-02 05:12:21,040 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 2/5; health pending getUpdates progress
-2026-10-02 05:12:31,359 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 3)
-2026-10-02 05:12:34,709 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-10-02 05:12:59,355 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
-2026-10-02 05:13:03,930 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-10-02 05:13:40,064 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 2/5; health pending getUpdates progress
-2026-10-02 05:13:41,845 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (3/5) — previous session still held open on Telegram's servers. Waiting 40s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-10-02 05:14:26,543 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 3/5; health pending getUpdates progress
-2026-10-02 05:14:27,562 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 6)
-2026-10-02 05:14:27,746 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (30 chars)
-2026-10-02 05:14:27,758 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='what aboute tarding 10.30 one?' reply_to_id=None reply_to_text=''
-2026-10-02 05:14:27,760 WARNING gateway.session: gateway.session: routing key 'agent:main:telegram:dm:5238068527' -> 20261001_215600_58fdbe9f is ended in state.db but still live in sessions.json; dropping stale entry and recovering/recreating the session (#54878)
-2026-10-02 05:14:46,621 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
-2026-10-02 05:14:47,001 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=19.2s api_calls=4 response=32 chars
-2026-10-02 05:14:47,016 INFO gateway.platforms.base: [Telegram] Sending response (32 chars) to 5238068527
-2026-10-02 05:15:08,273 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
-2026-10-02 05:15:18,600 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 7)
-2026-10-02 05:15:27,375 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:13:02,953 INFO gateway.control_socket: Gateway control socket listening at /home/runner/work/ajaybot/ajaybot/hermes-home/gateway.sock
+2026-10-02 05:13:03,085 INFO gateway.run: Starting Hermes Gateway...
+2026-10-02 05:13:03,086 INFO gateway.run: Session storage: /home/runner/work/ajaybot/ajaybot/hermes-home/sessions
+2026-10-02 05:13:03,104 INFO gateway.run: Agent budget: max_iterations=200 (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-10-02 05:13:03,104 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-10-02 05:13:03,168 INFO gateway.run: Connecting to telegram...
+2026-10-02 05:13:03,202 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-10-02 05:13:03,488 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-10-02 05:13:03,488 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
+2026-10-02 05:13:03,507 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-10-02 05:13:03,969 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 05:13:04,238 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Cold boot: dropping Telegram updates queued while offline (platforms.telegram.extra.drop_pending_on_cold_boot: true)
+2026-10-02 05:13:05,276 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 05:13:05,279 ERROR hermes_plugins.platforms__telegram.adapter: [Telegram] Failed to connect to Telegram: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:13:05,280 WARNING gateway.run: ✗ telegram failed to connect
+2026-10-02 05:13:05,310 INFO gateway.run: Model context warmed: moonshotai/kimi-k3 -> 1048576 tokens (detected)
+2026-10-02 05:13:05,312 INFO gateway.run: Turn machinery warmed in 2.1s (25 tool schema(s) materialized)
+2026-10-02 05:13:09,735 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Disconnected from Telegram
+2026-10-02 05:13:09,740 WARNING gateway.run: Gateway started with no connected platforms — 1 platform(s) queued for retry: telegram: Telegram startup failed: Telegram polling errored before first getUpdates success during initial connect: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:13:09,741 WARNING gateway.run: No adapter could be created for any of the 1 configured platform(s). Check that required dependencies are installed and credentials are set. Gateway will continue for cron job execution.
+2026-10-02 05:13:10,580 INFO gateway.run: Channel directory built: 0 target(s)
+2026-10-02 05:13:10,584 INFO gateway.run: Starting reconnection watcher for 1 failed platform(s): telegram
+2026-10-02 05:13:10,587 INFO gateway.run: Press Ctrl+C to stop
+2026-10-02 05:13:10,591 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/home/runner/work/ajaybot/ajaybot/hermes-home/kanban/.dispatcher.lock)
+2026-10-02 05:13:10,592 INFO gateway.run: kanban dispatcher: kanban.max_in_progress unset; using memory-derived default max_in_progress=8 (set kanban.max_in_progress in config.yaml to override)
+2026-10-02 05:13:10,602 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-10-02 05:13:10,610 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-10-02 05:13:15,593 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-10-02 05:13:40,617 INFO gateway.run: Reconnecting telegram (attempt 2)...
+2026-10-02 05:13:40,624 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-10-02 05:13:40,658 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-10-02 05:13:40,658 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
+2026-10-02 05:13:40,669 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-10-02 05:13:41,101 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 05:13:41,396 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-10-02 05:13:41,410 INFO gateway.run: ⚠ telegram reconnected in degraded mode (receive path not yet confirmed)
+2026-10-02 05:13:41,991 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeDefault (60 cmds)
+2026-10-02 05:13:42,327 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllPrivateChats (60 cmds)
+2026-10-02 05:13:42,693 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllGroupChats (60 cmds)
+2026-10-02 05:13:42,693 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram menu: 60 commands registered, 8 hidden (over 60 limit). Use /commands for full list.
+2026-10-02 05:13:46,214 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 05:13:46,216 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:14:08,117 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-02 05:14:18,548 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 2)
+2026-10-02 05:14:25,375 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:14:50,345 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-02 05:14:55,039 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (2/5) — previous session still held open on Telegram's servers. Waiting 30s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:15:26,931 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 2/5; health pending getUpdates progress
+2026-10-02 05:15:29,503 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 4)
+2026-10-02 05:15:29,686 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (20 chars)
+2026-10-02 05:15:29,695 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='What the hell it iis' reply_to_id=6930 reply_to_text='!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+2026-10-02 05:15:29,696 WARNING gateway.session: gateway.session: routing key 'agent:main:telegram:dm:5238068527' -> 20261001_215600_58fdbe9f is ended in state.db but still live in sessions.json; dropping stale entry and recovering/recreating the session (#54878)
+2026-10-02 05:15:30,435 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:15:52,018 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-02 05:15:57,562 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 5)
+2026-10-02 05:15:57,563 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=session, user=Ajay)
+2026-10-02 05:16:07,401 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-02 05:16:28,984 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling restarted after conflict retry 1/5; health pending getUpdates progress
+2026-10-02 05:16:39,443 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 6)
+2026-10-02 05:16:46,495 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling conflict (1/5) — previous session still held open on Telegram's servers. Waiting 20s for it to expire. Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
