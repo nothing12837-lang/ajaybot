@@ -16,7 +16,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 3
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 0.001
     min_contracts: 1
   - symbol: ETHUSD
@@ -25,7 +25,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 3
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 0.01
     min_contracts: 1
   - symbol: SOLUSD
@@ -34,7 +34,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1
     min_contracts: 1
   - symbol: DOGEUSD
@@ -43,7 +43,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 100
     min_contracts: 1
 
@@ -53,7 +53,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1
     min_contracts: 1
 
@@ -63,7 +63,7 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1000
     min_contracts: 1
   - symbol: AVAXUSD
@@ -72,13 +72,13 @@ symbols:
     lookback: 200
     risk_per_trade: 0.02
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1
     min_contracts: 1
 
 risk:
   max_daily_loss_pct: 0.05
-  max_dd_kill_pct: 0.20
+  max_dd_kill_pct: 0.10
   max_position_pct: 0.25
   max_correlated_risk_pct: 0.10
   consecutive_loss_pause: 4
@@ -87,6 +87,8 @@ risk:
   maker_fee_pct: 0.0002
   taker_fee_pct: 0.0005
   slippage_pct: 0.0001
+  monthly_target_pct: 0.08
+  min_trades_per_month: 10
 
 telegram:
   enabled: true
