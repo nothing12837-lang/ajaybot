@@ -4,7 +4,7 @@
 - **Assistant:** Radha (राधा) — running on Telegram `@AiRadhabot` via Hermes Gateway on Render.
 - **Goal:** Passive income via automated trading bot, financial independence from 9-5.
 - **Cloud Architecture (Needs Laptop: False):**
-  - Render Free Web Service: `hermes-gateway-wib4.onrender.com` (Uptime 24/7, low RAM <350MB).
+  - Render Free Web Service: `[DEPRECATED: hermes-gateway-wib4.onrender.com - Render service removed]` ([DEPRECATED] Was running on Render).
   - GitHub Actions: `nothing12837-lang/ajaybot` (Runs paper trading every 15 min, monitor every 30 min, daily report at 10:30 AM IST).
   - GitHub Sync: `sync_github.py push-hermes` / `pull-hermes` → `bot-state` branch (single source of truth for all Hermes memory, DBs, cron jobs, bot state).
 - **Trading Bot (AjayBot):**
