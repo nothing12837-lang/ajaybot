@@ -15,3 +15,5 @@ AjayBot trading system workflows: ajaybot-paper (every 2 hours), ajaybot-monitor
 Critical GitHub secrets in nothing12837-lang/ajaybot: GEMINI_API_KEY, DELTA_API_KEY, DELTA_API_SECRET, TELEGRAM_BOT_TOKEN, GH_PAT, HF_TOKEN, NVIDIA_API_KEY, TELEGRAM_ALLOWED_USERS.
 §
 Hermes Gateway URL: https://hermes-gateway-wib4.onrender.com (hosted on Render). GitHub repository: nothing12837-lang/ajaybot (private).
+§
+VIEW_CURRENT
