@@ -14,36 +14,36 @@ symbols:
     resolution: 5m
     htf_resolution: 15m
     lookback: 200
-    risk_per_trade: 0.02
+    risk_per_trade: 0.015
     max_concurrent: 3
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 0.001
     min_contracts: 1
   - symbol: ETHUSD
     resolution: 5m
     htf_resolution: 15m
     lookback: 200
-    risk_per_trade: 0.02
+    risk_per_trade: 0.015
     max_concurrent: 3
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 0.01
     min_contracts: 1
   - symbol: SOLUSD
     resolution: 5m
     htf_resolution: 15m
     lookback: 200
-    risk_per_trade: 0.02
+    risk_per_trade: 0.015
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1
     min_contracts: 1
   - symbol: DOGEUSD
     resolution: 5m
     htf_resolution: 15m
     lookback: 200
-    risk_per_trade: 0.02
+    risk_per_trade: 0.015
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 100
     min_contracts: 1
 
@@ -51,9 +51,9 @@ symbols:
     resolution: 5m
     htf_resolution: 15m
     lookback: 200
-    risk_per_trade: 0.02
+    risk_per_trade: 0.015
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1
     min_contracts: 1
 
@@ -61,33 +61,35 @@ symbols:
     resolution: 5m
     htf_resolution: 15m
     lookback: 200
-    risk_per_trade: 0.02
+    risk_per_trade: 0.015
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1000
     min_contracts: 1
   - symbol: AVAXUSD
     resolution: 5m
     htf_resolution: 15m
     lookback: 200
-    risk_per_trade: 0.02
+    risk_per_trade: 0.015
     max_concurrent: 2
-    min_confidence: 0.08
+    min_confidence: 0.20
     contract_size: 1
     min_contracts: 1
 
 risk:
-  max_daily_loss_pct: 0.05
-  max_dd_kill_pct: 0.20
+  max_daily_loss_pct: 0.03
+  max_dd_kill_pct: 0.10
   max_position_pct: 0.25
   max_correlated_risk_pct: 0.10
-  consecutive_loss_pause: 4
+  consecutive_loss_pause: 3
   consecutive_loss_pause_hours: 1
   paper_equity: 10000.0
   maker_fee_pct: 0.0002
   taker_fee_pct: 0.0005
   slippage_pct: 0.0001
 
+  monthly_target_pct: 0.08  # 8% monthly target
+  min_trades_per_month: 10  # Minimum 10 trades per month
 telegram:
   enabled: true
   bot_token: ""  # from env TELEGRAM_BOT_TOKEN
