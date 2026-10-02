@@ -1792,3 +1792,8 @@
 2026-10-02 16:30:49,527 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (3 chars)
 2026-10-02 16:30:49,570 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Hlo' reply_to_id=None reply_to_text=''
 2026-10-02 16:30:49,584 INFO gateway.run: Rehydrated persisted /model override for session=agent:main:telegram:dm:5238068527: model=z-ai/glm-5.3 provider=nvidia
+2026-10-02 16:34:48,418 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=238.8s api_calls=1 response=516 chars
+2026-10-02 16:34:48,432 INFO gateway.platforms.base: [Telegram] Sending response (516 chars) to 5238068527
+2026-10-02 16:35:13,191 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (32 chars)
+2026-10-02 16:35:13,197 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Ha toh hum kya baat kar rhe the?' reply_to_id=None reply_to_text=''
+2026-10-02 16:38:15,489 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=always, user=Ajay)
