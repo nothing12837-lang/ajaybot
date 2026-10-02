@@ -1738,3 +1738,5 @@
 2026-10-02 13:02:53,378 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
 2026-10-02 13:02:53,378 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
 2026-10-02 13:02:53,990 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
+2026-10-02 13:08:08,671 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=361.2s api_calls=6 response=3179 chars
+2026-10-02 13:08:08,679 INFO gateway.platforms.base: [Telegram] Sending response (3179 chars) to 5238068527
