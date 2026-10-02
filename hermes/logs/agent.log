@@ -6443,3 +6443,58 @@ openai.NotFoundError: 404 page not found
 2026-10-02 06:32:31,383 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=361640->346120 rss_anon_kib=320072->304552 threads=21 duration_ms=178.1
 2026-10-02 06:32:39,392 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=always, user=Ajay)
 2026-10-02 06:32:39,525 WARNING [20261002_054424_843c7bcb] agent.tool_executor: Tool execute_code returned error (41.48s): {"status": "error", "output": "\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/ajaybot/ajaybot/hermes-home/cache/scratch/hermes_kernel__cjij749/hermes_kernel_runner.py
+2026-10-02 06:33:28,987 INFO tui_gateway.server: Reclaimed 1 orphaned active-session lease(s)
+2026-10-02 06:33:31,571 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=364620->347240 rss_anon_kib=322988->305608 threads=24 duration_ms=172.8
+2026-10-02 06:34:31,756 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=349488->347620 rss_anon_kib=307856->305988 threads=24 duration_ms=178.1
+2026-10-02 06:35:00,554 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #3: model=z-ai/glm-5.3 provider=nvidia in=17423 out=278 total=17701 latency=141.0s cache=8256/17423 (47%) id=chatcmpl-1b53a328-d1a3-47de-bd05-1105ea21790d
+2026-10-02 06:35:00,673 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 590 chars)
+2026-10-02 06:35:31,936 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=350996->348316 rss_anon_kib=309364->306684 threads=25 duration_ms=173.0
+2026-10-02 06:35:36,112 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #4: model=z-ai/glm-5.3 provider=nvidia in=17837 out=221 total=18058 latency=35.4s cache=16768/17837 (94%) id=chatcmpl-1c1698e6-5f39-4a93-a06e-3b70fdfe5d19
+2026-10-02 06:35:38,107 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (1.99s, 51185 chars)
+2026-10-02 06:36:00,549 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #5: model=z-ai/glm-5.3 provider=nvidia in=36155 out=698 total=36853 latency=22.4s cache=1920/36155 (5%) id=chatcmpl-0e0d323b-cd04-430b-adf8-85859aeebfa1
+2026-10-02 06:36:00,562 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 2523 chars)
+2026-10-02 06:36:00,565 INFO agent.conversation_compression: context compression started: session=20261002_054424_843c7bcb messages=20 tokens=~37,549 model=z-ai/glm-5.3 focus=None
+2026-10-02 06:36:00,573 INFO agent.context_compressor: Compression summary call dispatched: model=z-ai/glm-5.3 prompt_chars=8,609 prompt_build_ms=0
+2026-10-02 06:36:00,579 INFO agent.auxiliary_client: Auxiliary compression: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 06:36:00,691 WARNING agent.context_compressor: Summary model 'nvidia/llama-3.1-nemotron-70b-instruct' unavailable (Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}). Falling back to main model 'z-ai/glm-5.3' for compression.
+2026-10-02 06:36:00,692 INFO agent.context_compressor: Compression summary call dispatched: model=z-ai/glm-5.3 prompt_chars=8,609 prompt_build_ms=0
+2026-10-02 06:36:00,694 INFO agent.auxiliary_client: Auxiliary compression: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 06:36:00,762 WARNING agent.context_compressor: Failed to generate context summary: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}. Further summary attempts paused for 60 seconds.
+2026-10-02 06:36:00,769 WARNING agent.conversation_compression_reply_anchor: Compression: engine folded away the just-delivered assistant reply and left a non-matching assistant row at its slot; not reinserting it to keep strict role alternation (session=20261002_054424_843c7bcb).
+2026-10-02 06:36:00,772 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,773 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,774 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,775 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,777 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,779 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,780 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,781 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,782 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,783 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,784 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,787 INFO tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,789 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,790 INFO tools.registry: check_fn <lambda> returned False; dependent tools will be unavailable this turn
+2026-10-02 06:36:00,803 WARNING agent.auxiliary_unavailable: Auxiliary Nous client unavailable: Nous Portal runtime credentials unavailable: Hermes is not logged into Nous Portal. Run `hermes model` to re-authenticate. (code: nous_auth_missing)
+2026-10-02 06:36:00,803 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-02 06:36:00,804 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-02 06:36:00,808 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-02 06:36:00,808 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-02 06:36:00,809 WARNING tools.registry: check_fn check_vision_requirements returned False; previously available core tool(s) vision_analyze dropped (non-deferrable, so not searchable either); dependent tools will be unavailable this turn
+2026-10-02 06:36:00,835 INFO tools.tool_search: tool_search activated (tier 1): 21 core/visible tools kept, 4 deferred (~3400 tokens), listing full (budget ~4000 tokens)
+2026-10-02 06:36:00,850 INFO agent.conversation_compression: Compression salvage recovered a shrinking transcript (session=20261002_054424_843c7bcb, ~20,421 -> ~17,707 tokens)
+2026-10-02 06:36:00,862 INFO agent.conversation_compression: context compression done: session=20261002_054424_843c7bcb messages=20->13 rough_tokens=~31,863 awaiting_real_usage=true
+2026-10-02 06:36:00,862 INFO agent.conversation_compression: context compression attempt telemetry: {"attempt_id":"20e3bdf9527545f39b552a7acb7e27c6","chunk_count":0,"chunking":false,"commit_ms":13,"commit_status":"committed","event":"compression_attempt","fallback_used":false,"session_id":"20261002_054424_843c7bcb","split_status":"in_place_committed","total_duration_ms":297}
+2026-10-02 06:36:14,630 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #6: model=z-ai/glm-5.3 provider=nvidia in=35875 out=258 total=36133 latency=13.8s cache=8320/35875 (23%) id=chatcmpl-16c56d9f-ecf8-4fdb-b854-6926d9b29861
+2026-10-02 06:36:14,640 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 4065 chars)
+2026-10-02 06:36:19,829 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #7: model=z-ai/glm-5.3 provider=nvidia in=37805 out=126 total=37931 latency=5.2s cache=35840/37805 (95%) id=chatcmpl-866a97fc-644d-4af6-b498-8c9f7ec6ca09
+2026-10-02 06:36:19,837 INFO tools.file_tools: Creating new local environment for task session:...
+2026-10-02 06:36:20,093 INFO tools.environments.base: Session snapshot created (session=84e71cbd2941, cwd=/home/runner)
+2026-10-02 06:36:20,094 INFO tools.file_tools: local environment ready for task session:
+2026-10-02 06:36:20,103 INFO agent.tool_executor: tool read_file completed (0.27s, 4844 chars)
+2026-10-02 06:36:20,103 INFO agent.tool_executor: tool read_file completed (0.27s, 2465 chars)
+2026-10-02 06:36:32,111 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=354992->350772 rss_anon_kib=313360->309140 threads=28 duration_ms=168.2
+2026-10-02 06:36:34,409 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #8: model=z-ai/glm-5.3 provider=nvidia in=40152 out=250 total=40402 latency=14.3s cache=37760/40152 (94%) id=chatcmpl-ceee275a-4221-415d-a096-31404060a58b
+2026-10-02 06:36:34,431 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.02s, 1149 chars)
+2026-10-02 06:36:34,439 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool read_file completed (0.01s, 6217 chars)
+2026-10-02 06:37:32,278 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=355144->351228 rss_anon_kib=313512->309596 threads=27 duration_ms=158.0
