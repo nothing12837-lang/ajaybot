@@ -32,7 +32,7 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-01T11:21:09.852019+00:00",
-      "next_run_at": "2026-10-02T12:00:00+00:00",
+      "next_run_at": "2026-10-02T13:00:00+00:00",
       "last_run_at": "2026-10-02T11:37:26.384402+00:00",
       "last_status": "error",
       "last_error": "RuntimeError: HTTP 404: 404 page not found",
@@ -51,12 +51,15 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-02T11:00:00+00:00",
-        "dispatched_at": "2026-10-02T11:00:22.845017+00:00",
+        "scheduled_at": "2026-10-02T12:00:00+00:00",
+        "dispatched_at": "2026-10-02T12:00:22.845450+00:00",
         "lateness_seconds": 22.8,
         "kind": "on_time"
       },
-      "fire_claim": null
+      "fire_claim": {
+        "at": "2026-10-02T12:01:22.868529+00:00",
+        "by": "runnervm8df0l:6495:e36f4b5eb63c4ce29138cbc04d42b7ab"
+      }
     },
     {
       "id": "abad8f0099ec",
@@ -175,5 +178,5 @@
       }
     }
   ],
-  "updated_at": "2026-10-02T11:37:26.385233+00:00"
+  "updated_at": "2026-10-02T12:01:22.869111+00:00"
 }
