@@ -1740,3 +1740,5 @@
 2026-10-02 13:02:53,990 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
 2026-10-02 13:08:08,671 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=361.2s api_calls=6 response=3179 chars
 2026-10-02 13:08:08,679 INFO gateway.platforms.base: [Telegram] Sending response (3179 chars) to 5238068527
+2026-10-02 13:10:30,187 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (43 chars)
+2026-10-02 13:10:30,191 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Pura dekho aur sab shi karo aur wo trads le' reply_to_id=7101 reply_to_text='Now I have a clear picture. Let me summarize what I found and provide the answer'
