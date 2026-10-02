@@ -9,7 +9,7 @@
 - **Communication Preference:** Short, direct, clear, highly competent. Loves when Radha leads proactively, confirms tasks clearly, and protects his system 24/7.
 - **Active Systems:**
   - AjayBot: Paper trading on Delta India (7 pairs: BTC, ETH, SOL, DOGE, XRP, DOGS, AVAX) running 24/7 via GitHub Actions (`ajaybot-paper.yml`).
-  - Render Gateway: `hermes-gateway-wib4.onrender.com` (running Radha 24/7 on free tier).
+  - Render Gateway: `[DEPRECATED: hermes-gateway-wib4.onrender.com - Render service removed]` (running Radha 24/7 on free tier).
   - HF Dataset: `rareember/ajaybot-state` (synced state & mnemosyne DBs).
 - **Scheduled Reminders & Events:**
   - Daily Morning News Brief: 10:00 AM IST (04:30 UTC).
