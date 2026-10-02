@@ -6570,3 +6570,8 @@ openai.NotFoundError: 404 page not found
 2026-10-02 06:52:45,297 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-65 (<lambda>):140345337697984 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
 2026-10-02 06:53:34,950 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=375528->360212 rss_anon_kib=333896->318548 threads=28 duration_ms=158.7
 2026-10-02 06:54:35,139 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=361872->360212 rss_anon_kib=320240->318548 threads=28 duration_ms=180.9
+2026-10-02 06:55:35,308 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=362280->360520 rss_anon_kib=320648->318856 threads=27 duration_ms=160.3
+2026-10-02 06:56:35,474 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=362320->360356 rss_anon_kib=320688->318724 threads=27 duration_ms=159.3
+2026-10-02 06:57:35,647 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=362400->360680 rss_anon_kib=320768->319016 threads=27 duration_ms=162.1
+2026-10-02 06:58:35,817 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=362492->360624 rss_anon_kib=320860->318960 threads=27 duration_ms=161.7
+2026-10-02 06:59:35,983 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=362420->360620 rss_anon_kib=320788->318956 threads=27 duration_ms=158.7
