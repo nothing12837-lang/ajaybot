@@ -12,3 +12,4 @@
 {"ts": "2026-10-02T10:55:01.646047+00:00", "tag": "gateway.start", "pid": 6495, "python": "3.14.7", "platform": "linux", "replace": false, "argv": ["-c", "gateway", "run"], "stdin_is_tty": false, "console_window_attached": null, "detached": false, "breakaway": null, "absorb_windows_console_controls": false}
 {"ts": "2026-10-02T16:24:57.440997+00:00", "tag": "asyncio.run.returned", "pid": 6495, "python": "3.14.7", "platform": "linux", "success": false}
 {"ts": "2026-10-02T16:24:57.441117+00:00", "tag": "gateway.exit_nonzero", "pid": 6495, "python": "3.14.7", "platform": "linux"}
+{"ts": "2026-10-02T16:29:37.810673+00:00", "tag": "gateway.start", "pid": 5985, "python": "3.14.7", "platform": "linux", "replace": false, "argv": ["-c", "gateway", "run"], "stdin_is_tty": false, "console_window_attached": null, "detached": false, "breakaway": null, "absorb_windows_console_controls": false}
