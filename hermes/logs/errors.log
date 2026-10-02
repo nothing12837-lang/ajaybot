@@ -16871,3 +16871,5 @@ Traceback (most recent call last):
   File "/home/runner/.hermes/hermes-agent/cron/scheduler.py", line 2087, in _final_response_from_result
     raise RuntimeError(result.get("error") or final_response_text or "agent reported failure")
 RuntimeError: HTTP 404: 404 page not found
+2026-10-02 10:47:31,261 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-10-02 10:47:31,262 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
