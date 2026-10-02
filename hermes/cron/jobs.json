@@ -19,8 +19,8 @@
       "context_from": null,
       "schedule": {
         "kind": "cron",
-        "expr": "0 * * * *",
-        "display": "0 * * * *"
+        "expr": "*/10 * * * *",
+        "display": "*/10 * * * *"
       },
       "schedule_display": "0 * * * *",
       "repeat": {
@@ -57,14 +57,14 @@
         "kind": "on_time"
       },
       "fire_claim": {
-        "at": "2026-10-02T18:05:56.997234+00:00",
+        "at": "2026-10-02T18:10:57.039154+00:00",
         "by": "runnervm8df0l:5985:17ef92b615de495cbeb0ef32e4c72c0c"
       }
     },
     {
       "id": "abad8f0099ec",
-      "name": "AjayBot Daily Report",
-      "prompt": "Generate the DAILY AjayBot trading performance report for the last 24h (paper equity, open positions, win rate, net PnL). Read the latest state from Hugging Face dataset rareember/ajaybot-state and craft a clean Telegram-ready summary. Send ONLY the report to chat 5238068527 on Telegram.",
+      "name": "AjayBot Evening Report",
+      "prompt": "Generate the EVENING AjayBot trading performance report for the last 24h (paper equity, open positions, win rate, net PnL). Read the latest state from Hugging Face dataset rareember/ajaybot-state and craft a clean Telegram-ready summary. Send ONLY the report to chat 5238068527 on Telegram.",
       "skills": [],
       "skill": null,
       "model": null,
@@ -80,8 +80,8 @@
       "context_from": null,
       "schedule": {
         "kind": "cron",
-        "expr": "0 5 * * *",
-        "display": "0 5 * * *"
+        "expr": "30 14 * * *",
+        "display": "30 14 * * *"
       },
       "schedule_display": "0 5 * * *",
       "repeat": {
@@ -120,9 +120,9 @@
       }
     },
     {
-      "id": "233e6c7d6f5f",
-      "name": "Morning News Brief",
-      "prompt": "Parse top national, Uttar Pradesh, Punjab, and financial news into a crisp morning brief. Format: bullet points, Hinglish/English mix, under 400 words. Send to Telegram chat 5238068527.",
+      "id": "morning-system-news-b5858b45",
+      "name": "Morning System & News Brief",
+      "prompt": "Generate a concise morning brief: system status (AjayBot equity, win rate, open positions, recent trades, any alerts) + top national, Uttar Pradesh, Punjab, and financial news in Hinglish/English mix, under 400 words. Send to Telegram chat 5238068527.",
       "skills": [],
       "skill": null,
       "model": null,
@@ -138,22 +138,22 @@
       "context_from": null,
       "schedule": {
         "kind": "cron",
-        "expr": "30 4 * * *",
-        "display": "30 4 * * *"
+        "expr": "30 2 * * *",
+        "display": "30 2 * * *"
       },
-      "schedule_display": "30 4 * * *",
+      "schedule_display": "30 2 * * *",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 0
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
-      "created_at": "2026-10-01T11:22:01.157481+00:00",
-      "next_run_at": "2026-10-03T04:30:00+00:00",
-      "last_run_at": "2026-10-02T05:33:00.096361+00:00",
-      "last_status": "ok",
+      "created_at": null,
+      "next_run_at": "2026-10-03T02:30:00+00:00",
+      "last_run_at": null,
+      "last_status": null,
       "last_error": null,
       "last_delivery_error": null,
       "last_delivery_unverified": null,
@@ -170,13 +170,61 @@
       "enabled_toolsets": null,
       "workdir": null,
       "fire_claim": null,
-      "last_dispatch": {
-        "scheduled_at": "2026-10-02T04:30:00+00:00",
-        "dispatched_at": "2026-10-02T05:13:10.855892+00:00",
-        "lateness_seconds": 2590.9,
-        "kind": "late"
-      }
+      "last_dispatch": null
+    },
+    {
+      "id": "evening-summary-7e5f9d94",
+      "name": "Evening Summary & News",
+      "prompt": "Generate an evening summary: day's trading performance (closed trades, PnL, win rate), system health, any issues, and a brief news recap (national, UP, Punjab, financial). Format: Hinglish/English, under 400 words. Send to Telegram chat 5238068527.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": "nvidia",
+      "model_snapshot": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 16 * * *",
+        "display": "30 16 * * *"
+      },
+      "schedule_display": "30 16 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": null,
+      "next_run_at": "2026-10-03T16:30:00+00:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "telegram",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "5238068527",
+        "chat_name": "Ajay Rajbhar",
+        "thread_id": null,
+        "user_id": "5238068527",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null,
+      "last_dispatch": null
     }
   ],
-  "updated_at": "2026-10-02T18:05:56.997473+00:00"
+  "updated_at": "2026-10-02T18:10:57.039411+00:00"
 }
