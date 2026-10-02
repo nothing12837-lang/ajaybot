@@ -124,7 +124,7 @@ ai_analyst:
   enabled: true
   model: "gemini-2.5-flash"
   weight: 0.15
-  min_confidence: 0.6
+  min_confidence: 0.20
 
 optimizer:
   enabled: true
