@@ -9545,3 +9545,130 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 13:42:55,708 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 1644 chars)
 2026-10-02 13:43:19,263 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #65: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=40986 out=1032 total=42018 latency=23.5s id=chatcmpl-b82b784b-7ac2-477d-90a0-b3db3b993fb0
 2026-10-02 13:43:19,275 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 1423 chars)
+2026-10-02 16:29:36,038 INFO hermes_cli.main: Checkout changed since last launch (unknown -> git:refs/heads/main:9eaad2183aa61c83962e3cc3251b7ec35db98b3e): cleared 48 stale __pycache__ directories
+2026-10-02 16:29:36,133 INFO hermes_cli.boot_bootstrap: home maintenance: code changed to 9eaad2183aa6, running steps
+2026-10-02 16:29:36,919 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-10-02 16:29:36,922 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-10-02 16:29:36,924 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-10-02 16:29:37,053 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-10-02 16:29:37,059 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-10-02 16:29:37,067 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-10-02 16:29:37,070 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-10-02 16:29:37,081 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-10-02 16:29:37,086 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-10-02 16:29:37,096 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-10-02 16:29:37,096 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-10-02 16:29:37,109 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-10-02 16:29:37,279 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-10-02 16:29:37,289 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-10-02 16:29:37,297 INFO hermes_cli.plugins: Plugin 'openrouter' registered video_gen provider: openrouter
+2026-10-02 16:29:37,301 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-10-02 16:29:37,360 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-10-02 16:29:37,367 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-10-02 16:29:37,376 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-10-02 16:29:37,411 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-10-02 16:29:37,415 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-10-02 16:29:37,424 INFO hermes_cli.plugins: Plugin 'web-openai-native' registered web provider: openai-native
+2026-10-02 16:29:37,430 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-10-02 16:29:37,447 INFO hermes_cli.plugins: Plugin 'web-perplexity' registered web provider: perplexity
+2026-10-02 16:29:37,452 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-10-02 16:29:37,462 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-10-02 16:29:37,476 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-10-02 16:29:37,479 INFO hermes_cli.plugins: Plugin discovery complete: 58 found, 51 enabled
+2026-10-02 16:29:38,494 INFO hermes_cli.gateway_multiplex_mode: Single-profile install: gateway.multiplex_profiles unset, serving the default profile only.
+2026-10-02 16:29:38,658 INFO gateway.control_socket: Gateway control socket listening at /home/runner/work/ajaybot/ajaybot/hermes-home/gateway.sock
+2026-10-02 16:29:38,772 INFO gateway.run: Starting Hermes Gateway...
+2026-10-02 16:29:38,772 INFO gateway.run: Session storage: /home/runner/work/ajaybot/ajaybot/hermes-home/sessions
+2026-10-02 16:29:38,785 INFO gateway.run: Agent budget: max_iterations=200 (agent.max_turns from config.yaml, else the HERMES_MAX_ITERATIONS bridge)
+2026-10-02 16:29:38,785 INFO gateway.run: Secret redaction: ENABLED (tool output, logs, and chat responses are scrubbed before delivery)
+2026-10-02 16:29:38,826 INFO gateway.platform_registry: Platform 'Telegram' dependencies missing — attempting install...
+2026-10-02 16:29:43,686 INFO gateway.run: Connecting to telegram...
+2026-10-02 16:29:43,700 INFO run_agent: Loaded environment variables from /home/runner/work/ajaybot/ajaybot/hermes-home/.env
+2026-10-02 16:29:43,886 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+2026-10-02 16:29:44,117 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-10-02 16:29:44,118 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram fallback IPs active: 149.154.166.110
+2026-10-02 16:29:44,132 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…
+2026-10-02 16:29:44,477 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 16:29:44,478 INFO telegram.ext.Application: Application started
+2026-10-02 16:29:44,640 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Cold boot: dropping Telegram updates queued while offline (platforms.telegram.extra.drop_pending_on_cold_boot: true)
+2026-10-02 16:29:44,683 INFO tools.registry: check_fn _a2a_tools_available returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:44,689 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:44,690 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:44,690 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:44,691 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:44,692 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,148 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,148 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,149 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,149 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,150 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,151 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,157 INFO tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,157 INFO tools.registry: check_fn check_discord_tool_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,157 INFO tools.registry: check_fn _check_feishu returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,157 INFO tools.registry: check_fn _check_ha_available returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,158 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,160 INFO tools.registry: check_fn <lambda> returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,160 INFO tools.registry: check_fn check_react_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,165 INFO tools.registry: check_fn _check_spotify_available returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,189 INFO agent.auxiliary_client: Vision auto-detect: using main provider google (gemini-3.8-flash)
+2026-10-02 16:29:45,191 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-02 16:29:45,192 INFO tools.registry: check_fn check_video_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,197 INFO agent.auxiliary_client: Vision auto-detect: using main provider google (gemini-3.8-flash)
+2026-10-02 16:29:45,210 INFO agent.credential_pool: credential pool: no available entries (all exhausted or empty)
+2026-10-02 16:29:45,210 INFO tools.registry: check_fn check_x_search_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,211 INFO tools.registry: check_fn _check_xai_video_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,241 INFO tools.registry: check_fn _check_yuanbao returned False; dependent tools will be unavailable this turn
+2026-10-02 16:29:45,279 INFO tools.tool_search: tool_search activated (tier 1): 22 core/visible tools kept, 16 deferred (~6227 tokens), listing full (budget ~4000 tokens)
+2026-10-02 16:29:45,760 INFO gateway.run: Model context warmed: gemini/gemini-3.8-flash -> 1048576 tokens (detected)
+2026-10-02 16:29:45,760 INFO gateway.run: Turn machinery warmed in 2.1s (25 tool schema(s) materialized)
+2026-10-02 16:29:55,089 INFO plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 16:29:55,089 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram polling confirmed healthy: getUpdates progressing (generation 1)
+2026-10-02 16:29:55,091 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)
+2026-10-02 16:29:55,104 INFO gateway.run: ✓ telegram connected
+2026-10-02 16:29:55,711 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeDefault (60 cmds)
+2026-10-02 16:29:55,732 INFO gateway.run: Gateway running with 1 platform(s)
+2026-10-02 16:29:55,879 INFO gateway.run: Channel directory built: 1 target(s)
+2026-10-02 16:29:56,052 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllPrivateChats (60 cmds)
+2026-10-02 16:29:56,377 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] set_my_commands OK for scope BotCommandScopeAllGroupChats (60 cmds)
+2026-10-02 16:29:56,377 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Telegram menu: 60 commands registered, 8 hidden (over 60 limit). Use /commands for full list.
+2026-10-02 16:29:56,889 INFO gateway.run: Press Ctrl+C to stop
+2026-10-02 16:29:56,892 INFO gateway.run: kanban dispatcher: holding singleton dispatcher lock (/home/runner/work/ajaybot/ajaybot/hermes-home/kanban/.dispatcher.lock)
+2026-10-02 16:29:56,893 INFO gateway.run: kanban dispatcher: kanban.max_in_progress unset; using memory-derived default max_in_progress=8 (set kanban.max_in_progress in config.yaml to override)
+2026-10-02 16:29:56,901 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
+2026-10-02 16:29:56,905 INFO cron.scheduler_provider: In-process cron scheduler started (interval=60s)
+2026-10-02 16:29:56,908 INFO cron.scheduler_provider: Multiplex cron scheduler started for 1 profile(s): ['default'] (re-enumerated every cycle)
+2026-10-02 16:29:56,908 INFO gateway.run: Gateway housekeeping started (interval=60s)
+2026-10-02 16:29:56,929 WARNING cron.scheduler_provider: Marked 1 interrupted cron execution(s) for profile at /home/runner/work/ajaybot/ajaybot/hermes-home
+2026-10-02 16:29:57,093 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=302776->269904 rss_anon_kib=270704->237864 threads=15 duration_ms=122.3
+2026-10-02 16:30:01,894 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-10-02 16:30:01,915 WARNING hermes_state: kanban.db (kanban.db): on-disk journal_mode was delete and has been switched to WAL. This rewrites the database header and persists after this process exits. If delete was a deliberate choice (for example the mitigation for the SQLite WAL-reset bug, or a WAL-unsafe filesystem), setting it with PRAGMA on the file will not survive -- every open re-applies the configured mode. Set `database.journal_mode: delete` in config.yaml to make it stick. This message fires once per process per database.
+2026-10-02 16:30:49,527 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (3 chars)
+2026-10-02 16:30:49,570 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Hlo' reply_to_id=None reply_to_text=''
+2026-10-02 16:30:49,584 INFO gateway.run: Rehydrated persisted /model override for session=agent:main:telegram:dm:5238068527: model=z-ai/glm-5.3 provider=nvidia
+2026-10-02 16:30:49,847 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=hermes-gateway_21:140509484922560 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 16:30:49,848 INFO tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,849 INFO tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,849 INFO tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,850 INFO tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,851 INFO tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,852 INFO tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,853 INFO tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,853 INFO tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,854 INFO tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,854 INFO tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,855 INFO tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,856 INFO tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,857 INFO tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,858 INFO tools.registry: check_fn <lambda> returned False; dependent tools will be unavailable this turn
+2026-10-02 16:30:49,869 INFO agent.auxiliary_client: Vision auto-detect: using main provider google (gemini-3.8-flash)
+2026-10-02 16:30:49,884 INFO tools.tool_search: tool_search activated (tier 1): 22 core/visible tools kept, 4 deferred (~3400 tokens), listing full (budget ~4000 tokens)
+2026-10-02 16:30:52,062 INFO hermes_cli.plugins_cmd: plugin scan passed for hermes-catalog: Allowed (clean scan)
+2026-10-02 16:30:52,086 WARNING hermes_cli.memory_provider_migration:   ⚠ Memory provider 'mnemosyne' moved out of core and could not be installed automatically: Plugin 'mnemosyne' was not published: Install declined: dependency install skipped (non-interactive). Nothing was installed. Run `hermes plugins install mnemosyne`.
+2026-10-02 16:30:52,137 INFO [20261002_054424_843c7bcb] agent.turn_context: conversation turn: session=20261002_054424_843c7bcb model=z-ai/glm-5.3 provider=nvidia platform=telegram history=9 msg='Hlo'
+2026-10-02 16:30:52,139 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Stored system prompt for session 20261002_054424_843c7bcb has stale runtime identity; rebuilding for model=z-ai/glm-5.3 provider=nvidia.
+2026-10-02 16:30:52,278 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-18 (<lambda>):140508613564096 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 16:30:57,255 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=346360->321344 rss_anon_kib=304432->279416 threads=20 duration_ms=143.1
+2026-10-02 16:31:57,399 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=339480->322856 rss_anon_kib=297424->280800 threads=20 duration_ms=139.6
+2026-10-02 16:32:57,555 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=328352->323580 rss_anon_kib=286296->281524 threads=20 duration_ms=134.2
+2026-10-02 16:33:57,699 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=325768->323568 rss_anon_kib=283712->281512 threads=20 duration_ms=134.8
