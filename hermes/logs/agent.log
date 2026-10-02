@@ -9722,3 +9722,17 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 16:49:22,074 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-42 (<lambda>):140508361909952 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
 2026-10-02 16:50:00,205 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=331504->328752 rss_anon_kib=289324->286572 threads=24 duration_ms=152.5
 2026-10-02 16:51:00,366 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=333864->330900 rss_anon_kib=291684->288720 threads=24 duration_ms=154.9
+2026-10-02 16:52:00,522 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=341992->330708 rss_anon_kib=299812->288528 threads=24 duration_ms=150.2
+2026-10-02 16:53:00,672 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=342920->330752 rss_anon_kib=300740->288572 threads=24 duration_ms=143.9
+2026-10-02 16:54:00,821 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=349756->330768 rss_anon_kib=307576->288588 threads=24 duration_ms=141.5
+2026-10-02 16:54:26,711 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #8: model=z-ai/glm-5.3 provider=nvidia in=30660 out=3382 total=34042 latency=304.6s cache=27200/30660 (89%) id=chatcmpl-75b800fa-a4fa-4c7b-aa80-caa87bd30d6d
+2026-10-02 16:54:28,936 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (2.05s, 1268 chars)
+2026-10-02 16:55:00,987 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=333388->331120 rss_anon_kib=291208->288940 threads=24 duration_ms=144.0
+2026-10-02 16:55:51,698 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #9: model=z-ai/glm-5.3 provider=nvidia in=31883 out=851 total=32734 latency=82.7s cache=30656/31883 (96%) id=chatcmpl-ef871377-82bd-43a1-9e63-9b8fecad5329
+2026-10-02 16:55:51,708 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 1504 chars)
+2026-10-02 16:56:01,138 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=333908->331164 rss_anon_kib=291728->288984 threads=25 duration_ms=145.5
+2026-10-02 16:56:09,219 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (616 chars)
+2026-10-02 16:56:09,239 INFO [20261002_054424_843c7bcb] run_agent: OpenAI client aborted (stream_interrupt_abort, shared=False, tcp_force_closed=1, deferred_close=stranger_thread) thread=hermes-gateway_112:140509484922560 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 16:56:09,239 INFO run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-48 (<lambda>):140508361909952 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 16:56:09,266 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-50 (<lambda>):140508361909952 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 16:57:01,281 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=333780->331048 rss_anon_kib=291600->288868 threads=25 duration_ms=137.3
