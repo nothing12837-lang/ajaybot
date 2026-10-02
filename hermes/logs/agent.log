@@ -16641,3 +16641,9 @@ openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'd
 2026-10-02 20:38:38,668 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=427724->410352 rss_anon_kib=385408->368036 threads=23 duration_ms=172.5
 2026-10-02 20:39:38,833 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=414516->410296 rss_anon_kib=372200->367980 threads=23 duration_ms=155.7
 2026-10-02 20:40:39,010 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=411872->410280 rss_anon_kib=369556->367964 threads=23 duration_ms=167.4
+2026-10-02 20:41:39,185 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=411844->410592 rss_anon_kib=369528->368212 threads=23 duration_ms=166.5
+2026-10-02 20:42:39,354 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=411728->410340 rss_anon_kib=369412->368024 threads=24 duration_ms=161.3
+2026-10-02 20:43:39,533 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=411904->410448 rss_anon_kib=369588->368100 threads=24 duration_ms=169.2
+2026-10-02 20:44:39,743 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=428480->410336 rss_anon_kib=386164->368020 threads=23 duration_ms=175.7
+2026-10-02 20:45:39,924 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=417656->410452 rss_anon_kib=375340->368104 threads=23 duration_ms=173.5
+2026-10-02 20:46:40,166 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=431892->410348 rss_anon_kib=389576->368032 threads=23 duration_ms=234.8
