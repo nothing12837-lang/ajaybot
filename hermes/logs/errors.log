@@ -7359,3 +7359,7 @@ openai.NotFoundError: 404 page not found
 2026-10-02 06:36:00,808 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
 2026-10-02 06:36:00,808 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
 2026-10-02 06:36:00,809 WARNING tools.registry: check_fn check_vision_requirements returned False; previously available core tool(s) vision_analyze dropped (non-deferrable, so not searchable either); dependent tools will be unavailable this turn
+2026-10-02 06:48:06,855 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-02 06:48:06,855 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
+2026-10-02 06:48:06,858 WARNING agent.auxiliary_client: Auxiliary Nous client unavailable: no Nous authentication found (run: hermes auth).
+2026-10-02 06:48:06,858 WARNING agent.auxiliary_client: resolve_provider_client: nous requested but Nous Portal not configured (run: hermes auth)
