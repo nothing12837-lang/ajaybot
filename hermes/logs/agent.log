@@ -16587,3 +16587,12 @@ openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'd
 2026-10-02 19:47:29,584 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=415844->408980 rss_anon_kib=373528->366664 threads=22 duration_ms=167.5
 2026-10-02 19:48:29,771 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=430692->409028 rss_anon_kib=388376->366712 threads=22 duration_ms=179.1
 2026-10-02 19:49:29,962 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=413196->409000 rss_anon_kib=370880->366684 threads=22 duration_ms=180.7
+2026-10-02 19:50:30,155 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=410420->408972 rss_anon_kib=368104->366656 threads=22 duration_ms=177.2
+2026-10-02 19:51:30,342 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=411892->408972 rss_anon_kib=369576->366656 threads=22 duration_ms=177.6
+2026-10-02 19:52:30,516 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=410448->408952 rss_anon_kib=368132->366636 threads=22 duration_ms=166.4
+2026-10-02 19:53:30,700 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=410476->409144 rss_anon_kib=368160->366828 threads=22 duration_ms=170.7
+2026-10-02 19:53:42,710 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-10-02 19:53:42,710 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-10-02 19:53:53,083 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
+2026-10-02 19:54:30,890 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=419332->408532 rss_anon_kib=377016->366216 threads=22 duration_ms=160.1
+2026-10-02 19:55:31,165 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=420148->408412 rss_anon_kib=377800->366096 threads=22 duration_ms=173.2
