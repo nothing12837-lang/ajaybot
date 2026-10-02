@@ -5260,3 +5260,285 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 12:45:41,029 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.31s, 2156 chars)
 2026-10-02 12:45:41,037 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Re-anchored stale current_turn_user_idx 3 -> 3 (session=20261002_054424_843c7bcb)
 2026-10-02 12:46:41,217 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=380956->367636 rss_anon_kib=339372->326020 threads=28 duration_ms=179.1
+2026-10-02 12:47:41,396 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=369236->367664 rss_anon_kib=327652->326048 threads=29 duration_ms=170.7
+2026-10-02 12:48:41,574 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=369356->367648 rss_anon_kib=327772->326032 threads=28 duration_ms=170.5
+2026-10-02 12:49:41,750 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=369352->367752 rss_anon_kib=327768->326136 threads=28 duration_ms=165.7
+2026-10-02 12:50:25,095 INFO run_agent: Interrupt requested (hard): explicit stop requested
+2026-10-02 12:50:25,095 INFO gateway.run: Invalidated run generation for agent:main:telegram:dm:5238068527 → 2 (stop_command)
+2026-10-02 12:50:25,097 INFO run_agent: Shared OpenAI client retired (cache_evict, tcp_shutdown=0, fd_release=deferred_to_gc) thread=agent-evict-agent:main:telegram:dm:5:140256032581312 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:50:25,097 INFO gateway.run: STOP for session agent:main:telegram:dm:5238068527 — agent interrupted, session lock released
+2026-10-02 12:50:25,098 INFO run_agent: OpenAI client aborted (cache_evict_in_flight, shared=False, tcp_force_closed=1, deferred_close=stranger_thread) thread=agent-evict-agent:main:telegram:dm:5:140256032581312 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:50:25,098 INFO gateway.platforms.base: [Telegram] Sending command '/stop' response (41 chars) to 5238068527
+2026-10-02 12:50:25,100 WARNING agent.stream_diag: Stream drop on attempt 1/3 — retrying. subagent_id=- depth=0 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 error_type=ReadError error=[Errno 32] Broken pipe chain=ReadError([Errno 32] Broken pipe) <- ReadError([Errno 32] Broken pipe) <- BrokenPipeError([Errno 32] Broken pipe) http_status=200 bytes=15153 chunks=291 elapsed=284.06s ttfb=143.75s serving_provider=- finish_reason_seen=False upstream=[-]
+2026-10-02 12:50:25,101 INFO run_agent: OpenAI client closed (stream_retry_cleanup, shared=False, tcp_force_closed=0) thread=Thread-83 (<lambda>):140256921777856 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:50:25,102 INFO [20261002_054424_843c7bcb] agent.chat_completion_helpers: Shut down the stale stream's socket to unblock the reader (attempt superseded; model=z-ai/glm-5.3).
+2026-10-02 12:50:25,107 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Turn ended: reason=interrupted_during_api_call model=z-ai/glm-5.3 api_calls=29/200 budget=2/200 tool_turns=27 last_msg_role=assistant response_len=67 session=20261002_054424_843c7bcb
+2026-10-02 12:50:25,110 INFO gateway.run: Ignoring control interrupt message for session agent:main:telegram:dm:5238068527: Stop requested
+2026-10-02 12:50:25,135 INFO gateway.run: Discarding stale agent result for agent:main:telegram:dm:5238068527 — generation 1 is no longer current
+2026-10-02 12:50:40,375 ERROR telegram.ext.Application: No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/ext/_application.py", line 1315, in process_update
+    await coroutine
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/ext/_handlers/basehandler.py", line 159, in handle_update
+    return await self.callback(update, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/plugins/platforms/telegram/update_admission.py", line 164, in admitted_callback
+    result = await callback(update, context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/plugins/platforms/telegram/adapter.py", line 4792, in _handle_callback_query
+    await handler(query, data, chat_id)
+  File "/home/runner/.hermes/hermes-agent/plugins/platforms/telegram/adapter.py", line 4632, in _handle_model_picker_callback
+    await self._picker_show_models(query, state, page)
+  File "/home/runner/.hermes/hermes-agent/plugins/platforms/telegram/adapter.py", line 4551, in _picker_show_models
+    await self._picker_edit(
+    ...<4 lines>...
+        keyboard)
+  File "/home/runner/.hermes/hermes-agent/plugins/platforms/telegram/adapter.py", line 4537, in _picker_edit
+    await query.edit_message_text(text=self.format_message(text_md), parse_mode=ParseMode.MARKDOWN_V2, reply_markup=keyboard)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/_callbackquery.py", line 269, in edit_message_text
+    return await self._get_message().edit_text(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/_message.py", line 4473, in edit_text
+    return await self.get_bot().edit_message_text(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<15 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 1763, in edit_message_text
+    return await super().edit_message_text(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<15 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/_bot.py", line 4465, in edit_message_text
+    return await self._send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 638, in _send_message
+    result = await super()._send_message(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<23 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/_bot.py", line 828, in _send_message
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/ext/_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.BadRequest: Message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+2026-10-02 12:50:41,921 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=384924->370984 rss_anon_kib=343196->329256 threads=25 duration_ms=164.5
+2026-10-02 12:51:00,131 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (2 chars)
+2026-10-02 12:51:00,136 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Hi' reply_to_id=None reply_to_text=''
+2026-10-02 12:51:00,163 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=hermes-gateway_2317:140256921777856 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:51:00,179 INFO [20261002_054424_843c7bcb] agent.turn_context: conversation turn: session=20261002_054424_843c7bcb model=z-ai/glm-5.3 provider=nvidia platform=telegram history=57 msg='[System note: The previous turn was interrupted by a gateway interruption; the g...'
+2026-10-02 12:51:00,183 INFO [20261002_054424_843c7bcb] agent.turn_context: Preflight compression: ~36,957 tokens >= 35,000 threshold (model z-ai/glm-5.3, ctx 1,000,000)
+2026-10-02 12:51:00,185 INFO agent.conversation_compression: context compression started: session=20261002_054424_843c7bcb messages=58 tokens=~36,957 model=z-ai/glm-5.3 focus=None
+2026-10-02 12:51:00,221 INFO agent.context_compressor: Compression summary call dispatched: model=z-ai/glm-5.3 prompt_chars=65,944 prompt_build_ms=26
+2026-10-02 12:51:00,222 INFO agent.auxiliary_client: Auxiliary compression: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 12:51:00,401 WARNING agent.context_compressor: Summary model 'nvidia/llama-3.1-nemotron-70b-instruct' unavailable (Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}). Falling back to main model 'z-ai/glm-5.3' for compression.
+2026-10-02 12:51:00,429 INFO agent.context_compressor: Compression summary call dispatched: model=z-ai/glm-5.3 prompt_chars=65,944 prompt_build_ms=25
+2026-10-02 12:51:00,431 INFO agent.auxiliary_client: Auxiliary compression: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 12:51:00,544 WARNING agent.context_compressor: Failed to generate context summary: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}. Further summary attempts paused for 60 seconds.
+2026-10-02 12:51:00,603 INFO agent.conversation_compression: context compression done: session=20261002_054424_843c7bcb messages=58->11 rough_tokens=~22,413 awaiting_real_usage=true
+2026-10-02 12:51:00,603 INFO agent.conversation_compression: context compression attempt telemetry: {"attempt_id":"be4ec5255bac46139b9acdec307a988c","chunk_count":0,"chunking":false,"commit_ms":12,"commit_status":"committed","event":"compression_attempt","fallback_used":false,"session_id":"20261002_054424_843c7bcb","split_status":"in_place_committed","total_duration_ms":418}
+2026-10-02 12:51:00,613 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-88 (<lambda>):140255713818304 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:51:00,613 INFO agent.auxiliary_client: Auxiliary title_generation: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 12:51:00,707 WARNING agent.title_generator: Title generation failed: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 12:51:08,599 INFO run_agent: Interrupt requested (hard): explicit stop requested
+2026-10-02 12:51:08,599 INFO gateway.run: Invalidated run generation for agent:main:telegram:dm:5238068527 → 4 (stop_command)
+2026-10-02 12:51:08,602 INFO run_agent: Shared OpenAI client retired (cache_evict, tcp_shutdown=0, fd_release=deferred_to_gc) thread=agent-evict-agent:main:telegram:dm:5:140255562819264 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:51:08,602 INFO gateway.run: STOP for session agent:main:telegram:dm:5238068527 — agent interrupted, session lock released
+2026-10-02 12:51:08,603 INFO run_agent: OpenAI client aborted (cache_evict_in_flight, shared=False, tcp_force_closed=1, deferred_close=stranger_thread) thread=agent-evict-agent:main:telegram:dm:5:140255562819264 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:51:08,604 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Connection error.
+Traceback (most recent call last):
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/tools/python-3.14.7+202****0901-linux-x64/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadError: [Errno 32] Broken pipe
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1005, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/home/runner/.hermes/hermes-agent/agent/process_bootstrap.py", line 219, in handle_request
+    return self._inner.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/tools/python-3.14.7+202****0901-linux-x64/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/1ffeaed5ad6b43d6918542449e1ebc40/venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadError: [Errno 32] Broken pipe
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3868, in _call
+    self.result["response"] = _with_stream_emitters(
+                              ~~~~~~~~~~~~~~~~~~~~~^
+        self.agent, lambda: self._call_wire(stream_attempt_id))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 2587, in _with_stream_emitters
+    response = run()
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3869, in <lambda>
+    self.agent, lambda: self._call_wire(stream_attempt_id))
+                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3845, in _call_wire
+    return self._call_chat_completions(stream_attempt_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3194, in _call_chat_completions
+    stream = self._set_managed_stream(relay_llm.stream(self.api_kwargs, _open_stream,
+                                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **_relay_stream_identity(self.agent, "provider"), finalizer=relay_response.finalize,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        completed_response_predicate=lambda value: hasattr(value, "choices"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata=_relay_stream_metadata(self.agent, "chat_completions"), defer_logical_completion=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 323, in __init__
+    self._start_unmanaged(request)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/relay_llm.py", line 329, in _start_unmanaged
+    raw_stream = self._stream_factory(request)
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3185, in _open_stream
+    return self._open_chat_stream({**next_api_kwargs, "stream": True, "timeout": timeout})
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.hermes/hermes-agent/agent/chat_completion_helpers.py", line 3085, in _open_chat_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py", line 1204, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ajaybot/ajaybot/hermes-home/installs/096885f0e90d3dd1/environments/9b664e185c0949bf933d396bb0cd0896/venv/lib/python3.14/site-packages/openai/_base_client.py", line 1037, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+2026-10-02 12:51:08,602 INFO gateway.platforms.base: [Telegram] Sending command '/stop' response (41 chars) to 5238068527
+2026-10-02 12:51:08,636 INFO run_agent: OpenAI client closed (stream_error_cleanup, shared=False, tcp_force_closed=0) thread=Thread-88 (<lambda>):140255713818304 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=z-ai/glm-5.3
+2026-10-02 12:51:08,654 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Turn ended: reason=interrupted_during_api_call model=z-ai/glm-5.3 api_calls=1/200 budget=1/200 tool_turns=4 last_msg_role=user response_len=65 session=20261002_054424_843c7bcb
+2026-10-02 12:51:08,658 INFO gateway.run: Ignoring control interrupt message for session agent:main:telegram:dm:5238068527: Stop requested
+2026-10-02 12:51:08,658 INFO gateway.run: Discarding stale agent result for agent:main:telegram:dm:5238068527 — generation 3 is no longer current
+2026-10-02 12:51:32,387 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (2 chars)
+2026-10-02 12:51:32,391 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Hi' reply_to_id=None reply_to_text=''
+2026-10-02 12:51:32,421 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=hermes-gateway_2331:140256921777856 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=nvidia/nemotron-3-super-120b-a12b
+2026-10-02 12:51:32,436 INFO [20261002_054424_843c7bcb] agent.turn_context: conversation turn: session=20261002_054424_843c7bcb model=nvidia/nemotron-3-super-120b-a12b provider=nvidia platform=telegram history=12 msg='[System note: The previous turn was interrupted by a gateway interruption; the g...'
+2026-10-02 12:51:32,437 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Stored system prompt for session 20261002_054424_843c7bcb has stale runtime identity; rebuilding for model=nvidia/nemotron-3-super-120b-a12b provider=nvidia.
+2026-10-02 12:51:32,449 INFO agent.auxiliary_client: Auxiliary title_generation: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 12:51:32,457 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-91 (<lambda>):140255546037952 provider=nvidia base_url=https://integrate.api.nvidia.com/v1 model=nvidia/nemotron-3-super-120b-a12b
+2026-10-02 12:51:32,559 WARNING agent.title_generator: Title generation failed: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 12:51:36,534 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #1: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=24502 out=238 total=24740 latency=4.1s id=chatcmpl-020393ca-98b3-4cc0-9b08-c30705ff0d71
+2026-10-02 12:51:36,618 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=nvidia/nemotron-3-super-120b-a12b api_calls=1/200 budget=1/200 tool_turns=4 last_msg_role=assistant response_len=105 session=20261002_054424_843c7bcb
+2026-10-02 12:51:36,632 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=4.2s api_calls=1 response=105 chars
+2026-10-02 12:51:36,641 INFO gateway.platforms.base: [Telegram] Sending response (105 chars) to 5238068527
+2026-10-02 12:51:42,107 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=391388->372084 rss_anon_kib=349660->330324 threads=26 duration_ms=178.2
+2026-10-02 12:51:51,427 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (28 chars)
+2026-10-02 12:51:51,431 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Continue kro jo kar rahe thi' reply_to_id=None reply_to_text=''
+2026-10-02 12:51:51,459 INFO [20261002_054424_843c7bcb] agent.turn_context: conversation turn: session=20261002_054424_843c7bcb model=nvidia/nemotron-3-super-120b-a12b provider=nvidia platform=telegram history=14 msg='Continue kro jo kar rahe thi'
+2026-10-02 12:51:51,465 INFO agent.auxiliary_client: Auxiliary title_generation: using nvidia (nvidia/llama-3.1-nemotron-70b-instruct) at https://integrate.api.nvidia.com/v1/
+2026-10-02 12:51:51,680 WARNING agent.title_generator: Title generation failed: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}
+2026-10-02 12:52:04,954 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #2: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=24561 out=455 total=25016 latency=13.5s id=chatcmpl-206089ba-5885-4807-8007-5c4665e334cc
+2026-10-02 12:52:04,964 INFO tools.file_tools: Creating new local environment for task session:...
+2026-10-02 12:52:05,219 INFO tools.environments.base: Session snapshot created (session=d3eaa045a482, cwd=/home/runner)
+2026-10-02 12:52:05,219 INFO tools.file_tools: local environment ready for task session:
+2026-10-02 12:52:05,224 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.27s, 1559 chars)
+2026-10-02 12:52:10,291 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #3: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=25440 out=457 total=25897 latency=5.1s cache=17344/25440 (68%) id=chatcmpl-f222ebb4-7de2-4e9b-91ed-2995f1f1b6ed
+2026-10-02 12:52:10,942 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.65s, 52562 chars)
+2026-10-02 12:52:18,571 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #4: model=nvidia/nemotron-3-super-120b-a12b provider=nvidia in=36986 out=470 total=37456 latency=7.6s cache=21680/36986 (59%) id=chatcmpl-699ae57b-7cce-4fad-94fe-2332c9ceed5e
+2026-10-02 12:52:18,582 INFO [20261002_054424_843c7bcb] agent.tool_executor: tool execute_code completed (0.01s, 998 chars)
