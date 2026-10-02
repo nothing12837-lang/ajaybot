@@ -5970,3 +5970,9 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 04:48:48,645 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=343844->343576 rss_anon_kib=301948->301680 threads=16 duration_ms=189.1
 2026-10-02 04:49:48,834 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=343844->343576 rss_anon_kib=301948->301680 threads=16 duration_ms=183.3
 2026-10-02 04:50:49,026 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=343844->343576 rss_anon_kib=301948->301680 threads=16 duration_ms=185.2
+2026-10-02 04:51:49,215 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=351544->343576 rss_anon_kib=309648->301680 threads=16 duration_ms=182.5
+2026-10-02 04:52:49,402 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=355320->343576 rss_anon_kib=313424->301680 threads=16 duration_ms=179.3
+2026-10-02 04:53:49,597 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=353480->343576 rss_anon_kib=311584->301680 threads=16 duration_ms=185.8
+2026-10-02 04:54:49,790 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=343844->343576 rss_anon_kib=301948->301680 threads=16 duration_ms=186.3
+2026-10-02 04:55:49,981 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=343844->343576 rss_anon_kib=301948->301680 threads=16 duration_ms=184.7
+2026-10-02 04:56:50,167 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=343844->343576 rss_anon_kib=301948->301680 threads=16 duration_ms=179.6
