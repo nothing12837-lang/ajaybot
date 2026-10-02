@@ -9672,3 +9672,27 @@ RuntimeError: HTTP 404: 404 page not found
 2026-10-02 16:31:57,399 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=339480->322856 rss_anon_kib=297424->280800 threads=20 duration_ms=139.6
 2026-10-02 16:32:57,555 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=328352->323580 rss_anon_kib=286296->281524 threads=20 duration_ms=134.2
 2026-10-02 16:33:57,699 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=325768->323568 rss_anon_kib=283712->281512 threads=20 duration_ms=134.8
+2026-10-02 16:34:48,265 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #1: model=z-ai/glm-5.3 provider=nvidia in=17117 out=1509 total=18626 latency=236.1s cache=1728/17117 (10%) id=chatcmpl-e4a97358-f8e6-48d7-8455-27178defc01f
+2026-10-02 16:34:48,367 INFO [20261002_054424_843c7bcb] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=z-ai/glm-5.3 api_calls=1/200 budget=1/200 tool_turns=1 last_msg_role=assistant response_len=516 session=20261002_054424_843c7bcb
+2026-10-02 16:34:48,418 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=238.8s api_calls=1 response=516 chars
+2026-10-02 16:34:48,432 INFO gateway.platforms.base: [Telegram] Sending response (516 chars) to 5238068527
+2026-10-02 16:34:57,842 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=326636->323732 rss_anon_kib=284516->281612 threads=18 duration_ms=137.4
+2026-10-02 16:35:13,191 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (32 chars)
+2026-10-02 16:35:13,197 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Ha toh hum kya baat kar rhe the?' reply_to_id=None reply_to_text=''
+2026-10-02 16:35:13,242 INFO [20261002_054424_843c7bcb] agent.turn_context: conversation turn: session=20261002_054424_843c7bcb model=z-ai/glm-5.3 provider=nvidia platform=telegram history=11 msg='Ha toh hum kya baat kar rhe the?'
+2026-10-02 16:35:57,981 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=326864->324328 rss_anon_kib=284744->282208 threads=20 duration_ms=132.8
+2026-10-02 16:36:35,166 INFO [20261002_054424_843c7bcb] agent.conversation_loop: API call #2: model=z-ai/glm-5.3 provider=nvidia in=17280 out=977 total=18257 latency=81.9s cache=17088/17280 (99%) id=chatcmpl-a4026de7-12c5-4baf-b9d1-4727c6d432e7
+2026-10-02 16:36:35,213 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider nvidia (z-ai/glm-5.3)
+2026-10-02 16:36:35,213 INFO agent.auxiliary_client: Auxiliary approval: using nvidia (z-ai/glm-5.3) at https://integrate.api.nvidia.com/v1/
+2026-10-02 16:36:58,128 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=333724->326292 rss_anon_kib=291608->284176 threads=22 duration_ms=141.9
+2026-10-02 16:37:05,365 INFO agent.auxiliary_client: Auxiliary approval: transient transport error (attempt 1/2); retrying same provider after 1.0s before fallback: Request timed out.
+2026-10-02 16:37:36,470 INFO agent.auxiliary_client: Auxiliary approval: transient transport error (attempt 2/2); retrying same provider after 2.0s before fallback: Request timed out.
+2026-10-02 16:37:58,272 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=345140->326644 rss_anon_kib=303024->284528 threads=21 duration_ms=138.5
+2026-10-02 16:38:08,599 WARNING agent.auxiliary_client: Auxiliary approval: request to https://integrate.api.nvidia.com/v1/ timed out after 30.0s (raise auxiliary.approval.timeout for slow or reasoning models) on auto, trying fallback
+2026-10-02 16:38:08,604 INFO agent.auxiliary_client: Auxiliary approval: request timed out on auto — main fallback chain to fallback_providers[0](nvidia) (nvidia/llama-3.1-nemotron-70b-instruct)
+2026-10-02 16:38:08,754 WARNING tools.approval: Smart approvals: LLM call failed after 93.5s (NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'detail': "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'DEuvTlmSuXq1Mw8VEhg_WwaQpcWKPBHMmLSyh8RuLz0'"}), escalating
+2026-10-02 16:38:15,489 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=always, user=Ajay)
+2026-10-02 16:38:15,692 WARNING [20261002_054424_843c7bcb] agent.tool_executor: Tool execute_code returned error (100.50s): {"status": "error", "output": "=== ALL WORKFLOWS ===\n\n--- stderr ---\nTraceback (most recent call last):\n  File \"/home/runner/work/ajaybot/ajaybot/hermes-home/cache/scratch/hermes_kernel_mpb6ugvt/
+2026-10-02 16:38:58,479 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=345480->327836 rss_anon_kib=303300->285656 threads=24 duration_ms=134.5
+2026-10-02 16:39:55,479 INFO tui_gateway.server: Reclaimed 1 orphaned active-session lease(s)
+2026-10-02 16:39:58,624 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=332348->327808 rss_anon_kib=290168->285628 threads=24 duration_ms=140.2
