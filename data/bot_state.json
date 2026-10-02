@@ -1,8 +1,1 @@
-{
-  "equity": 9809.613952270745,
-  "peak_equity": 10000.0,
-  "daily_pnl": -190.38604772925456,
-  "consecutive_losses": 0,
-  "positions": {},
-  "timestamp": 1790947609.0935183
-}
+{"equity": 9809.613952270745, "peak_equity": 10000.0, "daily_pnl": -190.38604772925456, "consecutive_losses": 0, "positions": {"BTCUSD": {"symbol": "BTCUSD", "side": "short", "size": 28.985993842880706, "entry_price": 84598.03935, "entry_time": 1790947627571, "stop_loss": 84686.36785714286, "take_profit_1": 84497.58928571429, "take_profit_2": 84424.98214285714, "contract_size": 0.001, "entry_fee": 1.22607912385944, "exit_fee": 0.0, "trail_price": null, "breakeven": false, "partial_filled": false, "unrealized_pnl": 0.0, "realized_pnl": 0.0, "regime": "strong_trend_down", "confidence": 0.27573767192602383, "agents": {"momentum": -0.4255007641156614, "meanrev": 0.0, "trend": -0.8, "breakout": 0.0, "order_flow": 0.0}}, "ETHUSD": {"symbol": "ETHUSD", "side": "short", "size": 90.90551341183158, "entry_price": 2697.4802250000002, "entry_time": 1790947627647, "stop_loss": 2701.548928571429, "take_profit_1": 2692.5696428571428, "take_profit_2": 2689.116071428571, "contract_size": 0.01, "entry_fee": 1.22607912385944, "exit_fee": 0.0, "trail_price": null, "breakeven": false, "partial_filled": false, "unrealized_pnl": 0.0, "realized_pnl": 0.0, "regime": "strong_trend_down", "confidence": 0.2925, "agents": {"momentum": -0.7, "meanrev": 0.0, "trend": -0.8, "breakout": 0.0, "order_flow": 0.4}}}, "timestamp": 1790947628.0505526}
