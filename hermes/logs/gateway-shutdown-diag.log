@@ -1,0 +1,106 @@
+=== shutdown diagnostic @ SIGTERM ===
+--- date ---
+2026-10-02T16:24:25Z
+--- ps (top 60 by cpu, comm only) ---
+    PID    PPID USER     %CPU %MEM STAT COMMAND
+   6495    6494 runner    1.4  3.0 Sl   hermes
+   2086    2084 root      0.4  0.8 Sl   provjobd9870837
+   2144    2124 runner    0.3  0.9 Sl   Runner.Worker
+   2935       1 root      0.1  0.3 Ssl  snapd
+  27039   27034 runner    0.0  0.0 S    head
+  27038   27034 runner    0.0  0.0 S    bash
+  27037   27034 runner    0.0  0.0 R    ps
+  27034   27032 runner    0.0  0.0 S    bash
+  27032    6495 runner    0.0  0.0 Ss   timeout
+  26975       2 root      0.0  0.0 I    kworker/0:1
+  26851       2 root      0.0  0.0 I    kworker/3:2
+  26825       2 root      0.0  0.0 I    kworker/u16:1-kvfree_rcu_reclaim
+  26063       2 root      0.0  0.0 I    kworker/1:0-cgroup_free
+  26018       2 root      0.0  0.0 I    kworker/0:2-events
+  25908       2 root      0.0  0.0 I    kworker/2:2-events
+  25782       2 root      0.0  0.0 I    kworker/u16:2-events_power_efficient
+  25284       2 root      0.0  0.0 I    kworker/2:1-events
+  24651       1 runner    0.0  0.2 Ss   python3
+  23878       2 root      0.0  0.0 I    kworker/3:0-cgroup_free
+  22404    6495 runner    0.0  0.2 Ssl  python3
+  21823       2 root      0.0  0.0 I    kworker/u16:0-kvfree_rcu_reclaim
+  21161       2 root      0.0  0.0 I    kworker/u16:4-kvfree_rcu_reclaim
+  19143       2 root      0.0  0.0 I    kworker/0:0-events
+  16770       2 root      0.0  0.0 I    kworker/1:1-events
+  13586       2 root      0.0  0.0 I    kworker/3:1-events
+   6494    6492 runner    0.0  0.0 S    timeout
+   6493    6492 runner    0.0  0.0 S    python
+   6492    2144 runner    0.0  0.0 S    bash
+   6472    1308 runner    0.0  0.0 Ss   dbus-daemon
+   5553       2 root      0.0  0.0 S    psimon
+   5076    4736 root      0.0  0.0 Sl   cups-browsed
+   5054    4729 root      0.0  0.0 Sl   cupsd
+   4736       1 root      0.0  0.0 Ss   run-cups-browse
+   4729       1 root      0.0  0.0 Ss   run-cupsd
+   2929       2 root      0.0  0.0 I<   kworker/R-mkey_cache
+   2928       2 root      0.0  0.0 I<   kworker/R-ib_nl_sa_wq
+   2927       2 root      0.0  0.0 I<   kworker/R-ib_mcast
+   2926       2 root      0.0  0.0 I<   kworker/R-ib-comp-unb-wq
+   2925       2 root      0.0  0.0 I<   kworker/R-ib-comp-wq
+   2913       2 root      0.0  0.0 I<   kworker/R-mlx5e_arfs
+   2912       2 root      0.0  0.0 I<   kworker/R-mlx5e
+   2911       2 root      0.0  0.0 I<   kworker/R-mlx5_hv_vhca
+   2910       2 root      0.0  0.0 I<   kworker/R-mlx5_fc
+   2909       2 root      0.0  0.0 S    ptp1
+   2908       2 root      0.0  0.0 I<   kworker/R-mlx5_events
+   2907       2 root      0.0  0.0 I<   kworker/R-mlx5_page_allocator
+   2906       2 root      0.0  0.0 I<   kworker/R-mlx5_healthb3fe:00:02.0
+   2903       2 root      0.0  0.0 I<   kworker/R-mlx5_cmd_b3fe:00:02.0
+   2124    2071 runner    0.0  0.7 Sl   Runner.Listener
+   2084    2071 root      0.0  0.0 S    sudo
+   2071       1 runner    0.0  0.1 Ssl  hosted-compute-
+   1507    1046 root      0.0  0.2 Sl   python3
+   1500       2 root      0.0  0.0 I<   kworker/R-tls-strp
+   1319    1015 www-data  0.0  0.1 S    php-fpm8.3
+   1318    1308 runner    0.0  0.0 S    (sd-pam)
+   1315    1015 www-data  0.0  0.1 S    php-fpm8.3
+   1308       1 runner    0.0  0.0 Ss   systemd
+   1268       1 root      0.0  0.0 Ss+  agetty
+   1261       1 root      0.0  0.4 Ssl  dockerd
+--- pstree of self ---
+hermes(6495)-+-python3(22404)---{python3}(22408)
+             |-timeout(27032)---bash(27034)-+-head(27042)
+             |                              `-pstree(27041)
+             |-{hermes}(6759)
+             |-{hermes}(6781)
+             |-{hermes}(6783)
+             |-{hermes}(6784)
+             |-{hermes}(6788)
+             |-{hermes}(6849)
+             |-{hermes}(6850)
+             |-{hermes}(6851)
+             |-{hermes}(6869)
+             |-{hermes}(6871)
+             |-{hermes}(6900)
+             |-{hermes}(6901)
+             |-{hermes}(7040)
+             |-{hermes}(7077)
+             |-{hermes}(7078)
+             |-{hermes}(7079)
+             |-{hermes}(7080)
+             |-{hermes}(7081)
+             |-{hermes}(7083)
+             |-{hermes}(7084)
+             |-{hermes}(7238)
+             |-{hermes}(8854)
+             |-{hermes}(9105)
+             |-{hermes}(10969)
+             |-{hermes}(15970)
+             |-{hermes}(21643)
+             |-{hermes}(22405)
+             |-{hermes}(22406)
+             |-{hermes}(22407)
+             |-{hermes}(25513)
+             |-{hermes}(25515)
+             |-{hermes}(25516)
+             |-{hermes}(27033)
+             `-{hermes}(27035)
+--- loadavg ---
+0.08 0.03 0.05 1/309 27043
+--- recent dmesg (oom/killed) ---
+=== end ===
