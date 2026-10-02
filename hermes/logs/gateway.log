@@ -1727,3 +1727,5 @@
 2026-10-02 12:51:36,641 INFO gateway.platforms.base: [Telegram] Sending response (105 chars) to 5238068527
 2026-10-02 12:51:51,427 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (28 chars)
 2026-10-02 12:51:51,431 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Continue kro jo kar rahe thi' reply_to_id=None reply_to_text=''
+2026-10-02 12:57:38,857 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=347.4s api_calls=22 response=2597 chars
+2026-10-02 12:57:38,867 INFO gateway.platforms.base: [Telegram] Sending response (2597 chars) to 5238068527
