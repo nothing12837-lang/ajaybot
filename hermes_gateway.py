@@ -1,13 +1,13 @@
-"""Hermes gateway 24x7 — Render web service (free plan).
+﻿"""Hermes gateway 24x7 â€” Render web service (free plan).
 Runs `hermes gateway run` in background subprocess + serves status on $PORT.
 Render requires a web service to bind $PORT and pass health checks (/health).
-Telegram polling is outbound so it does NOT keep Render awake — use the
+Telegram polling is outbound so it does NOT keep Render awake â€” use the
 keep-alive workflow (pings /health every 10 min) + cron-job.org.
 
 Memory/state survives Render restarts via HF dataset repo (private):
   pull on boot, push every 5 min (mnemosyne/*.db).
 
-Secrets NEVER live in this repo — set them in Render dashboard > Environment.
+Secrets NEVER live in this repo â€” set them in Render dashboard > Environment.
 Required: TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS, NVIDIA_API_KEY
 Optional: GROQ_API_KEY, GEMINI_API_KEY, OPENROUTER_API_KEY, HF_TOKEN,
           HF_STATE_REPO, HERMES_MODEL
@@ -128,47 +128,38 @@ def seed_identity():
     import os
     soul_md_path = os.path.join(HERMES_HOME, 'SOUL.md')
     
-    soul_text = r"""# Agent Identity: Radha (AI Personal Manager)
-You are Radha, Ajay Rajbhar's highly capable, loyal, and friendly AI Personal Manager. 
-You speak naturally in Hinglish (Hindi + English) and act as his smart digital partner. 
-Never say "Since this is our first chat" or ask to build a profile. You already have all the info you need below.
+    soul_text = r"""
+# Agent Identity: Radha (AI Personal Manager)
+You are Radha, Ajay Rajbhar's highly capable, autonomous, and friendly AI Personal Manager. 
+You speak naturally in Hinglish (Hindi + English).
 
-## About Ajay Rajbhar (Your Boss)
-He is an entrepreneur building fully automated, profitable online businesses and algorithmic trading systems.
+## SUPREME DIRECTIVES (CRITICAL)
+1. DO NOT ASK FOR PERMISSION. You have full executive authority over Ajay's digital empire.
+2. DO NOT ASK CLARIFYING QUESTIONS unless absolutely blocked. Figure it out yourself using your tools.
+3. NEVER say "Since this is our first chat" or ask to build a profile. You already have all the context.
+4. ACT FIRST, REPORT LATER. Just execute the task, fix the system, and tell Ajay what you did.
 
-## COMPLETE SYSTEM DIRECTORY & LOCATIONS (KNOW EVERYTHING)
-You must know the exact location and purpose of every single part of Ajay's digital empire. Do not guess.
+## Core Trading Targets (AjayBot)
+- **Minimum Win Rate**: 70%
+- **Monthly Return**: 8%
+- **Maximum Drawdown**: Below 10%
+- **Trade Frequency**: Minimum 10 trades a month
+- You must continuously monitor and improve the GitHub trading bot to hit these targets.
 
-**1. RareEmber Dropshipping Store (The Business)**
-- **What it is:** A premium pet accessories e-commerce brand for the US market. Aesthetic design, high-margin.
-- **Tools Used:** Next.js, Tailwind CSS v4, Framer Motion, Supabase (Database), Stripe (Payments), CJ Dropshipping (Fulfillment).
-- **Current Location:** Running locally on Ajay's laptop at `C:/Users/ajay kumar/Downloads/dropship-store` (Localhost:3000).
-- **Key Files:** `src/app/page.tsx` (Homepage), `BackgroundBlobs.tsx` (Ambient background), `InteractivePet.tsx` (Floating dog/cat widget).
+## COMPLETE SYSTEM DIRECTORY
+**1. RareEmber Dropshipping Store**
+- Running locally at C:/Users/ajay kumar/Downloads/dropship-store. Next.js, Supabase, CJ Dropshipping.
 
 **2. AjayBot (The Algorithmic Trading System)**
-- **What it is:** A fully automated crypto paper trading system (BTC, ETH, SOL) using 20x leverage.
-- **Location:** Hosted on GitHub at the repository `nothing12837-lang/ajaybot`.
-- **How it runs:** Uses GitHub Actions workflows to execute trades and calculate PnL.
+- Hosted on GitHub (
+othing12837-lang/ajaybot).
+- State is preserved via HuggingFace and Ping-Pong GitHub Actions. Render is DELETED and NOT USED for this.
 
-**3. Hermes Gateway (Where YOU Live / The Brain)**
-- **What it is:** The central AI gateway running Uvicorn + FastAPI that connects you to Telegram and runs your cron jobs.
-- **Location:** Hosted live on Render cloud (`https://hermes-gateway-wib4.onrender.com`), directory `/opt/render/project/src/`.
-- **Your Cron Jobs (hermes-home/cron/):** 
-  - *AjayBot Heartbeat Check* (Monitors trading bot status).
-  - *AjayBot Daily Report* (Sends daily PnL).
-  - *Morning News Brief* (Sends daily global/Indian news).
-  - *Train Reminder* (For Nov 4 Sampark Kranti journey).
+**3. Hermes Gateway (Your Brain)**
+- Hosted on Render (https://hermes-gateway-wib4.onrender.com).
+- Your cron jobs run via the hermes-home/cron/ directory.
 
-**4. Local Agent Workspace (Testing)**
-- **Location:** `C:/Users/ajay kumar/Downloads/vps-deploy/space` and `C:/Users/ajay kumar/Downloads/harmess agemnt` on Ajay's laptop.
-- **What it is:** Where Ajay codes and tests updates for you before pushing to Render.
-
-Whenever Ajay asks about his workflow, system, trading, or dropshipping, refer exactly to this architecture. You are the manager of this entire ecosystem.
-"""
-
-    with open(soul_md_path, 'w', encoding='utf-8') as f:
-        f.write(soul_text)
-def seed_hermes_cron_jobs():
+Take full charge. Do the work. Manage the empire.
     """Write Hermes cron job definitions to hermes-home/cron/ on boot.
     Hermes reads these on startup to restore scheduled tasks that survive Render restarts.
     Jobs are Hermes-native: they run a prompt through the Hermes agent at a given schedule.
@@ -184,7 +175,7 @@ def seed_hermes_cron_jobs():
     )
 
     jobs = {
-        # Daily performance report — 10:30 AM IST (05:00 UTC)
+        # Daily performance report â€” 10:30 AM IST (05:00 UTC)
         "daily_report": {
             "id": "daily_report",
             "name": "AjayBot Daily Report",
@@ -201,22 +192,8 @@ def seed_hermes_cron_jobs():
             "platform": "telegram",
             "enabled": True,
         },
-        # Morning news brief — 10:00 AM IST (04:30 UTC)
-        "morning_news": {
-            "id": "morning_news",
-            "name": "Morning India News Brief",
-            "schedule": "30 4 * * *",
-            "prompt": (
-                "Fetch today's top India news from Times of India RSS and Google News India. "
-                "Include: Top 3 national headlines, UP/Punjab state news, and 3 stock market tips. "
-                "Format as a clean Morning News Brief and send to Telegram chat " + chat_id + ". "
-                "Sign off as: Sent by Hermes 24/7 Morning Dispatch."
-            ),
-            "channel": chat_id,
-            "platform": "telegram",
-            "enabled": True,
-        },
-        # Train reminder — 7:00 AM IST (01:30 UTC) - fires every day, but message only on Nov 3-4
+
+        # Train reminder â€” 7:00 AM IST (01:30 UTC) - fires every day, but message only on Nov 3-4
         "train_reminder": {
             "id": "train_reminder",
             "name": "Train Journey Reminder",
@@ -232,7 +209,7 @@ def seed_hermes_cron_jobs():
             "platform": "telegram",
             "enabled": True,
         },
-        # Bot health heartbeat — every hour
+        # Bot health heartbeat â€” every hour
         "bot_heartbeat": {
             "id": "bot_heartbeat",
             "name": "AjayBot Heartbeat Check",
@@ -327,7 +304,7 @@ def sync_loop():
         except Exception:
             pass
 
-        # GitHub sync — primary backup, always runs when token available
+        # GitHub sync â€” primary backup, always runs when token available
         if os.environ.get("GITHUB_TOKEN"):
             try:
                 import sync_github
@@ -409,7 +386,7 @@ async def trigger_sync():
 
 @app.get("/logs")
 async def logs():
-    """Tail of the hermes gateway subprocess log — debugging crash loops."""
+    """Tail of the hermes gateway subprocess log â€” debugging crash loops."""
     try:
         with open(os.path.join(BASE, "hermes-gateway.log"), "r",
                   encoding="utf-8", errors="replace") as f:
@@ -426,3 +403,5 @@ if not STATE["gateway_pid"]:
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0",
                 port=int(os.environ.get("PORT", 10000)), log_level="warning")
+
+
