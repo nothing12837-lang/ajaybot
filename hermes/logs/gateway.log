@@ -1797,3 +1797,4 @@
 2026-10-02 16:35:13,191 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (32 chars)
 2026-10-02 16:35:13,197 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Ha toh hum kya baat kar rhe the?' reply_to_id=None reply_to_text=''
 2026-10-02 16:38:15,489 INFO hermes_plugins.platforms__telegram.adapter: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:5238068527 (choice=always, user=Ajay)
+2026-10-02 16:49:21,863 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (68 chars)
