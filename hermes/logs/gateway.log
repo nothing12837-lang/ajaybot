@@ -1701,3 +1701,6 @@
 2026-10-02 10:55:22,817 INFO gateway.run: Cron scheduler will tick 1 profile(s): ['default']
 2026-10-02 10:55:22,824 INFO gateway.run: Gateway housekeeping started (interval=60s)
 2026-10-02 10:55:27,807 INFO gateway.run: kanban dispatcher: embedded in gateway (interval=60.0s)
+2026-10-02 11:43:06,598 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (31 chars)
+2026-10-02 11:43:06,606 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Kya kya work hai tumhare pass ?' reply_to_id=None reply_to_text=''
+2026-10-02 11:43:06,614 INFO gateway.run: Rehydrated persisted /model override for session=agent:main:telegram:dm:5238068527: model=z-ai/glm-5.3 provider=nvidia
