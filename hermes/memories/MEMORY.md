@@ -19,3 +19,5 @@ On 2026-10-02T15:25:37Z, I successfully added the GEMINI_API_KEY secret to the G
 - **Notes:** Render service removed; AjayBot Heartbeat Check removed (redundant); all automation now via GitHub Actions and local agent workspace.
 §
 Config optimized: leverage 15, risk_per_trade 0.01, min_confidence 0.30 for all symbols, max_daily_loss_pct 0.02, max_position_pct 0.20, adaptive min_trades_for_optimization 10.
+§
+Config updated: leverage 12, risk_per_trade 0.008, min_confidence 0.35 for all symbols, max_daily_loss_pct 0.02, max_position_pct 0.20, adaptive min_trades_for_optimization 10.
