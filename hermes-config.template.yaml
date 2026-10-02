@@ -10,8 +10,7 @@ providers:
   nvidia:
     context_length: 1000000
   google:
-    base_url: https://generativelanguage.googleapis.com/v1beta/openai
-    model: gemini-3.8-flash
+    model: gemini/gemini-3.8-flash
     context_length: 1000000
   groq:
     base_url: https://api.groq.com/openai/v1
@@ -23,7 +22,7 @@ fallback_providers:
   - provider: nvidia
     model: nvidia/llama-3.1-nemotron-70b-instruct
   - provider: google
-    model: gemini-3.8-flash
+    model: gemini/gemini-3.8-flash
   - provider: nvidia
     model: __HERMES_MODEL__
 database:
