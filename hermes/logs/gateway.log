@@ -1826,3 +1826,5 @@
 2026-10-02 17:47:06,068 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Is it realtime data ,?' reply_to_id=None reply_to_text=''
 2026-10-02 17:48:21,066 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=75.0s api_calls=2 response=2671 chars
 2026-10-02 17:48:21,085 INFO gateway.platforms.base: [Telegram] Sending response (2671 chars) to 5238068527
+2026-10-02 17:55:27,903 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (32 chars)
+2026-10-02 17:55:27,911 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Ajay bot trads kiu nhi le Raha ?' reply_to_id=7232 reply_to_text='Real‑time? – Bilkul samajhti hoon, Ajay.   Abhi jo data dikha rahi hoon, wo “nea'
