@@ -12955,3 +12955,8 @@ openai.NotFoundError: Error code: 404 - {'status': 404, 'title': 'Not Found', 'd
 2026-10-02 17:48:21,066 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=75.0s api_calls=2 response=2671 chars
 2026-10-02 17:48:21,085 INFO gateway.platforms.base: [Telegram] Sending response (2671 chars) to 5238068527
 2026-10-02 17:49:09,696 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=368388->365208 rss_anon_kib=326072->322860 threads=25 duration_ms=141.7
+2026-10-02 17:50:09,850 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=366624->365300 rss_anon_kib=324308->322952 threads=26 duration_ms=147.3
+2026-10-02 17:51:10,004 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=370224->368024 rss_anon_kib=327908->325708 threads=25 duration_ms=147.2
+2026-10-02 17:52:10,152 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=383508->369236 rss_anon_kib=341192->326920 threads=25 duration_ms=139.9
+2026-10-02 17:53:10,318 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=380024->369244 rss_anon_kib=337708->326928 threads=25 duration_ms=158.5
+2026-10-02 17:54:10,477 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=387308->370120 rss_anon_kib=344992->327772 threads=25 duration_ms=149.0
