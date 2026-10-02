@@ -1,1 +1,8 @@
-{"equity": 9809.613952270745, "peak_equity": 10000.0, "daily_pnl": -190.38604772925456, "consecutive_losses": 4, "positions": {}, "timestamp": 1790877519.5558434}
+{
+  "equity": 9809.613952270745,
+  "peak_equity": 10000.0,
+  "daily_pnl": -190.38604772925456,
+  "consecutive_losses": 0,
+  "positions": {},
+  "timestamp": 1790946937.1601145
+}
