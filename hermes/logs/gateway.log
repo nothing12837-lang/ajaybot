@@ -1667,3 +1667,6 @@
 2026-10-02 10:14:35,780 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Dual-stack api.telegram.org path failed (ConnectError(''))
 2026-10-02 10:14:36,235 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via 149.154.166.110 after api.telegram.org failed: ConnectError('')
 2026-10-02 10:14:36,235 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Using sticky IPv4 Telegram API path 149.154.166.110 (dual-stack hostname tried last — #87015)
+2026-10-02 10:47:31,261 WARNING plugins.platforms.telegram.telegram_network: [Telegram] Sticky Telegram path 149.154.166.110 failed; re-walking IPv4 literals before the hostname
+2026-10-02 10:47:31,262 WARNING plugins.platforms.telegram.telegram_network: [Telegram] IPv4 Telegram API IP 149.154.166.110 failed: ConnectError('')
+2026-10-02 10:47:31,808 INFO plugins.platforms.telegram.telegram_network: [Telegram] Telegram API transport recovered via api.telegram.org after 149.154.166.110 failed: ConnectError('')
