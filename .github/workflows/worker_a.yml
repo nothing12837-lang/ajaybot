@@ -48,3 +48,4 @@ jobs:
           -H "Authorization: token " \
           https://api.github.com/repos/$\{{ github.repository }}/actions/workflows/worker_b.yml/dispatches \
           -d '{"ref":"main"}'
+
