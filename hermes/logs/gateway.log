@@ -1842,3 +1842,11 @@
 2026-10-02 18:22:15,041 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='HLO' reply_to_id=None reply_to_text=''
 2026-10-02 18:22:27,677 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=12.6s api_calls=1 response=363 chars
 2026-10-02 18:22:27,686 INFO gateway.platforms.base: [Telegram] Sending response (363 chars) to 5238068527
+2026-10-02 18:24:22,973 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (27 chars)
+2026-10-02 18:24:22,979 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Dubara check check karo sab' reply_to_id=None reply_to_text=''
+2026-10-02 18:25:05,734 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=42.8s api_calls=3 response=3121 chars
+2026-10-02 18:25:05,885 INFO gateway.platforms.base: [Telegram] Sending response (3121 chars) to 5238068527
+2026-10-02 18:27:33,071 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:5238068527 (85 chars)
+2026-10-02 18:27:33,082 INFO gateway.run: inbound message: platform=telegram user=Ajay Rajbhar chat=5238068527 msg='Remove kar do ajaybot harbeat uski. Jaroorat nhi aur baaki sab moniter karti hai' reply_to_id=None reply_to_text=''
+2026-10-02 18:28:37,193 INFO gateway.run: response ready: platform=telegram chat=5238068527 session=agent:main:telegram:dm:5238068527 time=64.1s api_calls=4 response=3350 chars
+2026-10-02 18:28:37,201 INFO gateway.platforms.base: [Telegram] Sending response (3350 chars) to 5238068527
