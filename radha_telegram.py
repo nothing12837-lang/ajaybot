@@ -253,6 +253,93 @@ def market_snapshot():
         return ""
 
 
+UA = {"User-Agent": "Mozilla/5.0 (Radha-AjayBot/1.0)"}
+
+
+def web_search(query):
+    """Keyless internet search: DDG answer -> Wikipedia -> HackerNews. Returns short text + sources."""
+    if not query:
+        return ""
+    # 1. DuckDuckGo instant answer
+    try:
+        r = requests.get("https://api.duckduckgo.com/", params={"q": query, "format": "json", "no_html": 1, "skip_disambig": 1}, headers=UA, timeout=12)
+        d = r.json()
+        abstract = (d.get("AbstractText") or "").strip()
+        if abstract:
+            src = d.get("AbstractURL", "")
+            out = abstract[:600]
+            if src:
+                out += f" ({src})"
+            return out
+    except Exception:
+        pass
+    # 2. Wikipedia summary
+    try:
+        o = requests.get("https://en.wikipedia.org/w/api.php",
+                         params={"action": "opensearch", "search": query, "limit": 1, "format": "json"},
+                         headers=UA, timeout=12).json()
+        if len(o) > 1 and o[1]:
+            title = o[1][0]
+            import urllib.parse
+            s = requests.get("https://en.wikipedia.org/api/rest_v1/page/summary/" + urllib.parse.quote(title),
+                             headers=UA, timeout=12).json()
+            extract = (s.get("extract") or "").strip()
+            if extract:
+                return extract[:600] + f" (Wikipedia: {title})"
+    except Exception:
+        pass
+    # 3. HackerNews stories
+    try:
+        h = requests.get("http://hn.algolia.com/api/v1/search", params={"query": query, "tags": "story"},
+                         headers=UA, timeout=12).json()
+        hits = [x for x in h.get("hits", []) if x.get("title")][:3]
+        if hits:
+            return "Top stories: " + " | ".join(f"{x['title'][:70]} ({(x.get('url') or '')[:80]})" for x in hits)[:600]
+    except Exception:
+        pass
+    return ""
+
+
+def web_fetch(url):
+    """Read any webpage as plain text (first ~1500 chars)."""
+    try:
+        import re
+        if not url.startswith("http"):
+            url = "https://" + url
+        r = requests.get(url, headers=UA, timeout=12)
+        html = r.text
+        html = re.sub(r"(?is)<(script|style).*?>.*?</\1>", " ", html)
+        text = re.sub(r"(?s)<[^>]+>", " ", html)
+        text = re.sub(r"\s+", " ", text).strip()
+        return text[:1500] if text else ""
+    except Exception:
+        return ""
+
+
+def crypto_intel():
+    """Live crypto market intel via CoinGecko free API (no key)."""
+    try:
+        r = requests.get("https://api.coingecko.com/api/v3/simple/price",
+                         params={"ids": "bitcoin,ethereum,solana,dogecoin,ripple,avalanche",
+                                 "vs_currencies": "usd", "include_24hr_change": "true"},
+                         headers=UA, timeout=12)
+        p = r.json()
+        parts = []
+        for cid, sym in [("bitcoin", "BTC"), ("ethereum", "ETH"), ("solana", "SOL"),
+                         ("dogecoin", "DOGE"), ("ripple", "XRP"), ("avalanche", "AVAX")]:
+            if cid in p:
+                chg = p[cid].get("usd_24h_change", 0) or 0
+                parts.append(f"{sym} ${p[cid]['usd']:,.2f} ({chg:+.1f}% 24h)")
+        t = requests.get("https://api.coingecko.com/api/v3/search/trending", headers=UA, timeout=12).json()
+        coins = [c["item"]["symbol"].upper() for c in t.get("coins", [])[:3] if "item" in c]
+        out = "Crypto 24h: " + " | ".join(parts) if parts else ""
+        if coins:
+            out += ("\n" if out else "") + "Trending: " + ", ".join(coins)
+        return out
+    except Exception:
+        return ""
+
+
 def get_updates(offset=0):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getUpdates"
     try:
@@ -493,12 +580,30 @@ def poll_loop():
                         send_message(chat_id, tradebot_status(), parse_mode="HTML")
                     continue
 
-                # 7. News / live market prices (real Delta data, never hallucinated)
-                if any(phrase in cmd for phrase in ["news", "market", "price", "bhav", "rate kya"]):
+                # 7. News / market (live Delta prices + CoinGecko intel, never hallucinated)
+                if any(phrase in cmd for phrase in ["news", "market", "price", "bhav", "rate kya", "crypto"]):
                     snap = market_snapshot()
+                    intel = crypto_intel()
                     m = get_current_metrics()
-                    extra = f"\n{snap}" if snap else ""
+                    extra = "".join(f"\n{x}" for x in [snap, intel] if x)
                     send_message(chat_id, f"Ajay, market live hai. Equity ₹{m['equity']:,.2f}, positions flat hain.{extra}", parse_mode="HTML")
+                    continue
+
+                # 7b. Web search ("search ...", "google ...")
+                if cmd.startswith("search ") or cmd.startswith("google ") or cmd.startswith("khoj "):
+                    q = cmd.split(" ", 1)[1].strip()
+                    ans = web_search(q)
+                    send_message(chat_id, f"Ajay, net se mila: {ans}" if ans else "Ajay, is par kuch solid nahi mila net par.", parse_mode="HTML")
+                    continue
+
+                # 7c. Open a link ("open <url>", "fetch <url>", or any URL in message)
+                if cmd.startswith("open ") or cmd.startswith("fetch ") or "http" in cmd or "www." in cmd:
+                    import re as _re
+                    urls = _re.findall(r"(https?://\S+|www\.\S+)", text.strip())
+                    if cmd.startswith(("open ", "fetch ")):
+                        urls = [cmd.split(" ", 1)[1].strip()] + urls
+                    content = web_fetch(urls[0]) if urls else ""
+                    send_message(chat_id, f"Link padh liya Ajay: {content[:1200]}" if content else "Ajay, link open nahi hua.", parse_mode="HTML")
                     continue
 
                 # 8. GitHub status (full access: live Actions state for both bots)
