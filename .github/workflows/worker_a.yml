@@ -1,4 +1,4 @@
-﻿name: Worker A (Ping)
+name: Worker A (Ping)
 
 on:
   workflow_dispatch:
@@ -6,6 +6,10 @@ on:
 permissions:
   contents: write
   actions: write
+
+concurrency:
+  group: bot-singleton
+  cancel-in-progress: true
 
 jobs:
   run-bot-a:
@@ -18,36 +22,35 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
       
       - name: Install dependencies
         run: pip install -r requirements.txt -r hermes-requirements.txt huggingface_hub
       
       - name: Pull State (Restore Memory)
         env:
-          HF_TOKEN: $\{{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python sync_state.py pull || echo "No state found or failed, continuing..."
 
       - name: Run Bot for 5.2 Hours
         env:
-          TELEGRAM_TOKEN: $\{{ secrets.TELEGRAM_TOKEN }}
-          GEMINI_API_KEY: $\{{ secrets.GEMINI_API_KEY }}
-          OPENROUTER_API_KEY: $\{{ secrets.OPENROUTER_API_KEY }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          DELTA_API_KEY: ${{ secrets.DELTA_API_KEY }}
+          DELTA_API_SECRET: ${{ secrets.DELTA_API_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
         run: timeout 18720 python app.py || echo "Bot finished or timed out gracefully"
         
       - name: Push State (Save Memory)
         env:
-          HF_TOKEN: $\{{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python sync_state.py push || echo "Push failed"
 
       - name: Trigger Worker B (Pong)
         env:
-          GH_TOKEN: $\{{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          curl -X POST \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token " \
-          https://api.github.com/repos/$\{{ github.repository }}/actions/workflows/worker_b.yml/dispatches \
-          -d '{"ref":"main"}'
-
-
-
+          curl -X POST           -H "Accept: application/vnd.github.v3+json"           -H "Authorization: token ${{ env.GH_TOKEN }}"           https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker_b.yml/dispatches           -d '{"ref":"main"}'
