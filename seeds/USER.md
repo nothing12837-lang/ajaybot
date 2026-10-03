@@ -10,7 +10,7 @@
 - **Active Systems:**
   - AjayBot: Paper trading on Delta India (7 pairs: BTC, ETH, SOL, DOGE, XRP, DOGS, AVAX, 12x leverage, 0.22 min confidence) running 24/7 via GitHub Actions ping-pong workers (`worker_a.yml` / `worker_b.yml`).
   - tradebot: Second paper bot (`nothing12837-lang/tradebot`), same engine + targets, monitored autonomously.
-  - HF Dataset: `rareember/ajaybot-state` (synced state & mnemosyne DBs).
+  - State sync: GitHub `bot-state` branch (synced trading state & memory).
 - **Scheduled Reminders & Events:**
   - Daily Morning News Brief: 10:00 AM IST (04:30 UTC).
   - Manager Reports: 8:00 AM + 8:00 PM IST (evening report matters most — Ajay works night shift).

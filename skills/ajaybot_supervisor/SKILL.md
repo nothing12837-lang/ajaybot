@@ -12,7 +12,7 @@ This skill equips you to autonomously monitor, audit, and analyze Ajay's automat
 When Ajay asks about bot health, trading performance, or strategy advice:
 
 ### 1. Performance & State Inspection
-- Inspect `bot_state.json` and `trades_history.json` from the local state or Hugging Face dataset `rareember/ajaybot-state`.
+- Inspect `bot_state.json` and `trades_history.json` from the local state or GitHub `bot-state` branch.
 - Key metrics to compute:
   * Current Equity vs Initial Capital (Rs.10,000)
   * Net Realized PnL (factoring in 0.05% taker fees, 0.02% maker fees, 0.01% slippage)

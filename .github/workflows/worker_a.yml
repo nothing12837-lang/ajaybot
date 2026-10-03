@@ -30,9 +30,8 @@ jobs:
 
       - name: Pull State (Restore Memory)
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        run: python sync_github.py pull || python sync_state.py pull || echo 'No state found or failed, continuing...'
+        run: python sync_github.py pull || echo 'No state found or failed, continuing...'
 
       - name: Run Bot + Telegram Chatbot (Radha)
         env:
@@ -46,9 +45,7 @@ jobs:
           TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
         run: |
           echo "Starting Telegram Chatbot (Radha) in background..."
           python radha_telegram.py > radha.log 2>&1 &
@@ -59,9 +56,8 @@ jobs:
       - name: Push State (Save Memory)
         if: always()
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        run: python sync_github.py push || python sync_state.py push || echo 'Push failed'
+        run: python sync_github.py push || echo 'Push failed'
 
       - name: Trigger Worker B
         if: always()

@@ -33,18 +33,18 @@ def start_bot():
 
 
 def sync_loop():
-    """Pull state on boot, push every 5 min to HF dataset repo."""
-    if os.environ.get("HF_TOKEN"):
+    """Pull state on boot, push every 5 min to GitHub bot-state branch."""
+    if os.environ.get("GITHUB_TOKEN"):
         try:
-            subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"), "pull"],
+            subprocess.run([sys.executable, os.path.join(BASE, "sync_github.py"), "pull"],
                            capture_output=True, text=True, timeout=120)
         except Exception as e:
             log_err("pull", e)
     while True:
         time.sleep(300)
-        if os.environ.get("HF_TOKEN"):
+        if os.environ.get("GITHUB_TOKEN"):
             try:
-                subprocess.run([sys.executable, os.path.join(BASE, "sync_state.py"), "push"],
+                subprocess.run([sys.executable, os.path.join(BASE, "sync_github.py"), "push"],
                                capture_output=True, text=True, timeout=120)
                 STATE["last_sync"] = int(time.time())
             except Exception as e:

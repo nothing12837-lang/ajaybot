@@ -24,27 +24,25 @@ jobs:
       - name: Install deps
         run: pip install -r requirements.txt
 
-      - name: Pull state from HF (bot_state + mnemosyne)
+      - name: Pull state from GitHub
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python sync_state.py pull || echo "pull failed, fresh start"
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: python sync_github.py pull || echo "pull failed, fresh start"
 
       - name: Run AjayBot (1 cycle + state save)
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           DELTA_API_KEY: ${{ secrets.DELTA_API_KEY }}
           DELTA_API_SECRET: ${{ secrets.DELTA_API_SECRET }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
         run: |
           timeout 45m python main.py || true
           # main.py runs the bot loop; we kill after 45m to leave time for sync
 
-      - name: Push state to HF (bot_state + mnemosyne)
+      - name: Push state to GitHub
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python sync_state.py push || true
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: python sync_github.py push || true
 
       - name: Upload logs as artifact
         if: always()

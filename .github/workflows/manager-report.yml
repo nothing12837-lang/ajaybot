@@ -18,18 +18,16 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt huggingface_hub
+        run: pip install -r requirements.txt
 
       - name: Pull State
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        run: python sync_github.py pull || python sync_state.py pull || true
+        run: python sync_github.py pull || true
 
       - name: Run Report
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python scripts/daily_report.py

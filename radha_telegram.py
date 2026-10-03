@@ -482,6 +482,16 @@ Radha response:"""
             except Exception:
                 pass
 
+    # 4. Keyless backup brain (Pollinations, no key needed — Radha never goes dumb)
+    try:
+        import urllib.parse
+        q = urllib.parse.quote(f"{system_ctx}\nAjay says: {user_msg}\nRadha response (2-3 short Hinglish sentences):")
+        r = requests.get(f"https://text.pollinations.ai/{q}?model=openai", timeout=30)
+        if r.status_code == 200 and r.text.strip():
+            return r.text.strip()[:800]
+    except Exception:
+        pass
+
     if m["positions"]:
         return f"Ajay, system live hai. Equity Rs.{m['equity']:,.2f}, {len(m['positions'])} position open hai."
     return f"Ajay, system live hai. Equity Rs.{m['equity']:,.2f}, positions flat hain aur next setup ka wait chal raha hai."
@@ -543,13 +553,13 @@ def poll_loop():
                     send_message(chat_id, f"Model: <b>{HERMES_MODEL}</b> (NVIDIA NIM) — fallbacks: Nemotron Super 120B, Gemini 2.5 Flash, Qwen. Direct mode active.", parse_mode="HTML")
                     continue
 
-                # 3. Status
-                if any(phrase in cmd for phrase in ["status", "kya chal raha", "update", "kya hua"]):
+                # 3. Status (typo-tolerant: sytum/system/sistem)
+                if any(phrase in cmd for phrase in ["status", "sytum", "sistem", "system", "kya chal raha", "update", "kya hua"]):
                     send_message(chat_id, generate_status_summary(), parse_mode="HTML")
                     continue
 
-                # 3b. Memory reset (REAL action: re-pull fresh state, clear dedup, confirm)
-                if any(phrase in cmd for phrase in ["memory reset", "memory clear", "memory saaf", "reset karo", "reset kar"]):
+                # 3b. Memory reset (REAL action: re-pull fresh state from GitHub, clear dedup, confirm)
+                if (("memory" in cmd or "dimag" in cmd) and any(w in cmd for w in ["reset", "rest", "restet", "clear", "saaf", "fresh"])) or any(phrase in cmd for phrase in ["reset karo", "reset kar", "rest karo", "rest kar"]):
                     refreshed = False
                     try:
                         import sync_github

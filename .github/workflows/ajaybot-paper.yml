@@ -26,7 +26,6 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      HF_TOKEN: ${{ secrets.HF_TOKEN }}
       # Built-in GitHub token — always available, no setup needed
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_REPO: nothing12837-lang/ajaybot
@@ -49,20 +48,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Pull bot state from GitHub (primary)
+      - name: Pull bot state from GitHub
         run: python sync_github.py pull || echo "No existing GitHub state (first run)"
-
-      - name: Pull bot state from HF (fallback, if HF_TOKEN valid)
-        run: python sync_state.py pull || echo "HF pull skipped/failed"
 
       - name: Run paper trading cycle
         run: python run_paper_cycle.py
 
-      - name: Push state to GitHub (primary — always works)
+      - name: Push state to GitHub
         run: python sync_github.py push || echo "GitHub push failed"
-
-      - name: Push state to HF (fallback)
-        run: python sync_state.py push || echo "HF push skipped/failed"
 
       - name: Commit optimizer config changes back to repo
         run: |

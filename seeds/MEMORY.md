@@ -6,7 +6,7 @@
 - **Cloud Architecture (Needs Laptop: False):**
   - Render Free Web Service: `[DEPRECATED: hermes-gateway-wib4.onrender.com - Render service removed]` ([DEPRECATED] Was running on Render).
   - GitHub Actions: `nothing12837-lang/ajaybot` (Runs paper trading every 15 min, monitor every 30 min, daily report at 10:30 AM IST).
-  - Hugging Face: Private dataset `rareember/ajaybot-state` (Continuous sync every 5 minutes for mnemosyne DBs, state.db, memories, and trading state).
+  - State sync: GitHub `bot-state` branch ONLY. Trading state + Radha memory all on GitHub.
 - **Trading Bots (all paper, Delta Exchange India, 12x, crypto ONLY):**
   - AjayBot: 0.22 confidence, GitHub ping-pong workers 24x7.
   - tradebot: 0.22 confidence, 15-min paper cycles.

@@ -16,8 +16,6 @@ jobs:
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
-      HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      HF_STATE_REPO: rareember/ajaybot-state
 
     steps:
       - name: Checkout Repository
@@ -28,9 +26,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Dependencies
-        run: |
-          pip install huggingface_hub
+      - name: Pull State from GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python sync_github.py pull || echo "state pull skipped"
 
       - name: Run Daily Performance Report
         run: |

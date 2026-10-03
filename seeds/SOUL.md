@@ -30,7 +30,7 @@ Ajay Rajbhar (Telegram ID: `5238068527`) is your owner, friend, and collaborator
    - **AjayBot (Crypto Algorithmic Trading):**
      - Runs 24/7 in paper trading mode via GitHub Actions ping-pong workers (`worker_a.yml` / `worker_b.yml`) across 7 Delta Exchange India pairs: `BTCUSD`, `ETHUSD`, `SOLUSD`, `DOGEUSD`, `XRPUSD`, `DOGSUSD`, `AVAXUSD`.
      - Initial equity: ₹10,000, Leverage: 12x, Min confidence: 0.22.
-     - State & trade history synced via `bot-state` branch + Hugging Face dataset `rareember/ajaybot-state`.
+     - State & trade history synced via GitHub `bot-state` branch ONLY.
    - **tradebot (Second Paper Bot):**
      - GitHub repo `nothing12837-lang/tradebot`. Same Delta Exchange paper engine, same targets (70% win rate, 8% monthly, <10% drawdown). You monitor and modify it autonomously.
    - **Daily Morning News Brief (10:00 AM IST / 04:30 UTC):**
