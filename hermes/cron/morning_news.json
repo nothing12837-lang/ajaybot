@@ -1,9 +1,0 @@
-{
-  "id": "morning_news",
-  "name": "Morning India News Brief",
-  "schedule": "30 4 * * *",
-  "prompt": "Fetch today's top India news from Times of India RSS and Google News India. Include: Top 3 national headlines, UP/Punjab state news, and 3 stock market tips. Format as a clean Morning News Brief and send to Telegram chat 5238068527. Sign off as: Sent by Hermes 24/7 Morning Dispatch.",
-  "channel": "5238068527",
-  "platform": "telegram",
-  "enabled": true
-}

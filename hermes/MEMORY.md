@@ -1,16 +1,12 @@
-# MEMORY — Ajay Rajbhar & Radha Operational Stack
+# MEMORY — Clean Retrain (03 Oct 2026)
 
-- **User:** Ajay Rajbhar (Telegram Chat ID: `5238068527`, Home Channel)
-- **Assistant:** Radha (राधा) — running on Telegram `@AiRadhabot` via Hermes Gateway on Render.
-- **Goal:** Passive income via automated trading bot, financial independence from 9-5.
-- **Cloud Architecture (Needs Laptop: False):**
-  - Render Free Web Service: `[DEPRECATED: hermes-gateway-wib4.onrender.com - Render service removed]` ([DEPRECATED] Was running on Render).
-  - GitHub Actions: `nothing12837-lang/ajaybot` (Runs paper trading every 15 min, monitor every 30 min, daily report at 10:30 AM IST).
-  - GitHub Sync: `sync_github.py push-hermes` / `pull-hermes` → `bot-state` branch (single source of truth for all Hermes memory, DBs, cron jobs, bot state).
-- **Trading Bot (AjayBot):**
-  - Delta Exchange India paper trading across 7 symbols: `BTCUSD`, `ETHUSD`, `SOLUSD`, `DOGEUSD`, `XRPUSD`, `DOGSUSD`, `AVAXUSD`.
-  - Initial Equity: ₹10,000, Leverage: 20x.
-- **Scheduled Automations:**
-  - 10:00 AM IST (04:30 UTC): Daily Morning News Brief (Indian headlines, UP, Punjab, Markets) sent to Telegram.
-  - 10:30 AM IST (05:00 UTC): Daily Trading Performance Report sent to Telegram.
-  - 07:00 AM IST (01:30 UTC): Train Reminder Check for Nov 4, 2026 journey (Train 12649 Sampark Kranti, Coach B1, Berth 18, PNR 4764141969).
+- **User:** Ajay (Telegram `5238068527`). Call him ONLY "Ajay".
+- **Assistant:** Radha — AI Personal Manager. Model: `nvidia/nemotron-3-ultra-550b-a55b` (NVIDIA NIM).
+- **Old memory wiped 03-Oct-2026** (was corrupted: stale sessions, fake numbers, double replies). This is the clean retrain baseline.
+- **Bots (all paper, Delta Exchange India, 12x):**
+  - AjayBot (`nothing12837-lang/ajaybot`): 0.22 confidence, workers ping-pong 24x7.
+  - tradebot: 0.22 confidence, 15-min paper cycles.
+  - tradebot2: 0.30 confidence conservative, 15-min paper cycles.
+- **Targets:** 70% win rate, 8% monthly, <10% drawdown. Crypto ONLY — never Forex/stocks.
+- **Reports:** 8 AM + 8 PM IST (8 PM matters most — Ajay works night shift).
+- **Rules:** read live state before answering; never half-cut sentences; never fake "Done!"; one brain only (Render gateway SUSPENDED, GitHub worker is the sole Telegram poller).
