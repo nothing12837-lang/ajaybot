@@ -27,6 +27,8 @@ HERMES_MODEL = os.environ.get("HERMES_MODEL", "nvidia/nemotron-3-ultra-550b-a55b
 GITHUB_TOKEN = (os.environ.get("GITHUB_TOKEN", "") or os.environ.get("GH_TOKEN", "")).strip()
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "nothing12837-lang/ajaybot").strip() or "nothing12837-lang/ajaybot"
 TRADEBOT_REPO = "nothing12837-lang/tradebot"
+TRADEBOT2_REPO = "nothing12837-lang/tradebot2"
+MONITORED_REPOS = [None, TRADEBOT_REPO, TRADEBOT2_REPO]  # None = GITHUB_REPO (ajaybot)
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 # Dedup cache: (chat_id, text) -> timestamp. Kills double-replies from
@@ -144,7 +146,7 @@ def github_status():
     if not GITHUB_TOKEN:
         return "Ajay, GitHub token worker me set nahi hai, isliye Actions status nahi dekh pa rahi."
     lines = []
-    for repo in [GITHUB_REPO, TRADEBOT_REPO]:
+    for repo in [GITHUB_REPO, TRADEBOT_REPO, TRADEBOT2_REPO]:
         name = repo.split("/")[-1]
         d = gh_request("GET", f"/repos/{repo}/actions/runs?per_page=3")
         runs = (d.get("workflow_runs", []) if isinstance(d, dict) else []) if d else []
@@ -182,36 +184,48 @@ def github_read(path, repo=None, ref="main", limit=2000):
         return None
 
 
-def tradebot_status():
-    """Live tradebot state from its bot-state branch (Radha controls it)."""
+def bot_live_status(repo, label):
+    """Live paper-bot state from its bot-state branch (Radha controls it)."""
     if not GITHUB_TOKEN:
-        return "Ajay, GitHub token worker me set nahi hai, isliye tradebot status nahi dekh pa rahi."
-    st_raw = github_read("data/bot_state.json", repo=TRADEBOT_REPO, ref="bot-state", limit=None)
+        return f"Ajay, GitHub token worker me set nahi hai, isliye {label} status nahi dekh pa rahi."
+    st_raw = github_read("data/bot_state.json", repo=repo, ref="bot-state", limit=None)
     if not st_raw:
-        return "Ajay, tradebot ka state branch abhi sync nahi hua — next paper cycle me aa jayega."
+        return f"Ajay, {label} ka state branch abhi sync nahi hua — next paper cycle me aa jayega."
     try:
         st = json.loads(st_raw)
         equity = float(st.get("equity", 10000.0))
         positions = st.get("positions", {})
-        tr_raw = github_read("data/trades_history.json", repo=TRADEBOT_REPO, ref="bot-state", limit=None) or "[]"
+        tr_raw = github_read("data/trades_history.json", repo=repo, ref="bot-state", limit=None) or "[]"
         parsed = json.loads(tr_raw)
         trades = parsed if isinstance(parsed, list) else []
         total = len(trades)
         wins = sum(1 for t in trades if float(t.get("pnl", 0)) > 0)
         wr = (wins / total * 100.0) if total else 0.0
         pos_str = f"{len(positions)} open" if positions else "None (Flat)"
-        return (f"TradeBot (live): Equity ₹{equity:,.2f} | {total} trades, win rate {wr:.1f}% | "
+        return (f"{label} (live): Equity ₹{equity:,.2f} | {total} trades, win rate {wr:.1f}% | "
                 f"Positions: {pos_str} | Paper mode, Radha monitoring on.")
     except Exception:
-        return "Ajay, tradebot state parse nahi hua — next cycle me re-check karungi."
+        return f"Ajay, {label} state parse nahi hua — next cycle me re-check karungi."
+
+
+def tradebot_status():
+    return bot_live_status(TRADEBOT_REPO, "TradeBot")
+
+
+def tradebot2_status():
+    return bot_live_status(TRADEBOT2_REPO, "TradeBot2")
+
+
+def paper_restart(repo):
+    """Trigger a fresh paper cycle for tradebot / tradebot2."""
+    if not GITHUB_TOKEN:
+        return False
+    res = gh_request("POST", f"/repos/{repo}/actions/workflows/tradebot-paper.yml/dispatches", {"ref": "main"})
+    return res is not None and res is not False
 
 
 def tradebot_restart():
-    """Trigger a fresh tradebot paper cycle."""
-    if not GITHUB_TOKEN:
-        return False
-    res = gh_request("POST", f"/repos/{TRADEBOT_REPO}/actions/workflows/tradebot-paper.yml/dispatches", {"ref": "main"})
-    return res is not None and res is not False
+    return paper_restart(TRADEBOT_REPO)
 
 
 def market_snapshot():
@@ -463,7 +477,14 @@ def poll_loop():
                     send_message(chat_id, f"Ajay, abhi market me 0.22+ confidence ka clear setup nahi bana hai. Equity ₹{m['equity']:,.2f} safe hai, jaise hi valid signal banega bot execute karega.", parse_mode="HTML")
                     continue
 
-                # 6. Tradebot — live status / restart (Radha controls it)
+                # 6. Tradebot / TradeBot2 — live status / restart (Radha controls both)
+                if "tradebot2" in cmd or "tradebot 2" in cmd or "tradebot-2" in cmd:
+                    if "restart" in cmd or "redeploy" in cmd or "reboot" in cmd:
+                        ok = paper_restart(TRADEBOT2_REPO)
+                        send_message(chat_id, "Done Ajay — tradebot2 ka fresh paper cycle trigger kar diya." if ok else "Ajay, tradebot2 restart trigger nahi hua.", parse_mode="HTML")
+                    else:
+                        send_message(chat_id, tradebot2_status(), parse_mode="HTML")
+                    continue
                 if "tradebot" in cmd:
                     if "restart" in cmd or "redeploy" in cmd or "reboot" in cmd:
                         ok = tradebot_restart()
