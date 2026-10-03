@@ -1,4 +1,4 @@
-# MEMORY — Ajay Rajbhar & Radha Operational Stack
+# MEMORY — Ajay Rajbhar & Radha Operational Stack (CLEAN RETRAIN 03-Oct-2026; old corrupted memory wiped)
 
 - **User:** Ajay Rajbhar (Telegram Chat ID: `5238068527`, Home Channel)
 - **Assistant:** Radha (राधा) — running on Telegram `@AiRadhabot` via Hermes Gateway on Render.
@@ -7,9 +7,12 @@
   - Render Free Web Service: `[DEPRECATED: hermes-gateway-wib4.onrender.com - Render service removed]` ([DEPRECATED] Was running on Render).
   - GitHub Actions: `nothing12837-lang/ajaybot` (Runs paper trading every 15 min, monitor every 30 min, daily report at 10:30 AM IST).
   - Hugging Face: Private dataset `rareember/ajaybot-state` (Continuous sync every 5 minutes for mnemosyne DBs, state.db, memories, and trading state).
-- **Trading Bot (AjayBot):**
-  - Delta Exchange India paper trading across 7 symbols: `BTCUSD`, `ETHUSD`, `SOLUSD`, `DOGEUSD`, `XRPUSD`, `DOGSUSD`, `AVAXUSD`.
-  - Initial Equity: ₹10,000, Leverage: 20x.
+- **Trading Bots (all paper, Delta Exchange India, 12x, crypto ONLY):**
+  - AjayBot: 0.22 confidence, GitHub ping-pong workers 24x7.
+  - tradebot: 0.22 confidence, 15-min paper cycles.
+  - tradebot2: 0.30 confidence (conservative), 15-min paper cycles.
+  - Initial Equity: ₹10,000 each. Targets: 70% win rate, 8% monthly, <10% drawdown.
+- **Single brain rule:** GitHub worker is the ONLY Telegram poller. Render gateway stays SUSPENDED.
 - **Scheduled Automations:**
   - 10:00 AM IST (04:30 UTC): Daily Morning News Brief (Indian headlines, UP, Punjab, Markets) sent to Telegram.
   - 10:30 AM IST (05:00 UTC): Daily Trading Performance Report sent to Telegram.
