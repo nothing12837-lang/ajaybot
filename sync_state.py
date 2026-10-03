@@ -1,4 +1,4 @@
-"""Sync AjayBot state + memory to private HF dataset repo (survives Render restarts).
+﻿"""Sync AjayBot state + memory to private HF dataset repo (survives Render restarts).
 Usage: python sync_state.py push | pull"""
 import os
 import sys
@@ -9,10 +9,13 @@ REPO = os.environ.get("HF_STATE_REPO", "rareember/ajaybot-state")
 BASE = os.path.dirname(os.path.abspath(__file__))
 HERMES_HOME = os.path.join(BASE, "hermes-home")
 HERMES_MNEMO = os.path.join(HERMES_HOME, "mnemosyne")
+import glob
 FILES = [
     (os.path.join(BASE, "data", "bot_state.json"), "bot_state.json"),
     (os.path.join(BASE, "data", "trades_history.json"), "trades_history.json"),
 ]
+for pq in glob.glob(os.path.join(BASE, "data", "*.parquet")):
+    FILES.append((pq, "data/" + os.path.basename(pq)))
 MNEMO_DIR = os.environ.get("MNEMOSYNE_DATA_DIR", os.path.join(BASE, "mnemosyne_data"))
 
 
@@ -44,11 +47,22 @@ def pull():
         files = api.list_repo_files(REPO, repo_type="dataset")
     except Exception:
         print("state repo empty/new"); return
+    
+    # Download hardcoded FILES
     for path, name in FILES:
         if name in files:
             p = hf_hub_download(REPO, name, repo_type="dataset", token=TOKEN)
             os.makedirs(os.path.dirname(path), exist_ok=True)
             shutil.copy(p, path)
+            
+    # Download any parquet files stored in data/ on remote
+    for f in files:
+        if f.startswith("data/") and f.endswith(".parquet"):
+            p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
+            local_path = os.path.join(BASE, "data", os.path.basename(f))
+            os.makedirs(os.path.dirname(local_path), exist_ok=True)
+            shutil.copy(p, local_path)
+            
     for f in files:
         if f.startswith("mnemosyne/") and f.endswith(".db"):
             p = hf_hub_download(REPO, f, repo_type="dataset", token=TOKEN)
@@ -286,3 +300,4 @@ if __name__ == "__main__":
         pull_hermes()
     else:
         pull()
+
