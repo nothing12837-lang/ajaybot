@@ -31,7 +31,7 @@ import urllib.parse
 from pathlib import Path
 from typing import Optional
 
-# ── Config ─────────────────────────────────────────────────────────────
+#  Config 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_REPO  = os.environ.get("GITHUB_REPO", "nothing12837-lang/ajaybot")
 STATE_BRANCH = os.environ.get("GITHUB_STATE_BRANCH", "bot-state")
@@ -41,11 +41,14 @@ HERMES_HOME  = os.path.join(BASE, "hermes-home")
 DATA_DIR     = os.path.join(BASE, "data")
 
 # Files to sync (local_path -> repo_path_in_branch)
+import glob
 BOT_STATE_FILES = [
     (os.path.join(DATA_DIR, "bot_state.json"),        "data/bot_state.json"),
     (os.path.join(DATA_DIR, "trades_history.json"),   "data/trades_history.json"),
     (os.path.join(DATA_DIR, "adaptation_log.json"),   "data/adaptation_log.json"),
 ]
+for pq in glob.glob(os.path.join(DATA_DIR, "*.parquet")):
+    BOT_STATE_FILES.append((pq, "data/" + os.path.basename(pq)))
 
 HERMES_STATE_FILES = [
     (os.path.join(HERMES_HOME, "SOUL.md"),            "hermes/SOUL.md"),
@@ -57,7 +60,7 @@ HERMES_STATE_FILES = [
 ]
 
 
-# ── GitHub API helpers ──────────────────────────────────────────────────
+#  GitHub API helpers 
 class GitHubAPI:
     BASE_URL = "https://api.github.com"
 
@@ -133,7 +136,7 @@ class GitHubAPI:
             return []
 
 
-# ── Core sync functions ─────────────────────────────────────────────────
+#  Core sync functions 
 def _push_file(api: GitHubAPI, local_path: str, repo_path: str, branch: str, label: str = ""):
     """Push one local file to GitHub, skip if unchanged."""
     if not os.path.exists(local_path):
@@ -155,7 +158,7 @@ def _push_file(api: GitHubAPI, local_path: str, repo_path: str, branch: str, lab
                      f"sync: {label or repo_path}", sha)
         return True
     except Exception as e:
-        print(f"  ⚠ push {repo_path}: {e}")
+        print(f"   push {repo_path}: {e}")
         return False
 
 
@@ -170,7 +173,7 @@ def _pull_file(api: GitHubAPI, repo_path: str, local_path: str, branch: str):
             f.write(existing["content"])
         return True
     except Exception as e:
-        print(f"  ⚠ pull {repo_path}: {e}")
+        print(f"   pull {repo_path}: {e}")
         return False
 
 
@@ -196,14 +199,14 @@ def _push_db(api: GitHubAPI, db_path: str, repo_path: str, branch: str):
                      f"sync: {os.path.basename(db_path)}", sha)
         return True
     except Exception as e:
-        print(f"  ⚠ push db {repo_path}: {e}")
+        print(f"   push db {repo_path}: {e}")
         return False
     finally:
         try: os.remove(tmp)
         except Exception: pass
 
 
-# ── Public commands ─────────────────────────────────────────────────────
+#  Public commands 
 def push():
     if not GITHUB_TOKEN:
         print("no GITHUB_TOKEN; skip push"); return
@@ -218,6 +221,7 @@ def push():
 
 
 def pull():
+    '''Pull bot state from GitHub.'''
     if not GITHUB_TOKEN:
         print("no GITHUB_TOKEN; skip pull"); return
     api = GitHubAPI(GITHUB_TOKEN, GITHUB_REPO)
@@ -226,7 +230,16 @@ def pull():
         if _pull_file(api, remote, local, STATE_BRANCH):
             n += 1
             print(f"  OK pulled {remote}")
-    print(f"pull done ({n} files restored)")
+    
+    # Dynamically pull all parquet files from data/ directory on remote
+    for repo_path in api.list_branch_files("data", STATE_BRANCH):
+        if repo_path.endswith(".parquet"):
+            local_path = os.path.join(DATA_DIR, os.path.basename(repo_path))
+            if _pull_file(api, repo_path, local_path, STATE_BRANCH):
+                n += 1
+                print(f"  OK pulled {repo_path}")
+                
+    print(f"pull done ({n} files restored)")")
 
 
 def push_hermes():

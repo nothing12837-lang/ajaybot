@@ -350,7 +350,7 @@ class AjayBot:
             lookback_days=config.optimizer.lookback_days,
             min_trades_for_optimization=config.optimizer.min_trades
         )
-        # Strategy Adaptation Engine — autonomous edge detection + symbol rotation
+        # Strategy Adaptation Engine  autonomous edge detection + symbol rotation
         self.adaptation_engine = create_adaptation_engine(config)
         
         self._running = False
@@ -633,7 +633,7 @@ class AjayBot:
             # Generate signal
             # Check if symbol is paused or has elevated confidence threshold from adaptation engine
             if self.adaptation_engine.is_symbol_paused(symbol):
-                logger.info(f"{symbol}: SKIPPED — adaptation engine has paused this symbol")
+                logger.info(f"{symbol}: SKIPPED  adaptation engine has paused this symbol")
                 continue
 
             signal = self.signal_engine.generate_signal(symbol, sym_config.model_dump(), df, htf_df)

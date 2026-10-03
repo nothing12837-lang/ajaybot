@@ -1,13 +1,13 @@
-﻿"""Hermes gateway 24x7 â€” Render web service (free plan).
+"""Hermes gateway 24x7  Render web service (free plan).
 Runs `hermes gateway run` in background subprocess + serves status on $PORT.
 Render requires a web service to bind $PORT and pass health checks (/health).
-Telegram polling is outbound so it does NOT keep Render awake â€” use the
+Telegram polling is outbound so it does NOT keep Render awake  use the
 keep-alive workflow (pings /health every 10 min) + cron-job.org.
 
 Memory/state survives Render restarts via HF dataset repo (private):
   pull on boot, push every 5 min (mnemosyne/*.db).
 
-Secrets NEVER live in this repo â€” set them in Render dashboard > Environment.
+Secrets NEVER live in this repo  set them in Render dashboard > Environment.
 Required: TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS, NVIDIA_API_KEY
 Optional: GROQ_API_KEY, GEMINI_API_KEY, OPENROUTER_API_KEY, HF_TOKEN,
           HF_STATE_REPO, HERMES_MODEL
@@ -175,7 +175,7 @@ Take full charge. Do the work. Manage the empire.
     )
 
     jobs = {
-        # Daily performance report â€” 10:30 AM IST (05:00 UTC)
+        # Daily performance report  10:30 AM IST (05:00 UTC)
         "daily_report": {
             "id": "daily_report",
             "name": "AjayBot Daily Report",
@@ -193,7 +193,7 @@ Take full charge. Do the work. Manage the empire.
             "enabled": True,
         },
 
-        # Train reminder â€” 7:00 AM IST (01:30 UTC) - fires every day, but message only on Nov 3-4
+        # Train reminder  7:00 AM IST (01:30 UTC) - fires every day, but message only on Nov 3-4
         "train_reminder": {
             "id": "train_reminder",
             "name": "Train Journey Reminder",
@@ -209,7 +209,7 @@ Take full charge. Do the work. Manage the empire.
             "platform": "telegram",
             "enabled": True,
         },
-        # Bot health heartbeat â€” every hour
+        # Bot health heartbeat  every hour
         "bot_heartbeat": {
             "id": "bot_heartbeat",
             "name": "AjayBot Heartbeat Check",
@@ -304,7 +304,7 @@ def sync_loop():
         except Exception:
             pass
 
-        # GitHub sync â€” primary backup, always runs when token available
+        # GitHub sync  primary backup, always runs when token available
         if os.environ.get("GITHUB_TOKEN"):
             try:
                 import sync_github
@@ -386,7 +386,7 @@ async def trigger_sync():
 
 @app.get("/logs")
 async def logs():
-    """Tail of the hermes gateway subprocess log â€” debugging crash loops."""
+    """Tail of the hermes gateway subprocess log  debugging crash loops."""
     try:
         with open(os.path.join(BASE, "hermes-gateway.log"), "r",
                   encoding="utf-8", errors="replace") as f:

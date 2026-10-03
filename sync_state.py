@@ -1,4 +1,4 @@
-﻿"""Sync AjayBot state + memory to private HF dataset repo (survives Render restarts).
+"""Sync AjayBot state + memory to private HF dataset repo (survives Render restarts).
 Usage: python sync_state.py push | pull"""
 import os
 import sys

@@ -1,4 +1,4 @@
-"""AjayBot 24x7 — Render web service (free plan).
+"""AjayBot 24x7  Render web service (free plan).
 Runs AjayBot trading in background subprocess + serves status on $PORT.
 Keep-awake: external pinger (cron-job.org) hits / every 10 min."""
 import os
