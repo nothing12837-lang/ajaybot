@@ -1,4 +1,4 @@
-"""
+﻿"""
 GitHub-based state sync for AjayBot + Hermes memory.
 Replaces / complements HF sync. Uses GitHub API directly (no extra packages needed).
 
@@ -239,7 +239,7 @@ def pull():
                 n += 1
                 print(f"  OK pulled {repo_path}")
                 
-    print(f"pull done ({n} files restored)")")
+    print(f"pull done ({n} files restored)")
 
 
 def push_hermes():
