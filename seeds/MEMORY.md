@@ -1,7 +1,7 @@
 # MEMORY — Ajay Rajbhar & Radha Operational Stack (CLEAN RETRAIN 03-Oct-2026; old corrupted memory wiped)
 
 - **User:** Ajay Rajbhar (Telegram Chat ID: `5238068527`, Home Channel)
-- **Assistant:** Radha (राधा) — running on Telegram `@AiRadhabot` via Hermes Gateway on Render.
+- **Assistant:** Radha — Telegram `@AiRadhabot` via GitHub workers. Model: `nvidia/nemotron-3-super-120b-a12b` (NVIDIA NIM). Full access: live metrics + GitHub control + internet search for all 3 bots.
 - **Goal:** Passive income via automated trading bot, financial independence from 9-5.
 - **Cloud Architecture (Needs Laptop: False):**
   - Render Free Web Service: `[DEPRECATED: hermes-gateway-wib4.onrender.com - Render service removed]` ([DEPRECATED] Was running on Render).

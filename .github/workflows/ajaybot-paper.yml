@@ -58,9 +58,6 @@ jobs:
       - name: Run paper trading cycle
         run: python run_paper_cycle.py
 
-      - name: Ping Hermes gateway on Render (keeps Render 24/7 awake)
-        run: curl -s -m 20 https://hermes-gateway-wib4.onrender.com/health || true
-
       - name: Push state to GitHub (primary — always works)
         run: python sync_github.py push || echo "GitHub push failed"
 

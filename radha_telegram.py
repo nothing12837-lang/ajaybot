@@ -21,8 +21,8 @@ if "5238068527" not in ALLOWED_USERS:
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
 NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
-# Primary brain: Nemotron 3 Ultra 550B via NVIDIA NIM. Override with HERMES_MODEL.
-HERMES_MODEL = os.environ.get("HERMES_MODEL", "nvidia/nemotron-3-ultra-550b-a55b").strip()
+# Primary brain: Nemotron Super 120B via NVIDIA NIM (fast + smart). Override with HERMES_MODEL.
+HERMES_MODEL = os.environ.get("HERMES_MODEL", "nvidia/nemotron-3-super-120b-a12b").strip()
 # Full GitHub access: Radha can inspect Actions, read repo files, restart workers.
 GITHUB_TOKEN = (os.environ.get("GITHUB_TOKEN", "") or os.environ.get("GH_TOKEN", "")).strip()
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "nothing12837-lang/ajaybot").strip() or "nothing12837-lang/ajaybot"
@@ -419,7 +419,7 @@ def llm_reply(user_msg, chat_id):
 Ajay says: {user_msg}
 Radha response:"""
 
-    # 1. NVIDIA NIM — Nemotron 3 Ultra 550B (primary brain, OpenAI-compatible)
+    # 1. NVIDIA NIM — Nemotron Super 120B (primary brain, OpenAI-compatible)
     if NVIDIA_API_KEY:
         try:
             url = "https://integrate.api.nvidia.com/v1/chat/completions"
