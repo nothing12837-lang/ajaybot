@@ -166,18 +166,52 @@ def github_restart():
     return res is not None and res is not False
 
 
-def github_read(path):
-    """Read any text file from the ajaybot repo (max ~2000 chars)."""
+def github_read(path, repo=None, ref="main", limit=2000):
+    """Read any text file from a repo (limit=None for full content, e.g. JSON state)."""
     if not GITHUB_TOKEN:
         return None
-    d = gh_request("GET", f"/repos/{GITHUB_REPO}/contents/{path}?ref=main")
+    repo = repo or GITHUB_REPO
+    d = gh_request("GET", f"/repos/{repo}/contents/{path}?ref={ref}")
     if not isinstance(d, dict) or "content" not in d:
         return None
     try:
         import base64
-        return base64.b64decode(d["content"]).decode("utf-8", "ignore")[:2000]
+        text = base64.b64decode(d["content"]).decode("utf-8", "ignore")
+        return text if limit is None else text[:limit]
     except Exception:
         return None
+
+
+def tradebot_status():
+    """Live tradebot state from its bot-state branch (Radha controls it)."""
+    if not GITHUB_TOKEN:
+        return "Ajay, GitHub token worker me set nahi hai, isliye tradebot status nahi dekh pa rahi."
+    st_raw = github_read("data/bot_state.json", repo=TRADEBOT_REPO, ref="bot-state", limit=None)
+    if not st_raw:
+        return "Ajay, tradebot ka state branch abhi sync nahi hua — next paper cycle me aa jayega."
+    try:
+        st = json.loads(st_raw)
+        equity = float(st.get("equity", 10000.0))
+        positions = st.get("positions", {})
+        tr_raw = github_read("data/trades_history.json", repo=TRADEBOT_REPO, ref="bot-state", limit=None) or "[]"
+        parsed = json.loads(tr_raw)
+        trades = parsed if isinstance(parsed, list) else []
+        total = len(trades)
+        wins = sum(1 for t in trades if float(t.get("pnl", 0)) > 0)
+        wr = (wins / total * 100.0) if total else 0.0
+        pos_str = f"{len(positions)} open" if positions else "None (Flat)"
+        return (f"TradeBot (live): Equity ₹{equity:,.2f} | {total} trades, win rate {wr:.1f}% | "
+                f"Positions: {pos_str} | Paper mode, Radha monitoring on.")
+    except Exception:
+        return "Ajay, tradebot state parse nahi hua — next cycle me re-check karungi."
+
+
+def tradebot_restart():
+    """Trigger a fresh tradebot paper cycle."""
+    if not GITHUB_TOKEN:
+        return False
+    res = gh_request("POST", f"/repos/{TRADEBOT_REPO}/actions/workflows/tradebot-paper.yml/dispatches", {"ref": "main"})
+    return res is not None and res is not False
 
 
 def market_snapshot():
@@ -429,9 +463,13 @@ def poll_loop():
                     send_message(chat_id, f"Ajay, abhi market me 0.22+ confidence ka clear setup nahi bana hai. Equity ₹{m['equity']:,.2f} safe hai, jaise hi valid signal banega bot execute karega.", parse_mode="HTML")
                     continue
 
-                # 6. Tradebot check
+                # 6. Tradebot — live status / restart (Radha controls it)
                 if "tradebot" in cmd:
-                    send_message(chat_id, "Ajay, <b>tradebot</b> repo live hai: https://github.com/nothing12837-lang/tradebot — Delta Exchange paper engine, same targets (70% win rate, 8% monthly). Monitoring on hai.", parse_mode="HTML")
+                    if "restart" in cmd or "redeploy" in cmd or "reboot" in cmd:
+                        ok = tradebot_restart()
+                        send_message(chat_id, "Done Ajay — tradebot ka fresh paper cycle trigger kar diya." if ok else "Ajay, tradebot restart trigger nahi hua.", parse_mode="HTML")
+                    else:
+                        send_message(chat_id, tradebot_status(), parse_mode="HTML")
                     continue
 
                 # 7. News / live market prices (real Delta data, never hallucinated)
