@@ -1,80 +1,61 @@
 #!/usr/bin/env python3
-"""Daily Trading Performance Report for Ajay (10:30 AM IST / 05:00 UTC).
-Fetches latest trading state from Hugging Face dataset rareember/ajaybot-state,
-computes key metrics (equity, open positions, win rate, net PnL), and dispatches
-a clean HTML digest directly to Ajay's Telegram.
+"""Daily Trading Performance Report for Ajay (8:00 AM / 8:00 PM IST).
+Fetches latest trading state from data/bot_state.json and data/trades_history.json,
+computes key metrics (equity, open positions, win rate, net PnL, drawdown),
+and dispatches a clean, executive HTML digest directly to Ajay's Telegram.
 """
 import os
 import sys
 import json
-import tempfile
 import urllib.request
 import urllib.parse
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-# IST Timezone (UTC + 5:30)
 IST = timezone(timedelta(hours=5, minutes=30))
+BASE = Path(__file__).parent.parent
 
-# Try loading from .env files if environment variables are missing
-for env_candidate in [
-    Path("/opt/render/project/src/hermes-home/.env"),
-    Path(__file__).parent.parent / "hermes-home" / ".env",
-    Path(__file__).parent.parent / ".env",
-]:
-    if env_candidate.exists():
-        try:
-            with open(env_candidate, "r", encoding="utf-8", errors="ignore") as f:
-                for line in f:
-                    line = line.strip()
-                    if "=" in line and not line.startswith("#"):
-                        k, v = line.split("=", 1)
-                        if k not in os.environ and v:
-                            os.environ[k] = v
-        except Exception:
-            pass
-
-HF_TOKEN = os.environ.get("HF_TOKEN")
-HF_REPO = os.environ.get("HF_STATE_REPO", "rareember/ajaybot-state")
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
-TELEGRAM_ALLOWED_USERS = os.environ.get("TELEGRAM_ALLOWED_USERS", "5238068527")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+TELEGRAM_ALLOWED_USERS = os.environ.get("TELEGRAM_ALLOWED_USERS", "5238068527").strip()
 CHAT_ID = TELEGRAM_ALLOWED_USERS.split(",")[0].strip() if TELEGRAM_ALLOWED_USERS else "5238068527"
 
 
 def fetch_performance():
     equity = 10000.0
-    positions_count = 0
+    peak_equity = 10000.0
+    daily_pnl = 0.0
+    positions = {}
     total_trades = 0
     wins = 0
     losses = 0
     net_pnl = 0.0
+    trades_list = []
 
-    state_loaded = False
-    try:
-        from huggingface_hub import snapshot_download
-        with tempfile.TemporaryDirectory() as tmpdir:
-            tmp = Path(tmpdir)
-            snapshot_download(
-                repo_id=HF_REPO,
-                repo_type="dataset",
-                token=HF_TOKEN,
-                local_dir=tmp,
-            )
-            state_file = tmp / "bot_state.json"
-            trades_file = tmp / "trades_history.json"
+    # 1. Read bot_state.json
+    for p in [BASE / "data" / "bot_state.json", Path("data/bot_state.json"), BASE / "bot_state.json"]:
+        if p.exists():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    st = json.load(f)
+                equity = float(st.get("equity", equity))
+                peak_equity = float(st.get("peak_equity", peak_equity))
+                daily_pnl = float(st.get("daily_pnl", daily_pnl))
+                positions = st.get("positions", {})
+                if isinstance(positions, list):
+                    positions = {pos.get("symbol", f"pos_{i}"): pos for i, pos in enumerate(positions)}
+                print(f"Loaded bot_state from {p}")
+                break
+            except Exception as e:
+                print(f"Error reading {p}: {e}")
 
-            if state_file.exists():
-                with open(state_file, "r", encoding="utf-8") as f:
-                    state = json.load(f)
-                equity = float(state.get("equity", 10000.0))
-                pos_data = state.get("positions", {})
-                positions_count = len(pos_data) if isinstance(pos_data, (dict, list)) else 0
-                state_loaded = True
-
-            if trades_file.exists():
-                with open(trades_file, "r", encoding="utf-8") as f:
+    # 2. Read trades_history.json
+    for p in [BASE / "data" / "trades_history.json", Path("data/trades_history.json"), BASE / "trades_history.json"]:
+        if p.exists():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
                     trades = json.load(f)
                 if isinstance(trades, list):
+                    trades_list = trades
                     total_trades = len(trades)
                     for t in trades:
                         pnl = float(t.get("pnl", 0.0))
@@ -83,39 +64,32 @@ def fetch_performance():
                             wins += 1
                         elif pnl < 0:
                             losses += 1
-                    state_loaded = True
-    except Exception as e:
-        print(f"Warning: Failed to fetch state from HF: {e}", file=sys.stderr)
-
-    # Local fallback if HF fetch was empty
-    if not state_loaded:
-        for local_dir in [Path("data"), Path(__file__).parent.parent / "data"]:
-            st_path = local_dir / "bot_state.json"
-            if st_path.exists():
-                try:
-                    with open(st_path, "r", encoding="utf-8") as f:
-                        st = json.load(f)
-                    equity = float(st.get("equity", equity))
-                    pos_data = st.get("positions", {})
-                    positions_count = len(pos_data) if isinstance(pos_data, (dict, list)) else 0
-                except Exception:
-                    pass
+                print(f"Loaded {total_trades} trades from {p}")
+                break
+            except Exception as e:
+                print(f"Error reading {p}: {e}")
 
     win_rate = (wins / total_trades * 100.0) if total_trades > 0 else 0.0
+    drawdown = ((peak_equity - equity) / peak_equity * 100.0) if peak_equity > 0 else 0.0
+
     return {
         "equity": equity,
-        "positions": positions_count,
+        "peak_equity": peak_equity,
+        "daily_pnl": daily_pnl,
+        "net_pnl": net_pnl,
+        "positions": positions,
         "total_trades": total_trades,
         "wins": wins,
         "losses": losses,
         "win_rate": win_rate,
-        "net_pnl": net_pnl,
+        "drawdown": drawdown,
+        "recent_trades": trades_list[-3:] if trades_list else [],
     }
 
 
 def send_telegram(data):
     if not TELEGRAM_BOT_TOKEN:
-        print("Error: TELEGRAM_BOT_TOKEN not configured.", file=sys.stderr)
+        print("ERROR: TELEGRAM_BOT_TOKEN is not set!", file=sys.stderr)
         return False
 
     now_ist = datetime.now(IST)
@@ -123,17 +97,46 @@ def send_telegram(data):
 
     pnl_sign = "+" if data["net_pnl"] >= 0 else ""
     pnl_emoji = "🟢" if data["net_pnl"] >= 0 else "🔴"
+    daily_sign = "+" if data["daily_pnl"] >= 0 else ""
+    daily_emoji = "🟢" if data["daily_pnl"] >= 0 else "🔴"
+
+    pos_count = len(data["positions"])
+    pos_details = ""
+    if pos_count > 0:
+        for sym, pos in data["positions"].items():
+            side = pos.get("side", "N/A").upper()
+            size = pos.get("size", "N/A")
+            entry = pos.get("entry_price", "N/A")
+            pos_details += f"  • <b>{sym}</b>: {side} (Size: {size}, Entry: ₹{entry})\n"
+    else:
+        pos_details = "  <i>None currently open (flat)</i>\n"
+
+    recent_trade_text = ""
+    if data["recent_trades"]:
+        recent_trade_text = "\n📋 <b>Recent Trades:</b>\n"
+        for t in data["recent_trades"]:
+            sym = t.get("symbol", "N/A")
+            side = t.get("side", "N/A").upper()
+            pnl = float(t.get("pnl", 0.0))
+            t_sign = "+" if pnl >= 0 else ""
+            t_emoji = "✅" if pnl >= 0 else "❌"
+            recent_trade_text += f"  {t_emoji} {sym} {side}: {t_sign}₹{pnl:,.2f}\n"
 
     message = (
-        f"📊 <b>AjayBot Daily Performance Report</b>\n"
+        f"📊 <b>AjayBot Executive Performance Report</b>\n"
         f"📅 <i>{date_str}</i>\n\n"
-        f"💰 <b>Paper Equity:</b> ₹{data['equity']:,.2f}\n"
-        f"{pnl_emoji} <b>Net PnL:</b> {pnl_sign}₹{data['net_pnl']:,.2f}\n"
-        f"📈 <b>Open Positions:</b> {data['positions']}\n"
-        f"📋 <b>Total Trades:</b> {data['total_trades']} (Wins: {data['wins']} | Losses: {data['losses']})\n"
-        f"🎯 <b>Win Rate:</b> {data['win_rate']:.1f}%\n"
-        f"⚡ <b>Leverage:</b> 20x | <b>Pairs:</b> BTC, ETH, SOL, DOGE, XRP, DOGS, AVAX\n\n"
-        f"🤖 <i>Delivered 24/7 by Radha • Render + GitHub Actions</i>"
+        f"💰 <b>Current Equity:</b> ₹{data['equity']:,.2f} (Peak: ₹{data['peak_equity']:,.2f})\n"
+        f"{daily_emoji} <b>Daily PnL:</b> {daily_sign}₹{data['daily_pnl']:,.2f}\n"
+        f"{pnl_emoji} <b>Total Realized PnL:</b> {pnl_sign}₹{data['net_pnl']:,.2f}\n"
+        f"📉 <b>Current Drawdown:</b> {data['drawdown']:.2f}% (Target: &lt;10%)\n\n"
+        f"🎯 <b>Win Rate:</b> {data['win_rate']:.1f}% (Wins: {data['wins']} | Losses: {data['losses']})\n"
+        f"📌 <b>Target Win Rate:</b> 70.0% | <b>Monthly Target:</b> 8.0%\n\n"
+        f"📈 <b>Open Positions ({pos_count}):</b>\n"
+        f"{pos_details}"
+        f"{recent_trade_text}\n"
+        f"⚡ <b>Leverage:</b> 12x | <b>Pairs:</b> BTC, ETH, SOL, DOGE, XRP, AVAX\n"
+        f"🛡️ <b>Strategy Optimization:</b> Confidence threshold set to 0.35 to filter weak signals.\n\n"
+        f"🤖 <i>Reported Autonomous by Radha • 24x7 GitHub Actions Engine</i>"
     )
 
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -146,9 +149,9 @@ def send_telegram(data):
 
     try:
         req = urllib.request.Request(url, data=payload)
-        with urllib.request.urlopen(req, timeout=15) as resp:
+        with urllib.request.urlopen(req, timeout=20) as resp:
             if resp.status == 200:
-                print("Daily performance summary successfully dispatched to Telegram.")
+                print("Executive report successfully dispatched to Telegram.")
                 return True
     except Exception as e:
         print(f"Error sending Telegram message: {e}", file=sys.stderr)
@@ -156,9 +159,9 @@ def send_telegram(data):
 
 
 def main():
-    print("Generating Daily Performance Report...")
+    print("Generating AjayBot Executive Report...")
     data = fetch_performance()
-    print(f"Performance: Equity=Rs.{data['equity']}, Positions={data['positions']}, Trades={data['total_trades']}")
+    print(f"Metrics: Equity=Rs.{data['equity']:,.2f}, Total Trades={data['total_trades']}, WinRate={data['win_rate']:.1f}%")
     success = send_telegram(data)
     sys.exit(0 if success else 1)
 
