@@ -27,7 +27,9 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt -r hermes-requirements.txt huggingface_hub
-          pip install git+https://github.com/NousResearch/hermes-agent.git
+          rm -rf hermes-agent
+          git clone --depth 1 https://github.com/NousResearch/hermes-agent.git hermes-agent
+          pip install ./hermes-agent
       
       - name: Pull State (Restore Memory)
         env:
