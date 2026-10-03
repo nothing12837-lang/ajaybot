@@ -1,4 +1,6 @@
-name: Worker B (Pong)
+import os
+
+template = """name: Worker __WORKER__
 
 on:
   workflow_dispatch:
@@ -12,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run-bot-b:
+  run-bot-__WORKER_LOWER__:
     runs-on: ubuntu-latest
     timeout-minutes: 345
 
@@ -61,17 +63,30 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python sync_state.py push || echo "Push failed"
 
-      - name: Trigger Worker A (Ping)
+      - name: Trigger Worker __NEXT__
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          curl -X POST           -H "Accept: application/vnd.github.v3+json"           -H "Authorization: token ${{ env.GH_TOKEN }}"           https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker_a.yml/dispatches           -d '{"ref":"main"}'
+          curl -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ env.GH_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker___NEXT_LOWER__.yml/dispatches \
+          -d '{"ref":"main"}'
 
       - name: Upload Logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: logs-worker-b
+          name: logs-worker-__WORKER_LOWER__
           path: |
             *.log
             hermes-home/logs/
+"""
+
+with open('.github/workflows/worker_a.yml', 'w') as f:
+    f.write(template.replace('__WORKER__', 'A (Ping)').replace('__WORKER_LOWER__', 'a').replace('__NEXT__', 'B (Pong)').replace('__NEXT_LOWER__', 'b'))
+
+with open('.github/workflows/worker_b.yml', 'w') as f:
+    f.write(template.replace('__WORKER__', 'B (Pong)').replace('__WORKER_LOWER__', 'b').replace('__NEXT__', 'A (Ping)').replace('__NEXT_LOWER__', 'a'))
+
+print("Generated workflow YAMLs.")

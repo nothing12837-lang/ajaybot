@@ -38,7 +38,6 @@ jobs:
 
       - name: Run Bot + Telegram Chatbot (Radha)
         env:
-          PORT: 10001
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
@@ -72,9 +71,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: logs-Worker-A (Ping)
+          name: logs-worker-a
           path: |
             *.log
-            hermes-home/logs/}
-        run: |
-          curl -X POST           -H "Accept: application/vnd.github.v3+json"           -H "Authorization: token ${{ env.GH_TOKEN }}"           https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker_b.yml/dispatches           -d '{"ref":"main"}'
+            hermes-home/logs/
