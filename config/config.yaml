@@ -29,11 +29,11 @@ optimizer:
   lookback_days: 7
   min_trades: 30
 risk:
-  consecutive_loss_pause: 3
+  consecutive_loss_pause: 5
   consecutive_loss_pause_hours: 1
   maker_fee_pct: 0.0002
   max_correlated_risk_pct: 0.1
-  max_daily_loss_pct: 0.02
+  max_daily_loss_pct: 0.03
   max_dd_kill_pct: 0.1
   max_position_pct: 0.2
   min_trades_per_month: 10
@@ -46,7 +46,7 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 3
-  min_confidence: 0.35
+  min_confidence: 0.22
   min_contracts: 1
   resolution: 5m
   risk_per_trade: 0.008
@@ -55,7 +55,7 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 3
-  min_confidence: 0.35
+  min_confidence: 0.22
   min_contracts: 1
   resolution: 5m
   risk_per_trade: 0.008
@@ -64,7 +64,7 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.35
+  min_confidence: 0.22
   min_contracts: 1
   resolution: 5m
   risk_per_trade: 0.008
@@ -73,7 +73,7 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.35
+  min_confidence: 0.22
   min_contracts: 1
   resolution: 5m
   risk_per_trade: 0.008
@@ -82,7 +82,7 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.35
+  min_confidence: 0.22
   min_contracts: 1
   resolution: 5m
   risk_per_trade: 0.008
@@ -91,7 +91,7 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.35
+  min_confidence: 0.22
   min_contracts: 1
   resolution: 5m
   risk_per_trade: 0.008
@@ -100,7 +100,7 @@ symbols:
   htf_resolution: 15m
   lookback: 200
   max_concurrent: 2
-  min_confidence: 0.35
+  min_confidence: 0.22
   min_contracts: 1
   resolution: 5m
   risk_per_trade: 0.008

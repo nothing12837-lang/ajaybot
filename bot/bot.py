@@ -513,6 +513,7 @@ class AjayBot:
         if hasattr(self, '_last_reset_date') and today != self._last_reset_date:
             self.risk_manager.reset_daily(self._current_equity)
             self._daily_pnl = 0.0
+            self._consecutive_losses = 0
             self._last_reset_date = today
         elif not hasattr(self, '_last_reset_date'):
             self._last_reset_date = today

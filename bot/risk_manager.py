@@ -45,6 +45,7 @@ class RiskManager:
         """Reset daily tracking"""
         self.daily_start_equity = current_equity
         self.daily_pnl = 0.0
+        self.consecutive_losses = 0
         self.last_reset_date = __import__('datetime').datetime.now(__import__('datetime').timezone.utc).date()
     
     def check_risk_limits(self, current_equity: float, peak_equity: float, 
