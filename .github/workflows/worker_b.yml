@@ -25,12 +25,26 @@ jobs:
           cache: 'pip'
       
       - name: Install dependencies
-        run: pip install -r requirements.txt -r hermes-requirements.txt huggingface_hub
+        run: |
+          pip install -r requirements.txt -r hermes-requirements.txt huggingface_hub
+          pip install git+https://github.com/NousResearch/hermes-agent.git
       
       - name: Pull State (Restore Memory)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python sync_state.py pull || echo "No state found or failed, continuing..."
+
+      - name: Start Telegram Chatbot (Radha)
+        env:
+          PORT: 10001
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
+        run: |
+          nohup python hermes_gateway.py > hermes.log 2>&1 &
+          sleep 5
 
       - name: Run Bot for 5.2 Hours
         env:
