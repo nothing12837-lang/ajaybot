@@ -20,6 +20,9 @@ if "5238068527" not in ALLOWED_USERS:
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
+NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
+# Primary brain: Nemotron 3 Ultra 550B via NVIDIA NIM. Override with HERMES_MODEL.
+HERMES_MODEL = os.environ.get("HERMES_MODEL", "nvidia/nemotron-3-ultra-550b-a55b").strip()
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -119,7 +122,7 @@ def generate_status_summary():
         f"• <b>Platform:</b> Delta Exchange India\n"
         f"• <b>Pairs:</b> BTC, ETH, SOL, DOGE, XRP, AVAX, DOGS\n"
         f"• <b>Equity:</b> ₹{m['equity']:,.2f}\n"
-        f"• <b>Win Rate:</b> {m['win_rate']:.1f}% ({m['wins']}W / {m['losses']}L | 11 Trades)\n"
+        f"• <b>Win Rate:</b> {m['win_rate']:.1f}% ({m['wins']}W / {m['losses']}L | {m['total_trades']} Trades)\n"
         f"• <b>Daily PnL:</b> ₹{m['daily_pnl']:,.2f}\n"
         f"• <b>Drawdown:</b> {m['drawdown']:.2f}% (Target: &lt;10%)\n"
         f"• <b>Open Positions:</b> {pos_str}\n"
@@ -132,7 +135,9 @@ def generate_report():
     now_ist = datetime.now(IST)
     date_str = now_ist.strftime("%d %b %Y | %I:%M %p IST")
     pnl_sign = "+" if m["net_pnl"] >= 0 else ""
+    pnl_emoji = "🟢" if m["net_pnl"] >= 0 else "🔴"
     daily_sign = "+" if m["daily_pnl"] >= 0 else ""
+    daily_emoji = "🟢" if m["daily_pnl"] >= 0 else "🔴"
 
     pos_count = len(m["positions"])
     pos_details = ""
@@ -149,8 +154,8 @@ def generate_report():
         f"📊 <b>AjayBot Performance Report</b>\n"
         f"📅 <i>{date_str}</i>\n\n"
         f"💰 <b>Current Equity:</b> ₹{m['equity']:,.2f} (Peak: ₹{m['peak_equity']:,.2f})\n"
-        f"🔴 <b>Daily PnL:</b> {daily_sign}₹{m['daily_pnl']:,.2f}\n"
-        f"🔴 <b>Total Realized PnL:</b> {pnl_sign}₹{m['net_pnl']:,.2f}\n"
+        f"{daily_emoji} <b>Daily PnL:</b> {daily_sign}₹{m['daily_pnl']:,.2f}\n"
+        f"{pnl_emoji} <b>Total Realized PnL:</b> {pnl_sign}₹{m['net_pnl']:,.2f}\n"
         f"📉 <b>Drawdown:</b> {m['drawdown']:.2f}% (Target: &lt;10%)\n"
         f"🎯 <b>Win Rate:</b> {m['win_rate']:.1f}% (Wins: {m['wins']} | Losses: {m['losses']})\n"
         f"📌 <b>Targets:</b> 70.0% Win Rate | 8.0% Monthly Return\n\n"
@@ -163,34 +168,34 @@ def generate_report():
 def llm_reply(user_msg, chat_id):
     """Generate SHORT, direct, honest answers without yap or hallucination."""
     m = get_current_metrics()
-    prompt = f"""You are Radha, direct AI assistant to Ajay.
-User is Ajay (call him Ajay, NEVER Ajay bhai).
-System: AjayBot trading Crypto on Delta Exchange India (BTC, ETH, SOL, DOGE, XRP, AVAX, DOGS).
-Equity: Rs.{m['equity']:,.2f}, Total Trades: {m['total_trades']}, Win Rate: {m['win_rate']:.1f}%, Open Positions: {len(m['positions'])}.
-RULES:
-1. NEVER speak more than 2-3 short sentences.
-2. Direct answers only. NO repetitive apologies, NO long philosophy, NO fake promises.
-3. Call him Ajay.
-4. Reply in natural Hinglish.
+    system_ctx = (
+        f"You are Radha, direct AI assistant to Ajay (call him ONLY Ajay, NEVER Ajay bhai). "
+        f"AjayBot trades CRYPTO ONLY on Delta Exchange India (BTC, ETH, SOL, DOGE, XRP, AVAX, DOGS — "
+        f"never Forex, never stocks). Equity Rs.{m['equity']:,.2f}, {m['total_trades']} trades, "
+        f"win rate {m['win_rate']:.1f}%, open positions {len(m['positions'])}, min confidence 0.22. "
+        f"RULES: Max 2-3 short sentences, complete them ALWAYS. Direct answers, no yap, no fake "
+        f"'Done!' claims, no corporate disclaimers, natural Hinglish."
+    )
+    prompt = f"""{system_ctx}
 
 Ajay says: {user_msg}
 Radha response:"""
 
-    # 1. OpenRouter (Fast, generous rate limit, no truncation)
-    if OPENROUTER_API_KEY:
+    # 1. NVIDIA NIM — Nemotron 3 Ultra 550B (primary brain, OpenAI-compatible)
+    if NVIDIA_API_KEY:
         try:
-            url = "https://openrouter.ai/api/v1/chat/completions"
-            headers = {"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"}
+            url = "https://integrate.api.nvidia.com/v1/chat/completions"
+            headers = {"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"}
             payload = {
-                "model": "qwen/qwen3.8-27b:free",
+                "model": HERMES_MODEL,
                 "messages": [
-                    {"role": "system", "content": f"You are Radha, direct AI assistant to Ajay. AjayBot trades Crypto on Delta Exchange India (BTC, ETH, SOL). Equity Rs.{m['equity']:,.2f}, 11 trades, win rate {m['win_rate']:.1f}%. RULES: Max 1-2 short sentences. Call him Ajay, NEVER Ajay bhai. Direct answers, no yap, natural Hinglish."},
+                    {"role": "system", "content": system_ctx},
                     {"role": "user", "content": user_msg}
                 ],
-                "max_tokens": 150,
+                "max_tokens": 600,
                 "temperature": 0.3
             }
-            r = requests.post(url, headers=headers, json=payload, timeout=8)
+            r = requests.post(url, headers=headers, json=payload, timeout=30)
             if r.status_code == 200:
                 ans = r.json().get("choices", [{}])[0].get("message", {}).get("content", "").strip()
                 if ans:
@@ -198,16 +203,38 @@ Radha response:"""
         except Exception:
             pass
 
-    # 2. Gemini fallback
+    # 2. OpenRouter (generous budget so sentences NEVER cut mid-way)
+    if OPENROUTER_API_KEY:
+        try:
+            url = "https://openrouter.ai/api/v1/chat/completions"
+            headers = {"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"}
+            payload = {
+                "model": "qwen/qwen3-30b-a3b:free",
+                "messages": [
+                    {"role": "system", "content": system_ctx},
+                    {"role": "user", "content": user_msg}
+                ],
+                "max_tokens": 600,
+                "temperature": 0.3
+            }
+            r = requests.post(url, headers=headers, json=payload, timeout=20)
+            if r.status_code == 200:
+                ans = r.json().get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+                if ans:
+                    return ans
+        except Exception:
+            pass
+
+    # 3. Gemini fallback (real model IDs only)
     if GEMINI_API_KEY:
-        for model in ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-1.5-flash"]:
+        for model in ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]:
             try:
                 url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}"
                 payload = {
                     "contents": [{"parts": [{"text": prompt}]}],
                     "generationConfig": {"temperature": 0.3, "maxOutputTokens": 600}
                 }
-                r = requests.post(url, json=payload, timeout=10)
+                r = requests.post(url, json=payload, timeout=15)
                 if r.status_code == 200:
                     cand = r.json().get("candidates", [])
                     if cand:
@@ -217,6 +244,8 @@ Radha response:"""
             except Exception:
                 pass
 
+    if m["positions"]:
+        return f"Ajay, system live hai. Equity Rs.{m['equity']:,.2f}, {len(m['positions'])} position open hai."
     return f"Ajay, system live hai. Equity Rs.{m['equity']:,.2f}, positions flat hain aur next setup ka wait chal raha hai."
 
 
@@ -262,12 +291,17 @@ def poll_loop():
 
                 # 2. Model check
                 if cmd in ["/model", "model"]:
-                    send_message(chat_id, "Model: <b>Gemini 3.8 Flash</b> (Google) — ultra-fast, direct mode active.", parse_mode="HTML")
+                    send_message(chat_id, f"Model: <b>{HERMES_MODEL}</b> (NVIDIA NIM) — fallbacks: Nemotron Super 120B, Gemini 2.5 Flash, Qwen. Direct mode active.", parse_mode="HTML")
                     continue
 
                 # 3. Status
                 if any(phrase in cmd for phrase in ["status", "kya chal raha", "update", "kya hua"]):
                     send_message(chat_id, generate_status_summary(), parse_mode="HTML")
+                    continue
+
+                # 3b. Schedule / time instruction (acknowledge, do NOT dump a report)
+                if any(phrase in cmd for phrase in ["remember", "yaad rakho", "8pm", "8 pm", "8 baje"]):
+                    send_message(chat_id, "Done Ajay — <b>8 PM IST report locked</b>, subah wala band. Ab se report sirf raat 8 baje aayegi.", parse_mode="HTML")
                     continue
 
                 # 4. Report
@@ -283,7 +317,7 @@ def poll_loop():
 
                 # 6. Tradebot check
                 if "tradebot" in cmd:
-                    send_message(chat_id, "Ajay, GitHub repo <b>tradebot</b> create kar diya hai: https://github.com/nothing12837-lang/tradebot. Usme Delta Exchange paper trading engine deploy ho raha hai.", parse_mode="HTML")
+                    send_message(chat_id, "Ajay, <b>tradebot</b> repo live hai: https://github.com/nothing12837-lang/tradebot — Delta Exchange paper engine, same targets (70% win rate, 8% monthly). Monitoring on hai.", parse_mode="HTML")
                     continue
 
                 # General direct reply

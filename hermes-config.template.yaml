@@ -1,16 +1,19 @@
-# Hermes cloud config for Render free (512MB RAM). NO SECRETS HERE.
-# Secrets come from Render dashboard env vars (gateway trust_env=true):
+# Hermes cloud config. NO SECRETS HERE.
+# Secrets come from env vars (gateway trust_env=true):
 #   TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS, NVIDIA_API_KEY,
 #   GROQ_API_KEY, GEMINI_API_KEY, OPENROUTER_API_KEY, HF_TOKEN
-# __HERMES_MODEL__ is replaced by hermes_gateway.py from $HERMES_MODEL.
+# __HERMES_MODEL__ is replaced by hermes_gateway.py from $HERMES_MODEL
+# (default: nvidia/nemotron-3-ultra-550b-a55b).
 model:
   default: __HERMES_MODEL__
-  provider: google
+  provider: nvidia
 providers:
   nvidia:
+    base_url: https://integrate.api.nvidia.com/v1
+    model: nvidia/nemotron-3-ultra-550b-a55b
     context_length: 1000000
   google:
-    model: gemini/gemini-3.8-flash
+    model: gemini/gemini-2.5-flash
     context_length: 1000000
   groq:
     base_url: https://api.groq.com/openai/v1
@@ -20,9 +23,9 @@ providers:
     base_url: https://openrouter.ai/api/v1
 fallback_providers:
   - provider: nvidia
-    model: nvidia/llama-3.1-nemotron-70b-instruct
+    model: nvidia/nemotron-3-super-120b-a12b
   - provider: google
-    model: gemini/gemini-3.8-flash
+    model: gemini/gemini-2.5-flash
   - provider: nvidia
     model: __HERMES_MODEL__
 database:
@@ -39,6 +42,7 @@ agent:
   auto_approve_tools: true
   service_tier: ''
   fast_auto_seconds: 15
+  # Full unrestricted access: browser, computer_use, github, vision + all toolsets.
   disabled_toolsets: []
   reasoning_overrides:
     openai/gpt-oss-120b: low

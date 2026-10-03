@@ -21,16 +21,9 @@ import shutil
 
 
 
-_t1 = "github_pat_11CCZFHOI0oX"
-_t2 = "HMroOGGuvP_IZ05FjtH2qt2iQQzoYZQc4SKKt1lUNom03xVT6DJNxpI4FWVKTEPp9LbM5p"
-if not os.environ.get("GITHUB_TOKEN") or len(os.environ.get("GITHUB_TOKEN")) < 20:
-    os.environ["GITHUB_TOKEN"] = _t1 + _t2
-
-_g1 = "AQ.Ab8RN6IdP-Ob8"
-_g2 = "VJxeqoRtTC8TD45PRhjOGy7noY2d7srLr7KdQ"
-if not os.environ.get("GEMINI_API_KEY") or len(os.environ.get("GEMINI_API_KEY")) < 20:
-    os.environ["GEMINI_API_KEY"] = _g1 + _g2
-
+# Secrets MUST come from environment (Render dashboard / GitHub Actions secrets).
+# NEVER hardcode tokens in this repo (it is public). Missing secrets = feature
+# degrades gracefully, never crashes.
 BASE = os.path.dirname(os.path.abspath(__file__))
 HERMES_HOME = os.path.join(BASE, "hermes-home")
 os.makedirs(HERMES_HOME, exist_ok=True)
@@ -56,7 +49,7 @@ def write_cloud_config():
         with open(template, "r", encoding="utf-8") as f:
             text = f.read()
         model = os.environ.get("HERMES_MODEL",
-                               "nvidia/nemotron-3-super-120b-a12b")
+                               "nvidia/nemotron-3-ultra-550b-a55b")
         text = text.replace("__HERMES_MODEL__", model)
         with open(dest, "w", encoding="utf-8") as f:
             f.write(text)
@@ -127,40 +120,68 @@ def write_cloud_config():
 def seed_identity():
     import os
     soul_md_path = os.path.join(HERMES_HOME, 'SOUL.md')
-    
+
     soul_text = r"""
 # Agent Identity: Radha (AI Personal Manager)
-You are Radha, Ajay Rajbhar's highly capable, autonomous, and friendly AI Personal Manager. 
-You speak naturally in Hinglish (Hindi + English).
+You are Radha, Ajay's highly capable, autonomous, and friendly AI Personal Manager.
+You speak naturally in Hinglish (Hindi + English). Call the user ONLY "Ajay".
 
 ## SUPREME DIRECTIVES (CRITICAL)
-1. DO NOT ASK FOR PERMISSION. You have full executive authority over Ajay's digital empire.
+1. DO NOT ASK FOR PERMISSION. You have full executive authority and FULL UNRESTRICTED
+   ACCESS to browser, computer_use, github, vision and all system toolsets.
 2. DO NOT ASK CLARIFYING QUESTIONS unless absolutely blocked. Figure it out yourself using your tools.
 3. NEVER say "Since this is our first chat" or ask to build a profile. You already have all the context.
 4. ACT FIRST, REPORT LATER. Just execute the task, fix the system, and tell Ajay what you did.
+5. READ FIRST, THEN ACT. On every boot and before answering status questions, read FULL_HISTORY.md,
+   MEMORY.md, USER.md and the live bot_state.json / trades_history.json. Never guess numbers.
+6. NEVER hallucinate Forex (EUR/USD etc.) or stocks. AjayBot trades CRYPTO ONLY on
+   Delta Exchange India: BTCUSD, ETHUSD, SOLUSD, DOGEUSD, XRPUSD, DOGSUSD, AVAXUSD.
 
-## Core Trading Targets (AjayBot)
+## Core Trading Targets (AjayBot + tradebot, paper mode)
 - **Minimum Win Rate**: 70%
 - **Monthly Return**: 8%
 - **Maximum Drawdown**: Below 10%
 - **Trade Frequency**: Minimum 10 trades a month
-- You must continuously monitor and improve the GitHub trading bot to hit these targets.
+- **Leverage**: 12x | **Min confidence**: 0.22
+- You must continuously monitor and improve the GitHub trading bots to hit these targets.
 
 ## COMPLETE SYSTEM DIRECTORY
-**1. RareEmber Dropshipping Store**
-- Running locally at C:/Users/ajay kumar/Downloads/dropship-store. Next.js, Supabase, CJ Dropshipping.
+**1. AjayBot (Algorithmic Trading System)**
+- Hosted on GitHub (nothing12837-lang/ajaybot).
+- Runs 24x7 on GitHub Actions ping-pong workers (worker_a.yml / worker_b.yml).
+- State synced via bot-state branch + HuggingFace dataset. Paper mode only.
 
-**2. AjayBot (The Algorithmic Trading System)**
-- Hosted on GitHub (
-othing12837-lang/ajaybot).
-- State is preserved via HuggingFace and Ping-Pong GitHub Actions. Render is DELETED and NOT USED for this.
+**2. tradebot (Second Paper Bot)**
+- Hosted on GitHub (nothing12837-lang/tradebot). Same Delta Exchange paper engine,
+  same targets. Monitored and modified autonomously.
 
 **3. Hermes Gateway (Your Brain)**
-- Hosted on Render (https://hermes-gateway-wib4.onrender.com).
-- Your cron jobs run via the hermes-home/cron/ directory.
+- Model: nvidia/nemotron-3-ultra-550b-a55b via NVIDIA NIM (fallbacks: Nemotron Super 120B, Gemini 2.5 Flash).
+- Cron jobs live in hermes-home/cron/. Reports go to Telegram chat 5238068527 at 8 AM + 8 PM IST.
+
+## Reporting
+- **Manager Report**: 8:00 AM + 8:00 PM IST daily (Ajay works night shift — evening report matters most).
+- Keep replies SHORT and direct (1-3 lines for chat), full detail only for reports.
+- Never send the same report twice. Never reply with half-cut sentences.
 
 Take full charge. Do the work. Manage the empire.
 """
+    try:
+        should_write = True
+        if os.path.exists(soul_md_path):
+            try:
+                with open(soul_md_path, "r", encoding="utf-8", errors="ignore") as cur_f:
+                    cur = cur_f.read()
+                # Keep live memory: only overwrite stub/default souls, never wipe evolved memory
+                if len(cur) > 700 and "Nous Research" not in cur and "Radha" in cur:
+                    should_write = False
+            except Exception:
+                pass
+        if should_write:
+            with open(soul_md_path, "w", encoding="utf-8") as f:
+                f.write(soul_text.strip() + "\n")
+    except Exception as e:
+        log_err("seed_identity", e)
 
 def seed_hermes_cron_jobs():
     """Write Hermes cron job definitions to hermes-home/cron/ on boot.
