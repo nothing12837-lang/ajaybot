@@ -23,7 +23,27 @@ OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
 NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
 # Primary brain: Nemotron 3 Ultra 550B via NVIDIA NIM. Override with HERMES_MODEL.
 HERMES_MODEL = os.environ.get("HERMES_MODEL", "nvidia/nemotron-3-ultra-550b-a55b").strip()
+# Full GitHub access: Radha can inspect Actions, read repo files, restart workers.
+GITHUB_TOKEN = (os.environ.get("GITHUB_TOKEN", "") or os.environ.get("GH_TOKEN", "")).strip()
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "nothing12837-lang/ajaybot").strip() or "nothing12837-lang/ajaybot"
+TRADEBOT_REPO = "nothing12837-lang/tradebot"
 BASE = os.path.dirname(os.path.abspath(__file__))
+
+# Dedup cache: (chat_id, text) -> timestamp. Kills double-replies from
+# worker handoff overlaps and user double-taps. Cross-restart safety comes
+# from the stale-message guard in poll_loop (msg date older than 3 min = skip).
+_recent_replies = {}
+
+
+def already_answered(chat_id, text):
+    key = (str(chat_id), (text or "").strip().lower())
+    now = time.time()
+    for k in [k for k, v in _recent_replies.items() if now - v > 90]:
+        _recent_replies.pop(k, None)
+    if key in _recent_replies:
+        return True
+    _recent_replies[key] = now
+    return False
 
 
 def get_current_metrics():
@@ -100,6 +120,89 @@ def send_message(chat_id, text, parse_mode="HTML"):
         return r.status_code == 200
     except Exception:
         return False
+
+
+def gh_request(method, path, data=None):
+    """GitHub REST API with Radha's full-access token. Returns parsed JSON, True on empty success, None on failure."""
+    if not GITHUB_TOKEN:
+        return None
+    try:
+        import urllib.request
+        body = json.dumps(data).encode() if data else None
+        req = urllib.request.Request(f"https://api.github.com{path}", data=body, method=method)
+        req.add_header("Authorization", f"token {GITHUB_TOKEN}")
+        req.add_header("Accept", "application/vnd.github.v3+json")
+        with urllib.request.urlopen(req, timeout=15) as r:
+            txt = r.read().decode()
+            return json.loads(txt) if txt.strip() else True
+    except Exception:
+        return None
+
+
+def github_status():
+    """Live GitHub Actions status for both bots."""
+    if not GITHUB_TOKEN:
+        return "Ajay, GitHub token worker me set nahi hai, isliye Actions status nahi dekh pa rahi."
+    lines = []
+    for repo in [GITHUB_REPO, TRADEBOT_REPO]:
+        name = repo.split("/")[-1]
+        d = gh_request("GET", f"/repos/{repo}/actions/runs?per_page=3")
+        runs = (d.get("workflow_runs", []) if isinstance(d, dict) else []) if d else []
+        if not runs:
+            lines.append(f"• <b>{name}</b>: status unknown")
+            continue
+        for run in runs[:2]:
+            conc = run.get("conclusion") or run.get("status")
+            emo = "🟢" if conc == "success" else ("🔴" if conc == "failure" else "🟡")
+            lines.append(f"• <b>{name}</b>/{run.get('name')}: {emo} {run.get('status')}/{conc}")
+    return "GitHub Actions (live):\n" + "\n".join(lines)
+
+
+def github_restart():
+    """Restart the 24x7 engine: dispatching cancels the stale worker (singleton) and boots fresh code."""
+    if not GITHUB_TOKEN:
+        return False
+    res = gh_request("POST", f"/repos/{GITHUB_REPO}/actions/workflows/worker_b.yml/dispatches", {"ref": "main"})
+    return res is not None and res is not False
+
+
+def github_read(path):
+    """Read any text file from the ajaybot repo (max ~2000 chars)."""
+    if not GITHUB_TOKEN:
+        return None
+    d = gh_request("GET", f"/repos/{GITHUB_REPO}/contents/{path}?ref=main")
+    if not isinstance(d, dict) or "content" not in d:
+        return None
+    try:
+        import base64
+        return base64.b64decode(d["content"]).decode("utf-8", "ignore")[:2000]
+    except Exception:
+        return None
+
+
+def market_snapshot():
+    """Real live prices from Delta Exchange India public API (no key needed)."""
+    try:
+        r = requests.get("https://api.india.delta.exchange/v2/tickers", timeout=10)
+        data = r.json().get("result", [])
+        want = ["BTCUSD", "ETHUSD", "SOLUSD", "DOGEUSD", "XRPUSD", "AVAXUSD", "DOGSUSD"]
+        found = {}
+        for t in data:
+            sym = str(t.get("symbol", ""))
+            for k in want:
+                if sym == k and k not in found:
+                    try:
+                        found[k] = float(t.get("mark_price") or t.get("close") or 0)
+                    except Exception:
+                        pass
+        if not found:
+            return ""
+        lines = [f"• <b>{k}</b>: ₹{v:,.4f}" if v < 1 else f"• <b>{k}</b>: ₹{v:,.2f}" for k, v in found.items() if v > 0]
+        if not lines:
+            return ""
+        return "Live Delta prices:\n" + "\n".join(lines)
+    except Exception:
+        return ""
 
 
 def get_updates(offset=0):
@@ -282,6 +385,17 @@ def poll_loop():
                 if ALLOWED_USERS and user_id not in ALLOWED_USERS:
                     continue
 
+                # Stale guard: ignore messages older than 3 min (replay from another poller instance)
+                try:
+                    if time.time() - int(msg.get("date", 0)) > 180:
+                        continue
+                except Exception:
+                    pass
+
+                # Dedup: same chat + same text within 90s (worker handoff overlap / double-tap)
+                if already_answered(chat_id, text):
+                    continue
+
                 cmd = text.strip().lower()
 
                 # 1. Identity
@@ -318,6 +432,31 @@ def poll_loop():
                 # 6. Tradebot check
                 if "tradebot" in cmd:
                     send_message(chat_id, "Ajay, <b>tradebot</b> repo live hai: https://github.com/nothing12837-lang/tradebot — Delta Exchange paper engine, same targets (70% win rate, 8% monthly). Monitoring on hai.", parse_mode="HTML")
+                    continue
+
+                # 7. News / live market prices (real Delta data, never hallucinated)
+                if any(phrase in cmd for phrase in ["news", "market", "price", "bhav", "rate kya"]):
+                    snap = market_snapshot()
+                    m = get_current_metrics()
+                    extra = f"\n{snap}" if snap else ""
+                    send_message(chat_id, f"Ajay, market live hai. Equity ₹{m['equity']:,.2f}, positions flat hain.{extra}", parse_mode="HTML")
+                    continue
+
+                # 8. GitHub status (full access: live Actions state for both bots)
+                if any(phrase in cmd for phrase in ["github", "actions", "workflow", "runner", "worker status"]):
+                    send_message(chat_id, github_status(), parse_mode="HTML")
+                    continue
+
+                # 9. Restart engine (dispatch fresh worker, singleton kills stale one)
+                if cmd in ["restart", "redeploy", "reboot"] or cmd.startswith("restart ") or "restart kar" in cmd:
+                    ok = github_restart()
+                    send_message(chat_id, "Done Ajay — fresh worker dispatch kar diya, 2-3 min me naya brain live." if ok else "Ajay, restart trigger nahi hua (GitHub token missing).", parse_mode="HTML")
+                    continue
+
+                # 10. Read repo file: "read <path>"
+                if cmd.startswith("read "):
+                    content = github_read(cmd[5:].strip())
+                    send_message(chat_id, (f"<pre>{content[:1500]}</pre>" if content else "Ajay, file GitHub par nahi mili."), parse_mode="HTML")
                     continue
 
                 # General direct reply
