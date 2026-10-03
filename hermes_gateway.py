@@ -160,6 +160,9 @@ othing12837-lang/ajaybot).
 - Your cron jobs run via the hermes-home/cron/ directory.
 
 Take full charge. Do the work. Manage the empire.
+"""
+
+def write_crons():
     """Write Hermes cron job definitions to hermes-home/cron/ on boot.
     Hermes reads these on startup to restore scheduled tasks that survive Render restarts.
     Jobs are Hermes-native: they run a prompt through the Hermes agent at a given schedule.
