@@ -29,7 +29,12 @@ jobs:
           pip install -r requirements.txt -r hermes-requirements.txt huggingface_hub
           rm -rf hermes-agent
           git clone --depth 1 https://github.com/NousResearch/hermes-agent.git hermes-agent
-          pip install -e ./hermes-agent
+          pip install -e ./hermes-agent || true
+          pip install tomli
+          python -c "import tomli; d=tomli.load(open('hermes-agent/pyproject.toml', 'rb')); open('deps.txt', 'w').write('
+'.join(d.get('project', {}).get('dependencies', [])))" || true
+          pip install -r deps.txt || true
+          pip install ruamel.yaml pydantic httpx loguru rich click prompt_toolkit python-dotenv
       
       - name: Pull State (Restore Memory)
         env:
@@ -51,7 +56,7 @@ jobs:
           MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
         run: |
           echo "Starting Telegram Chatbot (Radha) in background..."
-          PORT=10001 nohup python hermes_gateway.py > hermes.log 2>&1 &
+          nohup python radha_telegram.py > hermes.log 2>&1 &
           sleep 5
           echo "Starting Trading Bot..."
           PORT=10000 timeout 18720 python app.py || echo "Bot finished or timed out gracefully"
