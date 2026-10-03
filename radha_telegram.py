@@ -548,7 +548,22 @@ def poll_loop():
                     send_message(chat_id, generate_status_summary(), parse_mode="HTML")
                     continue
 
-                # 3b. Schedule / time instruction (acknowledge, do NOT dump a report)
+                # 3b. Memory reset (REAL action: re-pull fresh state, clear dedup, confirm)
+                if any(phrase in cmd for phrase in ["memory reset", "memory clear", "memory saaf", "reset karo", "reset kar"]):
+                    refreshed = False
+                    try:
+                        import sync_github
+                        sync_github.pull()
+                        refreshed = True
+                    except Exception:
+                        pass
+                    _recent_replies.clear()
+                    m = get_current_metrics()
+                    how = "GitHub se fresh state pull kar liya" if refreshed else "local state re-read kar liya"
+                    send_message(chat_id, f"Done Ajay — memory reset, {how}. Equity ₹{m['equity']:,.2f}, {m['total_trades']} trades, win rate {m['win_rate']:.1f}%.", parse_mode="HTML")
+                    continue
+
+                # 3c. Schedule / time instruction (acknowledge, do NOT dump a report)
                 if any(phrase in cmd for phrase in ["remember", "yaad rakho", "8pm", "8 pm", "8 baje"]):
                     send_message(chat_id, "Done Ajay — <b>8 PM IST report locked</b>, subah wala band. Ab se report sirf raat 8 baje aayegi.", parse_mode="HTML")
                     continue
