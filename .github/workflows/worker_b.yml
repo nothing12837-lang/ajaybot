@@ -1,4 +1,4 @@
-name: Worker B (Pong)
+name: Worker B (Ping-Pong)
 
 on:
   workflow_dispatch:
@@ -18,34 +18,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
-      
+
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt -r hermes-requirements.txt huggingface_hub
-          rm -rf hermes-agent
-          git clone --depth 1 https://github.com/NousResearch/hermes-agent.git hermes-agent
-          pip install -e ./hermes-agent || true
-          pip install tomli
-          python -c "import tomli; d=tomli.load(open('hermes-agent/pyproject.toml', 'rb')); open('deps.txt', 'w').write('
-'.join(d.get('project', {}).get('dependencies', [])))" || true
-          pip install -r deps.txt || true
-          pip install ruamel.yaml pydantic httpx loguru rich click prompt_toolkit python-dotenv
-      
+        run: pip install -r requirements.txt
+
       - name: Pull State (Restore Memory)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python sync_state.py pull || echo "No state found or failed, continuing..."
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: python sync_github.py pull || python sync_state.py pull || echo 'No state found or failed, continuing...'
 
       - name: Run Bot + Telegram Chatbot (Radha)
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           DELTA_API_KEY: ${{ secrets.DELTA_API_KEY }}
           DELTA_API_SECRET: ${{ secrets.DELTA_API_SECRET }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -53,24 +43,34 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
         run: |
           echo "Starting Telegram Chatbot (Radha) in background..."
-          nohup python radha_telegram.py > hermes.log 2>&1 &
-          sleep 5
+          python radha_telegram.py > radha.log 2>&1 &
+          sleep 3
           echo "Starting Trading Bot..."
           PORT=10000 timeout 18720 python app.py || echo "Bot finished or timed out gracefully"
-        
+
       - name: Push State (Save Memory)
+        if: always()
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python sync_state.py push || echo "Push failed"
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: python sync_github.py push || python sync_state.py push || echo 'Push failed'
 
-      - name: Trigger Worker A (Ping)
+      - name: Trigger Worker A
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          curl -X POST           -H "Accept: application/vnd.github.v3+json"           -H "Authorization: token ${{ env.GH_TOKEN }}"           https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker_a.yml/dispatches           -d '{"ref":"main"}'
+          curl -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ env.GH_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker_a.yml/dispatches \
+          -d '{"ref":"main"}'
 
       - name: Upload Logs
         if: always()
@@ -79,4 +79,3 @@ jobs:
           name: logs-worker-b
           path: |
             *.log
-            hermes-home/logs/
