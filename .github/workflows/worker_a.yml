@@ -46,6 +46,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
         run: |
           echo "Starting Telegram Chatbot (Radha) in background..."

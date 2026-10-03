@@ -19,6 +19,7 @@ if "5238068527" not in ALLOWED_USERS:
     ALLOWED_USERS.append("5238068527")
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -175,13 +176,36 @@ RULES:
 Ajay says: {user_msg}
 Radha response:"""
 
+    # 1. OpenRouter (Fast, generous rate limit, no truncation)
+    if OPENROUTER_API_KEY:
+        try:
+            url = "https://openrouter.ai/api/v1/chat/completions"
+            headers = {"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"}
+            payload = {
+                "model": "qwen/qwen3.8-27b:free",
+                "messages": [
+                    {"role": "system", "content": f"You are Radha, direct AI assistant to Ajay. AjayBot trades Crypto on Delta Exchange India (BTC, ETH, SOL). Equity Rs.{m['equity']:,.2f}, 11 trades, win rate {m['win_rate']:.1f}%. RULES: Max 1-2 short sentences. Call him Ajay, NEVER Ajay bhai. Direct answers, no yap, natural Hinglish."},
+                    {"role": "user", "content": user_msg}
+                ],
+                "max_tokens": 150,
+                "temperature": 0.3
+            }
+            r = requests.post(url, headers=headers, json=payload, timeout=8)
+            if r.status_code == 200:
+                ans = r.json().get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+                if ans:
+                    return ans
+        except Exception:
+            pass
+
+    # 2. Gemini fallback
     if GEMINI_API_KEY:
         for model in ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-1.5-flash"]:
             try:
                 url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}"
                 payload = {
                     "contents": [{"parts": [{"text": prompt}]}],
-                    "generationConfig": {"temperature": 0.3, "maxOutputTokens": 150}
+                    "generationConfig": {"temperature": 0.3, "maxOutputTokens": 600}
                 }
                 r = requests.post(url, json=payload, timeout=10)
                 if r.status_code == 200:
@@ -193,7 +217,7 @@ Radha response:"""
             except Exception:
                 pass
 
-    return f"Ajay, system live hai. Equity Rs.{m['equity']:,.2f}, positions flat hain aur next high-confidence setup ka wait ho raha hai."
+    return f"Ajay, system live hai. Equity Rs.{m['equity']:,.2f}, positions flat hain aur next setup ka wait chal raha hai."
 
 
 def poll_loop():
