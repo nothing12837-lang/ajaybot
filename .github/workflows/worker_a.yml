@@ -1,4 +1,4 @@
-name: Worker A (Ping)
+﻿name: Worker A (Ping)
 
 on:
   workflow_dispatch:
@@ -36,29 +36,26 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python sync_state.py pull || echo "No state found or failed, continuing..."
 
-      - name: Start Telegram Chatbot (Radha)
+      - name: Run Bot + Telegram Chatbot (Radha)
         env:
           PORT: 10001
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
-          TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
-        run: |
-          nohup python hermes_gateway.py > hermes.log 2>&1 &
-          sleep 5
-
-      - name: Run Bot for 5.2 Hours
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           DELTA_API_KEY: ${{ secrets.DELTA_API_KEY }}
           DELTA_API_SECRET: ${{ secrets.DELTA_API_SECRET }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
           MNEMOSYNE_DATA_DIR: ${{ github.workspace }}/mnemosyne_data
-        run: timeout 18720 python app.py || echo "Bot finished or timed out gracefully"
+        run: |
+          echo "Starting Telegram Chatbot (Radha) in background..."
+          nohup python hermes_gateway.py > hermes.log 2>&1 &
+          sleep 5
+          echo "Starting Trading Bot..."
+          timeout 18720 python app.py || echo "Bot finished or timed out gracefully"
         
       - name: Push State (Save Memory)
         env:
@@ -69,4 +66,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          curl -X POST           -H "Accept: application/vnd.github.v3+json"           -H "Authorization: token ${{ env.GH_TOKEN }}"           https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker_b.yml/dispatches           -d '{"ref":"main"}'
+          curl -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ env.GH_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/worker_b.yml/dispatches \
+          -d '{"ref":"main"}'
+
+      - name: Upload Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-worker-a
+          path: |
+            *.log
+            hermes-home/logs/
