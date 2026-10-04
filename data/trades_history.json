@@ -141,18 +141,5 @@
     "pnl_pct": -1.7024154658837744e-05,
     "regime": "strong_trend_down",
     "confidence": 0.32825002547301274
-  },
-  {
-    "symbol": "ETHUSD",
-    "side": "short",
-    "entry_price": 2676.33234,
-    "exit_price": 2691.31561051,
-    "size": 73.18242220948174,
-    "entry_time": 1791025745642,
-    "exit_time": 1791082882215,
-    "pnl": -13.126263152152466,
-    "pnl_pct": -6.7018435431254e-05,
-    "regime": "strong_trend_down",
-    "confidence": 0.405
   }
 ]
