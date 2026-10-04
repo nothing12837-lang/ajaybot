@@ -66,7 +66,7 @@ def generate_digest():
     if total_found == 0:
         lines.append("<i>Could not retrieve headlines at this moment.</i>")
         
-    lines.append("🤖 <i>Sent by Hermes 24/7 Morning Dispatch</i>")
+    lines.append("🤖 <i>AjayBot 24/7 Morning Dispatch</i>")
     return "\n".join(lines)
 
 

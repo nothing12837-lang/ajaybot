@@ -15,8 +15,6 @@ IST = timezone(timedelta(hours=5, minutes=30))
 
 # Try loading from .env files
 for env_candidate in [
-    Path("/opt/render/project/src/hermes-home/.env"),
-    Path(__file__).parent.parent / "hermes-home" / ".env",
     Path(__file__).parent.parent / ".env",
 ]:
     if env_candidate.exists():
@@ -73,11 +71,11 @@ def check_and_alert():
         f"⏰ <b>Scheduled Departure:</b> {time_str}\n"
         f"💺 <b>Seat:</b> Coach {COACH}, Berth {BERTH}\n"
         f"👤 <b>Passenger:</b> AJAY KUMAR\n\n"
-        f"💡 <i>Radha's Travel Checklist:</i>\n"
+        f"💡 <i>Travel Checklist:</i>\n"
         f"• Original Govt ID card sath rakhna.\n"
         f"• Station par time se pehle reach karna.\n"
         f"• Mobile charge rakhna.\n\n"
-        f"🤖 <i>Main Radha sab dekh rahi hoon Ajay. Safe travels!</i>"
+        f"🤖 <i>AjayBot Travel Reminder • Safe travels!</i>"
     )
 
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"

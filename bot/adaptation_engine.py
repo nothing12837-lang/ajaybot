@@ -330,7 +330,7 @@ class StrategyAdaptationEngine:
             f"❌ <b>Action:</b> Trading PAUSED — edge has broken down\n\n"
             f"🤖 <b>Adaptation #{e.adaptation_count}</b>\n"
             f"<i>Bot will auto-resume when win rate recovers above {self.cool_win_rate:.0%}</i>\n\n"
-            f"🔄 <i>Radha is watching. Adapting. Continuing.</i>"
+            f"🔄 <i>Auto-adapting. Continuing.</i>"
         )
 
     def _format_warn_message(self, e: AdaptationEvent) -> str:

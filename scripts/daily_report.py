@@ -136,7 +136,7 @@ def send_telegram(data):
         f"{recent_trade_text}\n"
         f"⚡ <b>Leverage:</b> 12x | <b>Pairs:</b> BTC, ETH, SOL, DOGE, XRP, AVAX\n"
         f"🛡️ <b>Strategy Optimization:</b> Confidence threshold set to 0.22 to filter weak signals.\n\n"
-        f"🤖 <i>Reported Autonomous by Radha • 24x7 GitHub Actions Engine</i>"
+        f"🤖 <i>AjayBot • 24x7 GitHub Actions Engine</i>"
     )
 
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
