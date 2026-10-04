@@ -33,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: python sync_github.py pull || echo 'No state found or failed, continuing...'
 
-      - name: Run Bot + Telegram Chatbot (Radha)
+      - name: Run Trading Bot
         env:
           DELTA_API_KEY: ${{ secrets.DELTA_API_KEY }}
           DELTA_API_SECRET: ${{ secrets.DELTA_API_SECRET }}
@@ -41,15 +41,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
-          HERMES_MODEL: nvidia/nemotron-3-super-120b-a12b
           TELEGRAM_ALLOWED_USERS: ${{ secrets.TELEGRAM_ALLOWED_USERS }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          echo "Starting Telegram Chatbot (Radha) in background..."
-          python radha_telegram.py > radha.log 2>&1 &
-          sleep 3
           echo "Starting Trading Bot..."
           PORT=10000 timeout 18720 python app.py || echo "Bot finished or timed out gracefully"
 
